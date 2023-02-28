@@ -1,0 +1,38 @@
+char *readline(const char *prompt) - lê uma linha do terminal e devolve o seu
+conteúdo. Tem de se dar free depois de usar.
+
+char *rl_line_buffer - guarda o conteúdo da última linha lida.
+
+void rl_replace_line(const char *str, int clear) - substitui o conteúdo de
+'rl_line_buffer'. Se clear for diferente de zero, executa 'rl_free_undo_list'. 
+
+void rl_redisplay(void) - atualiza o que é apresentado no ecrã para mostrar
+o novo valor de 'rl_line_buffer'.
+
+void add_history(char *) - adiciona uma nova entrada/comando a histórico.
+
+void rl_clear_history(void) - apaga o histórico de entradas/comandos.
+
+int rl_on_new_line(void) - diz às rotinas de atualização que avançou para
+uma nova linha (vazia), normalmente depois de um '\n'.
+
+int access(const char *path, int amode) - verifica se o utilizador tem a
+permissão requisitada. Devole zero em caso de sucesso, -1 em caso de erro.
+Path é o caminho do ficheiro, amode é as permissões a verificar.
+EX: fd = access("exemplo.txt", R_OK & W_OK & X_OK).
+
+void fork(void) - cria um child process que executa ao mesmo tempo que o
+parent process.
+
+int wait(int *) - suspende a execução do parent process enquanto o child
+process não acabar. Devolve o pid do child quando este termina, devolve
+zero quando não terminou ainda.
+
+char *getcwd(char *buf, size_t size) - devolve o caminho do diretório atual.
+Guarda em buf e devolve buf. Size é o tamanho de buf.
+
+int chdir(const char *pathname) - muda de diretório. Devolve zero em sucesso,
+e -1 em erro.
+
+char *getenv(char *) - procura pela variável de ambiente indicada e devolve
+o seu valor.
