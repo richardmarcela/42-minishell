@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 //identifica o comando e o que deve fazer a seguir
 int	processing(char **line)

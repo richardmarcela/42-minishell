@@ -28,6 +28,8 @@
 # define CNF "command not found"
 # define UNKNOWN "No such file or directory"
 # define PD "Permission denied"
+# define ASPAS 34
+# define PLICAS 39
 
 //OUTPUT.C
 void	output(char *command);

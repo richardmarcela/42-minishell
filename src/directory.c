@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 # define HIDE_HIDDEN entry->d_name[0] != '.'
 
@@ -21,6 +21,8 @@ void	change_dir(char *dir)
 	if (chdir(dir))
 		printf("%s\n", UNKNOWN);
 }
+
+/* void	binaries() */
 
 void	content_dir(char *flag)
 {

@@ -12,12 +12,12 @@
 
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -I./includes
 RM = rm -rf
 LIBFT = ./libft/libft.a
 
 SRCS = src/main.c src/output.c src/processing.c src/utils.c \
-	src/directory.c src/split.c src/print.c src/quotes.c
+	src/directory.c src/split.c src/builtins/echo.c src/builtins/echo2.c
 
 OBJS = ${SRCS:.c=.o}
 

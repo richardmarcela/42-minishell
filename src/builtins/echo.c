@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 int	check_command(char *command)
 {
@@ -19,23 +19,23 @@ int	check_command(char *command)
 
 	len = ft_strlen(command) - 1;
 	res = 1;
-	if (command[0] == 34 && command[len] == 34)
+	if (command[0] == ASPAS && command[len] == ASPAS)
 	{
 		res = 2;
-		if (count(command, 34) % 2 != 0)
+		if (count(command, ASPAS) % 2 != 0)
 			res = 0;
 	}
-	else if (command[0] == 39 && command[len] == 39)
+	else if (command[0] == PLICAS && command[len] == PLICAS)
 	{
 		res = 3;
-		if (count(command, 39) % 2 != 0)
+		if (count(command, PLICAS) % 2 != 0)
 			res = 0;
 	}
-	else if ((command[0] == 34 && command[len] != 34)
-		|| (command[0] != 34 && command[len] == 34))
+	else if ((command[0] == ASPAS && command[len] != ASPAS)
+		|| (command[0] != ASPAS && command[len] == ASPAS))
 		return (0);
-	else if ((command[0] == 39 && command[len] != 39)
-		|| (command[0] != 39 && command[len] == 39))
+	else if ((command[0] == PLICAS && command[len] != PLICAS)
+		|| (command[0] != PLICAS && command[len] == PLICAS))
 		return (0);
 	return (res);
 }

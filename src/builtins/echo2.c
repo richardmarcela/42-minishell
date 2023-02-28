@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 //recebe a posição do '$' e guarda tudo atè ao próximo '$' ou final da string
 //num char* e procura nas variáveis de ambiente
@@ -22,8 +22,8 @@ char	*get_variable(char *str, int *pos)
 
 	i = (*pos) + 1;
 	n = 0;
-	while (str[i] != '$' && str[i] != 34
-		&& str[i] != 39 && str[i] != ' ' && str[i])
+	while (str[i] != '$' && str[i] != ASPAS
+		&& str[i] != PLICAS && str[i] != ' ' && str[i])
 	{
 		n++;
 		i++;
@@ -65,7 +65,7 @@ void	no_quotes(char *command)
 			search_variable(command, &i);
 		while (command[i] == ' ' && command[i + 1] == ' ')
 			i++;
-		if (command[i] != 34) //ignorar aspas(")
+		if (command[i] != ASPAS) //ignorar aspas(")
 			printf("%c", command[i]);
 	}
 	printf("\n");
@@ -80,7 +80,7 @@ void	double_quotes(char *command)
 	{
 		while (command[i] == '$')
 			search_variable(command, &i);
-		if (command[i] != 34) //ignorar aspas(")
+		if (command[i] != ASPAS) //ignorar aspas(")
 			printf("%c", command[i]);
 	}
 	printf("\n");
@@ -93,7 +93,7 @@ void	single_quotes(char *command)
 	i = -1;
 	while (command[++i])
 	{
-		if (command[i] != 39) //ignorar plicas(')
+		if (command[i] != PLICAS) //ignorar plicas(')
 			printf("%c", command[i]);
 	}
 	printf("\n");
