@@ -12,6 +12,8 @@
 
 #include "../includes/minishell.h"
 
+# define HIDE_HIDDEN entry->d_name[0] != '.'
+
 void	change_dir(char *dir)
 {
 	if (!dir)
@@ -20,23 +22,34 @@ void	change_dir(char *dir)
 		printf("%s\n", UNKNOWN);
 }
 
-void	content_dir(char *content)
+void	content_dir(char *flag)
 {
-	struct dirent	*ptr;
+	DIR				*dir;
+	struct dirent	*entry;
 
-	if (!content)
-		content = current_directory();
-	if (opendir(content))
+	dir = opendir(".");
+	if (!dir)
 	{
-		ptr = readdir(opendir(content));
-		/* while(ptr)
-		{ */
-			printf("%s", ptr->d_name);
-			ptr++;
-		/* } */
-		closedir(opendir(content));
 		printf("\n");
 		return ;
-		/* printf("%s\n", UNKNOWN); */
+	}
+	while ((entry = readdir(dir))) 
+	{
+		if (!flag)
+		{
+			if (entry->d_name && HIDE_HIDDEN)
+				printf("%s ", entry->d_name);
+		}
+		else if (flag[1] && flag[1] == 'a')
+		{
+			if (entry->d_name)
+				printf("%s ", entry->d_name);	
+		}
+	}
+	printf("\n");	
+	if (closedir(dir) == -1)
+	{
+		printf("\n");
+		return ;
 	}
 }

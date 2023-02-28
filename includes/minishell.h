@@ -13,6 +13,7 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include "../libft/libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -35,9 +36,7 @@ void	output(char *command);
 int		processing(char **line);
 
 //UTILS.C
-int		ft_strcmp(char *s1, char *s2);
 char	*current_directory(void);
-int		ft_strlen(char *str);
 int		count(char *command, int n);
 
 //DIRECTORY.C
