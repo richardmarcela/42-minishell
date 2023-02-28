@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/02/28 05:22:05 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:44:53 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,13 @@
 # include <readline/history.h>
 
 # define PROMPT "minishell: "
+# define EPROMPT "> "
 # define CNF "command not found"
 # define UNKNOWN "No such file or directory"
 # define PD "Permission denied"
 
 //OUTPUT.C
-void	output(char **line);
+void	output(char *command);
 
 //PROCESSING.C
 int		processing(char **line);
@@ -37,6 +38,7 @@ int		processing(char **line);
 int		ft_strcmp(char *s1, char *s2);
 char	*current_directory(void);
 int		ft_strlen(char *str);
+int		count(char *command, int n);
 
 //DIRECTORY.C
 void	change_dir(char *dir);
@@ -46,6 +48,11 @@ void	content_dir(char *content);
 char	**ft_split(char const *s, char c);
 
 //PRINT.C
-void	print(char **str);
+void	print(char *command);
+
+//QUOTES.C
+void	no_quotes(char *command);
+void	double_quotes(char *command);
+void	single_quotes(char *command);
 
 #endif

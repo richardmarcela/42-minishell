@@ -6,83 +6,80 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 03:12:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/02/28 05:29:31 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/02/28 21:51:46 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/minishell.h"
 
-//recebe a posição do '$' e guarda tudo atè ao próximo '$' ou final da string
-//num char* e procura nas variáveis de ambiente
-char	*get_variable(char *str, int pos)
+int	check_command(char *command)
 {
-	char	*variable;
-	int		i;
-	int		n;
+	int	len;
+	int	res;
 
-	i = pos + 1;
-	n = 0;
-	while (str[i] != '$' && str[i] != '"' && str[i])
+	len = ft_strlen(command) - 1;
+	res = 1;
+	if (command[0] == 34 && command[len] == 34)
 	{
-		n++;
+		res = 2;
+		if (count(command, 34) % 2 != 0)
+			res = 0;
+	}
+	else if (command[0] == 39 && command[len] == 39)
+	{
+		res = 3;
+		if (count(command, 39) % 2 != 0)
+			res = 0;
+	}
+	else if ((command[0] == 34 && command[len] != 34)
+		|| (command[0] != 34 && command[len] == 34))
+		return (0);
+	else if ((command[0] == 39 && command[len] != 39)
+		|| (command[0] != 39 && command[len] == 39))
+		return (0);
+	return (res);
+}
+
+char	*skip_echo(char *command)
+{
+	char	*str;
+	int		len;
+	int		i;
+	int		j;
+
+	len = ft_strlen(command);
+	i = -1;
+	while (command[++i] == ' ')
+		len--;
+	len -= 4;
+	i += 4;
+	while (command[++i] == ' ')
+		len--;
+	str = malloc(sizeof(char) * len);
+	str[len] = '\0';
+	j = -1;
+	while (command[i])
+	{
+		str[++j] = command[i];
 		i++;
 	}
-	variable = malloc(sizeof(char) * n + 1);
-	variable[n] = '\0';
-	i = -1;
-	while (n--)
-	{
-		pos++;
-		variable[++i] = str[(pos)];
-	}
-	return (getenv(variable));
+	return (str);
 }
 
-void	string(char *str)
+void	print(char *command)
 {
-	int		i;
-	char	*env;
-	bool	flag;
+	int		method;
+	char	*new_str;
 
-	i = -1;
-	flag = true;
-	if (str[0] == 39 && str[ft_strlen(str)-1] == 39)
-		flag = false;
-	while (str[++i])
-	{
-		//variáveis de ambiente não são processadas entre plicas (')
-		if (flag)
-		{	
-			if (str[i] == '$')
-			{
-				env = get_variable(str, i);
-				if (env)
-					printf("%s", env);
-				i++;
-				while (str[i] != '$' && str[i]) //atualiza o índice
-					i++;
-				i--; //recua uma posição para voltar a verificar se tem '$'
-				continue ;
-			}
-			if (str[i] != 34 && str[i] != 39) //ignorar aspas(") e plicas(')
-				printf("%c", str[i]);
-			continue ;
-		}
-		if (str[i] != 34 && str[i] != 39) //ignorar aspas(") e plicas(')
-			printf("%c", str[i]);
-	}
-}
-
-void	print(char **str)
-{
-	int	i;
-
-	i = 0;
-	while (str[++i])
-	{
-		string(str[i]);
-		if (str[i + 1]) //evita um espaço a mais na última palavra
-			printf(" ");
-	}
-	printf("\n");
+	new_str = skip_echo(command);
+	method = check_command(new_str);
+	if (!method)
+		printf("%s\n", EPROMPT);
+	else if (method == 1)
+		no_quotes(new_str);
+	else if (method == 2)
+		double_quotes(new_str);
+	else
+		single_quotes(new_str);
+	free(new_str);
 }

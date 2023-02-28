@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:43:41 by riolivei          #+#    #+#             */
-/*   Updated: 2023/02/28 05:24:51 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/02/28 18:04:24 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 int	main(void)
 {
 	char	*command;
-	char	**line;
 
 	while (1)
 	{
@@ -29,10 +28,8 @@ int	main(void)
 		else if (!ft_strcmp(command, "exit")) //fecha o programa sem '\n'
 			break ;
 		add_history(command);
-		line = ft_split(command, ' ');
-		output(line);
+		output(command);
 		free(command);
-		free(line);
 	}
 	return (0);
 }
