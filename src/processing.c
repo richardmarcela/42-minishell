@@ -25,6 +25,12 @@ int	processing(char **line)
 		printf("%s\n", pwd);
 		free(pwd);
 	}
+	else if (!ft_strcmp(line[0], "setenv"))
+		setenv();
+	else if (!ft_strcmp(line[0], "unsetenv"))
+		unsetenv();
+	else if (!ft_strcmp(line[0], "env"))
+		print_env();
 	else if (!ft_strcmp(line[0], "ls") || !ft_strcmp(line[0], "/bin/ls"))
 		content_dir(line[1]);
 	else

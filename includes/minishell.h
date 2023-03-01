@@ -56,4 +56,13 @@ void	no_quotes(char *command);
 void	double_quotes(char *command);
 void	single_quotes(char *command);
 
+//ENV.C
+int	    print_env();
+
+//SETENV.C
+int	    setenv();
+
+//UNSETENV.C
+int     unsetenv();
+
 #endif

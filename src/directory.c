@@ -26,7 +26,8 @@ void	change_dir(char *dir)
 
 void	content_dir(char *flag)
 {
-	DIR				*dir;
+	
+	/* DIR				*dir;
 	struct dirent	*entry;
 
 	dir = opendir(".");
@@ -53,5 +54,5 @@ void	content_dir(char *flag)
 	{
 		printf("\n");
 		return ;
-	}
+	} */
 }
