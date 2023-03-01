@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.c                                           :+:      :+:    :+:   */
+/*   echo2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 21:43:27 by riolivei          #+#    #+#             */
-/*   Updated: 2023/02/28 21:48:21 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:01:52 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void	no_quotes(char *command)
 		if (command[i] != ASPAS) //ignorar aspas(")
 			printf("%c", command[i]);
 	}
-	printf("\n");
 }
 
 void	double_quotes(char *command)
@@ -83,7 +82,6 @@ void	double_quotes(char *command)
 		if (command[i] != ASPAS) //ignorar aspas(")
 			printf("%c", command[i]);
 	}
-	printf("\n");
 }
 
 void	single_quotes(char *command)
@@ -96,5 +94,4 @@ void	single_quotes(char *command)
 		if (command[i] != PLICAS) //ignorar plicas(')
 			printf("%c", command[i]);
 	}
-	printf("\n");
 }
