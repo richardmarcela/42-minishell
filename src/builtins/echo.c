@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 03:12:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/02/28 21:51:46 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/01 00:18:58 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,52 @@ char	*skip_echo(char *command)
 	return (str);
 }
 
+char	*skip_newline(char *command)
+{
+	char	*str;
+	int		len;
+	int		i;
+	int		j;
+
+	len = ft_strlen(command);
+	len -= 2;
+	i = 1;
+	while (command[++i] == ' ')
+		len--;
+	str = malloc(sizeof(char) * len);
+	str[len] = '\0';
+	j = -1;
+	while (command[i])
+	{
+		str[++j] = command[i];
+		i++;
+	}
+	return (str);
+}
+
 void	print(char *command)
 {
 	int		method;
+	bool	flag;
 	char	*new_str;
 
+	flag = true;
 	new_str = skip_echo(command);
+	if(new_str[0] == '-' && new_str[1] == 'n')
+	{
+		new_str = skip_newline(new_str);
+		flag = false;
+	}
 	method = check_command(new_str);
 	if (!method)
-		printf("%s\n", EPROMPT);
+		printf("%s", EPROMPT);
 	else if (method == 1)
 		no_quotes(new_str);
 	else if (method == 2)
 		double_quotes(new_str);
 	else
 		single_quotes(new_str);
+	if (flag)
+		printf("\n");
 	free(new_str);
 }
