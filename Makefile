@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: riolivei <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/02/28 21:44:22 by riolivei         ###   ########.fr        #
+#    Updated: 2023/03/01 20:23:21 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,8 @@ RM = rm -rf
 LIBFT = ./libft/libft.a
 
 SRCS = src/main.c src/output.c src/processing.c src/utils.c \
-	src/directory.c src/split.c src/builtins/echo.c src/builtins/echo2.c
+	src/directory.c src/split.c src/builtins/echo.c src/builtins/echo2.c\
+	src/executables.c src/signal_handler.c src/builtins/setenv.c
 
 OBJS = ${SRCS:.c=.o}
 

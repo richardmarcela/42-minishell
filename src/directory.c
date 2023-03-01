@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directory.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 00:51:30 by riolivei          #+#    #+#             */
-/*   Updated: 2023/02/28 21:50:36 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/01 20:19:19 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@ void	change_dir(char *dir)
 		printf("%s\n", UNKNOWN);
 }
 
-/* void	binaries() */
 
-void	content_dir(char *flag)
+/*void	content_dir(char *flag)
 {
-	
-	/* DIR				*dir;
+	 DIR				*dir;
 	struct dirent	*entry;
 
 	dir = opendir(".");
@@ -55,4 +53,5 @@ void	content_dir(char *flag)
 		printf("\n");
 		return ;
 	} */
-}
+
+

@@ -3,19 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:43:41 by riolivei          #+#    #+#             */
-/*   Updated: 2023/02/28 18:04:24 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/01 19:52:31 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+char **global_env;
+
+int	main(int argc, char **argv, char **envp)
 {
+	(void)argc;
+	(void)argv;
 	char	*command;
 
+	init_env(envp);
 	while (1)
 	{
 		command = readline(PROMPT);

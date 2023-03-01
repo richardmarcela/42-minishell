@@ -36,3 +36,6 @@ e -1 em erro.
 
 char *getenv(char *) - procura pela variável de ambiente indicada e devolve
 o seu valor.
+
+execve(args[0], args, **envp)
+- o env vem da main, por isso precisamos pegar o argc e argv
