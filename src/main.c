@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:43:41 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/01 19:52:31 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/04 17:28:22 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	init_env(envp);
 	while (1)
 	{
-		command = readline(PROMPT);
+		command = ft_strtrim(readline(PROMPT), " ");
 		if (!command) //acontece no CTRL+D e fecha o programa
 		{
 			free(command);

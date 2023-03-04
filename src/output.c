@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   output.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:55:19 by riolivei          #+#    #+#             */
-/*   Updated: 2023/02/28 21:48:37 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/04 17:56:57 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,8 @@ void	output(char *command)
 	/* if (check_pipes(line))
 		pipes(); */
 	line = ft_split(command, ' ');
-	if (!ft_strcmp(line[0], "echo"))
-		print(command);
-	else
-	{
-		if (!processing(line))
-			printf("%s\n", CNF);
-	}
+
+	if (!processing(line))
+		printf("%s: %s\n", CNF, line[0]);
+
 }

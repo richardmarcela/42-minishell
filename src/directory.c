@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 00:51:30 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/01 20:19:19 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:49:01 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 # define HIDE_HIDDEN entry->d_name[0] != '.'
 
-void	change_dir(char *dir)
+int	change_dir(char *dir)
 {
 	if (!dir)
 		dir = getenv("HOME");
 	if (chdir(dir))
+	{
 		printf("%s\n", UNKNOWN);
+		return (0);
+	}
+	return (1);
 }
 
 

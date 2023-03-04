@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 17:57:17 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/02 18:57:04 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/04 19:39:09 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,20 +49,21 @@ int	check_bins(char **line)
 	char		**path;
 	struct stat	f;	
 	
-	path = ft_split(get_env_var("PATH"), ':');
+	path = ft_split(getenv("PATH"), ':');
+/* 	printf("%s\n", line[0]);
+	printf("%s\n", path[0]);
+	exit(0); */
+/* 	bin_path = NULL; */
 	i = -1;
 	while (path && path[++i])
 	{
-		if (ft_start_with(line[0], path[i]))
-			bin_path = ft_strdup(line[0]);
-		/* else
-			bin_path = ft_pathjoin(path[i], line[0]); */
+		bin_path = ft_strjoin(ft_strjoin(path[i], "/"), line[0]);
 		if (lstat(bin_path, &f) == -1)
 			free(bin_path);
-		else
+		else if (is_executable(bin_path, f, line))
 		{
-			ft_free(path);
-			return (is_executable(bin_path, f, line));
+			ft_free(path);	
+			return (1);
 		}
 	}
 	ft_free(path);
@@ -94,7 +95,7 @@ int	run_cmd(char *path, char **args)
 	{
 		free(path);
 		printf("Fork failed to create a new process.");
-		return (-1);
+		return (0);
 	}
 	wait(&pid);
 	if (path)

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/03 18:03:27 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:05:23 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ void	ft_free(char **ptr);
 int	    ft_start_with(char *s1, char *s2);
 
 //DIRECTORY.C
-void	change_dir(char *dir);
+int     change_dir(char *dir);
 
 //SPLIT.C
 char	**ft_split(char const *s, char c);
 
-//PRINT.C
-void	print(char *command);
+//ECHO.C
+int     print(char **command);
 
 //QUOTES.C
 void	no_quotes(char *command);
@@ -68,7 +68,7 @@ void	single_quotes(char *command);
 //int	    print_env();
 
 //SETENV.C
-char	*get_env_var(char *var);
+
 //int	    setenv();
 
 //UNSETENV.C

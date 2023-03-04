@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 03:12:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/01 00:18:58 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/04 20:11:27 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	check_command(char *command)
 	return (res);
 }
 
-char	*skip_echo(char *command)
+/* char	*skip_echo(char *command)
 {
 	char	*str;
 	int		len;
@@ -64,9 +64,9 @@ char	*skip_echo(char *command)
 		i++;
 	}
 	return (str);
-}
+} */
 
-char	*skip_newline(char *command)
+/* char	*skip_newline(char *command)
 {
 	char	*str;
 	int		len;
@@ -87,31 +87,45 @@ char	*skip_newline(char *command)
 		i++;
 	}
 	return (str);
-}
+} */
 
-void	print(char *command)
+int	print(char **line)
 {
 	int		method;
+	int		i;
 	bool	flag;
-	char	*new_str;
 
 	flag = true;
-	new_str = skip_echo(command);
-	if(new_str[0] == '-' && new_str[1] == 'n')
+	i = 0;
+	while (line[++i])
 	{
-		new_str = skip_newline(new_str);
+		method = check_command(line[i]);
+		if (!method)
+		{
+			printf("%s", EPROMPT);
+			free(line[i]);
+			return (0);
+		}
+	}
+	i = 0;
+	if(!ft_strcmp(ft_strtrim(line[1] , "\""), "-n"))
+	{
+		i++;
 		flag = false;
 	}
-	method = check_command(new_str);
-	if (!method)
-		printf("%s", EPROMPT);
-	else if (method == 1)
-		no_quotes(new_str);
-	else if (method == 2)
-		double_quotes(new_str);
-	else
-		single_quotes(new_str);
+	while (line[++i])
+	{
+		if (method == 1)
+			no_quotes(line[i]);
+		else if (method == 2)
+			double_quotes(line[i]);
+		else
+			single_quotes(line[i]);
+		if (line[i + 1])
+			printf(" ");
+	}
 	if (flag)
 		printf("\n");
-	free(new_str);
+	ft_free(line);
+	return (1);
 }
