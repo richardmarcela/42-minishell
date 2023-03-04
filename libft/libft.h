@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 00:06:20 by marcela           #+#    #+#             */
-/*   Updated: 2022/12/10 23:44:09 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/02 18:52:48 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@
 #  define BUFFER_SIZE 1
 # endif
 
+# include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdio.h>
 # include <stdint.h>
 # include <limits.h>
+# include <stdio.h>
+# include <stddef.h>
+# include <stdint.h>
 
 //libft
 int		ft_atoi(char *str);
@@ -47,6 +51,7 @@ char	*ft_strchr(const char *str, int c);
 char	*ft_strdup(const char *s);
 void	ft_striteri(char *s, void (*f)(unsigned int, char*));
 char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoinch(char const *s1, char c);
 size_t	ft_strlcat(char *dest, char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 size_t	ft_strlen(const char *c);

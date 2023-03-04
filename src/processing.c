@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:01:11 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/01 20:45:19 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:02:01 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static int	check_builtins(char **line)
 int	processing(char **line)
 {
 	struct stat	f;
-	int		is_builtin;
+	int			is_builtin;
 
 	if ((is_builtin = check_builtins(line)) == 1 || check_bins(line))
 		return (0);
@@ -45,10 +45,8 @@ int	processing(char **line)
 		return (-1);
 	if (lstat(line[0], &f) != -1)
 	{
-		 if (f.st_mode & S_IXUSR)
-			run_cmd(ft_strdup(line[0]), line);
+		if (f.st_mode & S_IXUSR)
+			return(run_cmd(ft_strdup(line[0]), line));
 	}
-	else
-		return (0);
-	return (1);
+	return (0);
 }

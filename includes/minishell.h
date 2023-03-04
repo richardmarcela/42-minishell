@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/01 20:41:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/03 18:03:27 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ char	*get_env_var(char *var);
 //EXECUTABLES
 void    init_env(char **envp);
 int     run_cmd(char *path, char **args);
+//Search for existing executable on the system.
 int	    check_bins(char **line);
 
 //SIGNAL_HANDLER.C
