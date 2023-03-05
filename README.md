@@ -4,5 +4,7 @@ TO-DO:
 
 - Pipe
 - Export
-- Setenv
-- Unsetenv
+- Unset
+- Signals (CNTRL+D, CNTRL+C)
+- Implementar os sinais na nova funcao 'echo_error'
+- Redirections

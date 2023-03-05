@@ -3,15 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 03:12:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/04 20:11:27 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:26:59 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	echo_error(void)
+{
+	char	*buff;
+	
+	while (1)
+	{
+		buff = readline((EPROMPT));
+	}
+}
 int	check_command(char *command)
 {
 	int	len;
@@ -40,55 +49,6 @@ int	check_command(char *command)
 	return (res);
 }
 
-/* char	*skip_echo(char *command)
-{
-	char	*str;
-	int		len;
-	int		i;
-	int		j;
-
-	len = ft_strlen(command);
-	i = -1;
-	while (command[++i] == ' ')
-		len--;
-	len -= 4;
-	i += 4;
-	while (command[++i] == ' ')
-		len--;
-	str = malloc(sizeof(char) * len);
-	str[len] = '\0';
-	j = -1;
-	while (command[i])
-	{
-		str[++j] = command[i];
-		i++;
-	}
-	return (str);
-} */
-
-/* char	*skip_newline(char *command)
-{
-	char	*str;
-	int		len;
-	int		i;
-	int		j;
-
-	len = ft_strlen(command);
-	len -= 2;
-	i = 1;
-	while (command[++i] == ' ')
-		len--;
-	str = malloc(sizeof(char) * len);
-	str[len] = '\0';
-	j = -1;
-	while (command[i])
-	{
-		str[++j] = command[i];
-		i++;
-	}
-	return (str);
-} */
-
 int	print(char **line)
 {
 	int		method;
@@ -102,8 +62,7 @@ int	print(char **line)
 		method = check_command(line[i]);
 		if (!method)
 		{
-			printf("%s", EPROMPT);
-			free(line[i]);
+			echo_error();
 			return (0);
 		}
 	}
@@ -115,6 +74,7 @@ int	print(char **line)
 	}
 	while (line[++i])
 	{
+		method = check_command(line[i]);
 		if (method == 1)
 			no_quotes(line[i]);
 		else if (method == 2)

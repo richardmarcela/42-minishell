@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executables.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/01 17:57:17 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/04 19:39:09 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/05 17:59:50 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,9 @@ int	check_bins(char **line)
 	int			i;
 	char		*bin_path;
 	char		**path;
-	struct stat	f;	
+	struct stat	f;
 	
 	path = ft_split(getenv("PATH"), ':');
-/* 	printf("%s\n", line[0]);
-	printf("%s\n", path[0]);
-	exit(0); */
-/* 	bin_path = NULL; */
 	i = -1;
 	while (path && path[++i])
 	{
