@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstlast.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcela <marcela@student.42.fr>            +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/04 21:21:29 by marcela           #+#    #+#             */
-/*   Updated: 2022/10/04 22:57:44 by marcela          ###   ########.fr       */
+/*   Updated: 2023/03/11 19:25:51 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,9 @@
 
 t_list	*ft_lstlast(t_list *lst)
 {
-	if (lst)
-	{
-		while (lst->next != NULL)
-			lst = lst->next;
-		return (lst);
-	}
-	return (NULL);
+	if (!lst)
+        return (NULL);
+   	while (lst->next != NULL)
+        lst = lst->next;
+    return (lst);
 }

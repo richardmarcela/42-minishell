@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/04 20:05:23 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/11 19:59:05 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define PROMPT "minishell: "
+# define PROMPT "minishell 🐚> "
 # define EPROMPT "> "
 # define CNF "command not found"
 # define UNKNOWN "No such file or directory"
@@ -50,6 +50,11 @@ void	exit_and_free(void);
 void	ft_free(char **ptr);
 int	    ft_start_with(char *s1, char *s2);
 
+//GET_ENV.C
+int		has_spaces(char *line);
+char	*get_env_name(char *line);
+char	*get_env_value(char *line);
+
 //DIRECTORY.C
 int     change_dir(char *dir);
 
@@ -58,6 +63,8 @@ char	**ft_split(char const *s, char c);
 
 //ECHO.C
 int     print(char **command);
+int		check_command(char *command);
+void	echo_error(void);
 
 //QUOTES.C
 void	no_quotes(char *command);
@@ -82,5 +89,4 @@ int	    check_bins(char **line);
 
 //SIGNAL_HANDLER.C
 void    proc_signal_handler(int sig);
-
 #endif

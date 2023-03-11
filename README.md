@@ -16,3 +16,9 @@ https://github.com/vportens/minishell
 https://github.com/mmarinel/42-minishell
 
 https://github.com/romanwrites/minishell
+
+
+echo precisa de nº par de aspas/plicas
+echo consegue escrever variáveis q n foram exportadas
+
+Conclusão: refazer echo

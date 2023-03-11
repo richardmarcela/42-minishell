@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/28 03:12:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/05 17:26:59 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/11 20:58:01 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,10 @@
 
 void	echo_error(void)
 {
-	char	*buff;
-	
 	while (1)
-	{
-		buff = readline((EPROMPT));
-	}
+		readline((EPROMPT));
 }
+
 int	check_command(char *command)
 {
 	int	len;
@@ -56,16 +53,6 @@ int	print(char **line)
 	bool	flag;
 
 	flag = true;
-	i = 0;
-	while (line[++i])
-	{
-		method = check_command(line[i]);
-		if (!method)
-		{
-			echo_error();
-			return (0);
-		}
-	}
 	i = 0;
 	if(!ft_strcmp(ft_strtrim(line[1] , "\""), "-n"))
 	{
