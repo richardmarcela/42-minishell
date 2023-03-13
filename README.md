@@ -19,6 +19,8 @@ https://github.com/romanwrites/minishell
 
 https://github.com/romanwrites/minishell/blob/master/parser/alloc_pipe_list.c
 
+https://github.com/vportens/minishell/blob/master/include/struct.h
+
 echo precisa de nº par de aspas/plicas
 echo consegue escrever variáveis q n foram exportadas
 
