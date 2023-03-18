@@ -39,3 +39,19 @@ o seu valor.
 
 execve(args[0], args, **envp)
 - o env vem da main, por isso precisamos pegar o argc e argv
+
+
+
+/* enum	RED_OP
+{
+	IN,
+	OUT,
+	APPENDIN,
+	APPENDOUT
+};
+
+typedef struct	s_command_line
+{
+	char 		*str;
+	enum RED_OP	type;
+}				t_command_line; */
