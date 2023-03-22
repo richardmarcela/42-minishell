@@ -23,7 +23,7 @@ https://github.com/vportens/minishell/blob/master/include/struct.h
 
 https://www.typefox.io/blog/taming-the-lexer
 
-https://stackoverflow.com/questions/1516122/how-to-capture-controld-signal
+https://stackoverflow.com/questions/1516122/how-to-capture-controld-signal -- SIGNALS
 
 echo precisa de nº par de aspas/plicas
 echo consegue escrever variáveis q n foram exportadas
