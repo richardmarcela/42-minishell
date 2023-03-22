@@ -25,6 +25,8 @@ https://www.typefox.io/blog/taming-the-lexer
 
 https://stackoverflow.com/questions/1516122/how-to-capture-controld-signal -- SIGNALS
 
+https://www.youtube.com/watch?v=SToUyjAsaFk
+
 echo precisa de nº par de aspas/plicas
 echo consegue escrever variáveis q n foram exportadas
 
