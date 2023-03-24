@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/24 21:42:22 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/24 22:16:36 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,28 @@
 
 void    lexer(char *line)
 {
-	t_command_line	*temp;
 	t_command_line	*head;
+	t_command_line	*current_node;
 	char    **splitted;
 	int     i;
 
-	i = -1;
-	head = NULL;
+	i = 0;
 	splitted = ft_split(line, ' ');
-	while (splitted[++i])
+	head = lstnew(splitted[i]); //criamos uma head
+	current_node = head; //dizemos q a head e o node atual
+	while (splitted[++i]) //adicionamos novos nodes
 	{
-		temp = lstnew(splitted[i]);
-		lstadd_back(&head, temp);
-		temp = temp->next;
-		printf("%s\n", temp->str);
+		current_node = lstnew(splitted[i]);
+		lstadd_back(&head, current_node);
+		current_node = current_node->next;
 	}
+	/* este ciclo e so para correr a lista e ver q funcionou 
+	current_node = head;
+	while(current_node)
+	{
+		printf("%s\n", current_node->str);
+		current_node = current_node->next;
+	} */
 }
 
 t_command_line	*lstnew(char *str)
