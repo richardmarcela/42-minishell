@@ -6,26 +6,64 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/18 21:26:56 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/24 21:42:22 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* void    *init(t_command_line *command, char *line)
-{
-    int             i;
-    
-    i = -1;
-    command->str = malloc(sizeof(char) * ft_strlen(line) + 1);
-    command->str[ft_strlen(line)] = '\0';
-    lexer(command);
-    return (command->str);
-} */
-
 void    lexer(char *line)
 {
-    t_commands *commands;
+	t_command_line	*temp;
+	t_command_line	*head;
+	char    **splitted;
+	int     i;
 
-    commands->array_commands = malloc(sizeof(t_command_line) * 1);
+	i = -1;
+	head = NULL;
+	splitted = ft_split(line, ' ');
+	while (splitted[++i])
+	{
+		temp = lstnew(splitted[i]);
+		lstadd_back(&head, temp);
+		temp = temp->next;
+		printf("%s\n", temp->str);
+	}
+}
+
+t_command_line	*lstnew(char *str)
+{
+	t_command_line	*node;
+
+	node = malloc(sizeof(t_command_line));
+	if (node == NULL)
+		return (NULL);
+	node->str = str;
+	node->token = 0;
+	node->next = NULL;
+	return (node);
+}
+
+void	lstadd_back(t_command_line **lst, t_command_line *new)
+{
+	t_command_line	*tail;
+
+	if (!new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	tail = lstlast(*lst);
+	tail->next = new;
+}
+
+t_command_line	*lstlast(t_command_line *lst)
+{
+	if (!lst)
+        return (NULL);
+   	while (lst->next)
+        lst = lst->next;
+    return (lst);
 }

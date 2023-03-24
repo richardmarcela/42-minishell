@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 00:06:20 by marcela           #+#    #+#             */
-/*   Updated: 2023/03/11 19:07:10 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/24 20:42:59 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ int		ft_print_num(int n);
 char	*ft_uitoa(unsigned int n);
 int		ft_print_unsigned(unsigned int n);
 int		ft_printf(const char *str, ...);
+char	**ft_split(char *s, char c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/18 21:28:24 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/24 21:04:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,25 @@
 # define ASPAS 34
 # define PLICAS 39
 
+typedef enum {
+	COMMAND,
+	OPTION,
+	PIPE,
+	ARG
+}	TokenType;
 
-
-typedef struct s_commands
+typedef struct s_command_line
 {
-	char *command_line;
-}				t_commands;
+	char 					*str;
+	TokenType 				token;
+	struct s_command_line 	*next;
+}				t_command_line;
 
-void	init(char *line);
+void    *init(t_command_line *command, char *line);
 void    ft_free(t_command_line *command);
+void    lexer(char *line);
+t_command_line	*lstnew(char *str);
+void	lstadd_back(t_command_line **lst, t_command_line *new);
+t_command_line	*lstlast(t_command_line *lst);
 
 #endif
