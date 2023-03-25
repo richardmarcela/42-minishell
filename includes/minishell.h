@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/25 22:27:58 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/25 23:15:05 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_tokens
 
 typedef struct s_commands
 {
-	t_token *token;
+	t_tokens *token;
 	int		stdin;
 	int		stdout;
 	struct s_commands	*next;
@@ -65,10 +65,10 @@ typedef struct s_commands
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 void    		token_list(char *line);
-void			lstadd_back(t_tokens **lst, t_tokens *new);
+void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 TokenType		token_type(char *str);
-t_tokens	*lstnew(char *str, TokenType type);
-t_tokens	*lstlast(t_tokens *lst);
+t_tokens		*lstnew_token(char *str, TokenType type);
+t_tokens		*lstlast_token(t_tokens *lst);
 
 //PARSER/TOKEN/DEF_TOKEN_TYPE.C
 int				is_option(char *str);
@@ -80,6 +80,9 @@ int 			isquote(int c);
 void    		ft_free(t_tokens *command);
 
 //PARSER/PIPE_SPLIT.C
-int	pipe_split(char *str);
+int				pipe_split(char *str);
+void			lstadd_back(t_commands **lst, t_commands *new);
+t_commands		*lstlast(t_commands *lst);
+t_commands		*lstnew(t_tokens *token, TokenType type);
 
 #endif

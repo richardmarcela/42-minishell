@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_split.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/25 22:41:55 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/25 23:12:06 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	pipe_split(char *str)
 	t_commands	*current_node;
 	
 	i = 0;
-	pipe_splitted = ft_split(line, '|');
-	head = lstnew(token_list(pipe_splitted[i]), type);
+	//pipe_splitted = ft_split(line, '|'); LINE?
+	//head = lstnew(token_list(pipe_splitted[i]), type); token_list retorna NULL
 	current_node = head;
 	while (pipe_splitted[++i])
 

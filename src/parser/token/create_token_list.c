@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/25 22:28:43 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/25 23:14:00 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ TokenType	token_type(char *str)
 	if (is_pipe(str))
 		return (PIPE);
 	if (is_redirect(str))
-		return (REDIRECT);
+		//return (); QUAL DOS REDIRECTS?
 /* 	if (is_arg())
 	if (is_command())*/
 	return (NONE);
 }
 
-t_tokens	*lstnew(char *str, TokenType type)
+t_tokens	*lstnew_token(char *str, TokenType type)
 {
 	t_tokens	*node;
 
@@ -82,7 +82,7 @@ t_tokens	*lstnew(char *str, TokenType type)
 	return (node);
 }
 
-void	lstadd_back(t_tokens **lst, t_tokens *new)
+void	lstadd_back_token(t_tokens **lst, t_tokens *new)
 {
 	t_tokens	*tail;
 
@@ -97,7 +97,7 @@ void	lstadd_back(t_tokens **lst, t_tokens *new)
 	tail->next = new;
 }
 
-t_tokens	*lstlast(t_tokens *lst)
+t_tokens	*lstlast_token(t_tokens *lst)
 {
 	if (!lst)
         return (NULL);
