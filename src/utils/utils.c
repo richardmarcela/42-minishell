@@ -1,32 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/25 21:09:11 by riolivei         ###   ########.fr       */
+/*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
+/*   Updated: 2023/03/25 19:27:17 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//LINE E A LINHA INTEIRA
-
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int isquote(int c)
 {
-    (void)argc;
-    (void)argv;
-    (void)envp;
-    char  *line;
-    
-    while (1)
-    {
-        line = readline(PROMPT);
-        pipe_split(line);
-        add_history(line);
-        free(line);
-    }
-    return (0);
+	if (c == ASPAS || c == PLICAS)
+		return 1;
+	return 0;
+}
+
+void    ft_free(t_command_line *command)
+{
+    free(command->str);
 }
