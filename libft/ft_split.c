@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
+/*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/28 01:14:28 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/05 16:56:29 by riolivei         ###   ########.fr       */
+/*   Created: 2023/03/24 20:29:00 by mrichard          #+#    #+#             */
+/*   Updated: 2023/03/24 20:32:44 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
 static int	count_words(char const *s, char c)
 {
@@ -46,42 +46,26 @@ static int	count_letters(char const *s, char c, int i)
 	return (size);
 }
 
-char	*get_line(const char *str, int pos, int n)
-{
-	char	*string;
-	int		i;
-
-	string = malloc(sizeof(char) * n + 1);
-	string[n] = '\0';
-	i = 0;
-	while (n--)
-	{
-		string[i] = str[pos + i];
-		i++;
-	}
-	return (string);
-}
-
-char	**ft_split(char const *s, char c)
+char	**ft_split(char *s, char c)
 {
 	int		i;
 	int		j;
-	int		words;
+	int		word;
 	char	**str;
 
 	if (!s)
 		return (NULL);
 	i = 0;
 	j = -1;
-	words = count_words(s, c);
-	str = (char **)malloc((words + 1) * sizeof(char *));
+	word = count_words(s, c);
+	str = (char **)malloc((word + 1) * sizeof(char *));
 	if (!str)
 		return (NULL);
-	while (++j < words)
+	while (++j < word)
 	{
 		while (s[i] == c)
 			i++;
-		str[j] = get_line(s, i, count_letters(s, c, i));
+		str[j] = ft_substr(s, i, count_letters(s, c, i));
 		if (!str)
 			return (NULL);
 		i += count_letters(s, c, i);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/11 19:59:05 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/25 23:15:05 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,60 +33,56 @@
 # define PD "Permission denied"
 # define ASPAS 34
 # define PLICAS 39
+# define ERROR -1
 
-//GLOBAL
-extern char    **global_env;
+typedef enum {
+	COMMAND, //ls, wc, echo (builtin, executables)
+	OPTION, //-a, -l... (flags)
+	PIPE, // |
+	ARG, //entre "" ou '', o que vem dps de um command... echo a, echo -n a. a = arg em ambos os casos
+	RED_IN, // <
+	RED_OUT, // >
+	APPEND_IN, // <<
+	APPEND_OUT, // >> 
+	IN_OUT, // <>
+	NONE
+}	TokenType;
 
-//OUTPUT.C
-void	output(char *command);
+typedef struct s_tokens
+{
+	char 					*str;
+	TokenType 				token;
+	struct s_tokens 	*next;
+}				t_tokens;
 
-//PROCESSING.C
-int		processing(char **line);
+typedef struct s_commands
+{
+	t_tokens *token;
+	int		stdin;
+	int		stdout;
+	struct s_commands	*next;
+}				t_commands;
 
-//UTILS.C
-char	*current_directory(void);
-int		count(char *command, int n);
-void	exit_and_free(void);
-void	ft_free(char **ptr);
-int	    ft_start_with(char *s1, char *s2);
+//PARSER/TOKEN/CREATE_TOKEN_LIST.C
+void    		token_list(char *line);
+void			lstadd_back_token(t_tokens **lst, t_tokens *new);
+TokenType		token_type(char *str);
+t_tokens		*lstnew_token(char *str, TokenType type);
+t_tokens		*lstlast_token(t_tokens *lst);
 
-//GET_ENV.C
-int		has_spaces(char *line);
-char	*get_env_name(char *line);
-char	*get_env_value(char *line);
+//PARSER/TOKEN/DEF_TOKEN_TYPE.C
+int				is_option(char *str);
+int 			is_pipe(char *str);
+int				is_redirect(char *str);
 
-//DIRECTORY.C
-int     change_dir(char *dir);
+//UTILS/UTILS.C
+int 			isquote(int c);
+void    		ft_free(t_tokens *command);
 
-//SPLIT.C
-char	**ft_split(char const *s, char c);
+//PARSER/PIPE_SPLIT.C
+int				pipe_split(char *str);
+void			lstadd_back(t_commands **lst, t_commands *new);
+t_commands		*lstlast(t_commands *lst);
+t_commands		*lstnew(t_tokens *token, TokenType type);
 
-//ECHO.C
-int     print(char **command);
-int		check_command(char *command);
-void	echo_error(void);
-
-//QUOTES.C
-void	no_quotes(char *command);
-void	double_quotes(char *command);
-void	single_quotes(char *command);
-
-//ENV.C
-//int	    print_env();
-
-//SETENV.C
-
-//int	    setenv();
-
-//UNSETENV.C
-//int     unsetenv();
-
-//EXECUTABLES
-void    init_env(char **envp);
-int     run_cmd(char *path, char **args);
-//Search for existing executable on the system.
-int	    check_bins(char **line);
-
-//SIGNAL_HANDLER.C
-void    proc_signal_handler(int sig);
 #endif

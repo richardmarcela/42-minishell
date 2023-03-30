@@ -5,35 +5,28 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 19:43:41 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/11 18:13:02 by riolivei         ###   ########.fr       */
+/*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
+/*   Updated: 2023/03/25 21:09:11 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+//LINE E A LINHA INTEIRA
+
 #include "minishell.h"
 
-char **global_env;
-
-int	main(int argc, char **argv, char **envp)
+int main(int argc, char **argv, char **envp)
 {
-	(void)argc;
-	(void)argv;
-	char	*command;
-
-	init_env(envp);
-	while (1)
-	{
-		command = ft_strtrim(readline(PROMPT), " ");
-		if (!command)
-		{
-			free(command);
-			continue ;
-		}
-		else if (!ft_strcmp(command, "exit")) //fecha o programa sem '\n'
-			break ;
-		add_history(command);
-		output(command);
-		free(command);
-	}
-	return (0);
+    (void)argc;
+    (void)argv;
+    (void)envp;
+    char  *line;
+    
+    while (1)
+    {
+        line = readline(PROMPT);
+        pipe_split(line);
+        add_history(line);
+        free(line);
+    }
+    return (0);
 }
