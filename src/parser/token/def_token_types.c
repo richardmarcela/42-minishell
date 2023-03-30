@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def_token_types.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 16:29:54 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/25 19:08:57 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:42:56 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	is_option(char *str)
 
 int is_pipe(char *str)
 {
-	if (str[0] == '|')
+	if (*str == '|')
 		return (1);
 	return (0);
 }
@@ -56,7 +56,7 @@ int	is_redirect(char *str)
 		if (str[i] == '>' || str[i] == '<')	
 		{
 			j = -1;
-			while (++j < i)
+			while (++j <= i)
 			{
 				if (isquote(str[j]))
 					return (ERROR);
@@ -64,5 +64,12 @@ int	is_redirect(char *str)
 			}
 		}
 	}
+	return (0);
+}
+
+int	is_command(char *str)
+{
+	if (token_check_builtins(str) || token_check_bins(str))
+		return (1);
 	return (0);
 }

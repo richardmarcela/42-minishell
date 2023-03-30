@@ -6,29 +6,13 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/25 23:12:06 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:49:09 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	pipe_split(char *str)
-{
-	int			i;
-	char		**pipe_splitted;
-	t_commands	*head;
-	t_commands	*current_node;
-	
-	i = 0;
-	//pipe_splitted = ft_split(line, '|'); LINE?
-	//head = lstnew(token_list(pipe_splitted[i]), type); token_list retorna NULL
-	current_node = head;
-	while (pipe_splitted[++i])
-
-		token_list(pipe_splitted[i]);
-}
-
-t_commands	*lstnew(t_tokens *token, TokenType type)
+static t_commands	*lstnew(t_tokens *token)
 {
 	t_commands	*node;
 
@@ -42,7 +26,7 @@ t_commands	*lstnew(t_tokens *token, TokenType type)
 	return (node);
 }
 
-void	lstadd_back(t_commands **lst, t_commands *new)
+static void	lstadd_back(t_commands **lst, t_commands *new)
 {
 	t_commands	*tail;
 
@@ -57,11 +41,33 @@ void	lstadd_back(t_commands **lst, t_commands *new)
 	tail->next = new;
 }
 
-t_commands	*lstlast(t_commands *lst)
+static t_commands	*lstlast(t_commands *lst)
 {
 	if (!lst)
         return (NULL);
    	while (lst->next)
         lst = lst->next;
     return (lst);
+}
+
+void	pipe_split(char *str, char **envp)
+{
+	int			i;
+	char		**pipe_splitted;
+	t_commands	*head;
+	t_commands	*current_node;
+	
+	i = 0;
+	pipe_splitted = ft_split(str, '|');
+	if (!pipe_splitted[0])
+		return ;
+	head = lstnew(token_list(pipe_splitted[i]));
+	current_node = head;
+	while (pipe_splitted[++i])
+	{
+		current_node = lstnew(token_list(pipe_splitted[i]));
+		lstadd_back(&head, current_node);
+		current_node = current_node->next;
+	}
+	parser(head, envp);
 }

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/25 23:14:00 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:41:15 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,56 @@
 //ERRO cat \"-a"
 #include "minishell.h"
 
-void    token_list(char *line)
+static TokenType	token_type(char *str)
+{
+	if (is_option(str))
+		return (OPTION);
+	if (is_pipe(str))
+		return (PIPE);
+	if (is_redirect(str))
+		return(which_red(str));
+	/* if (is_arg()) */
+	return (NONE);
+}
+
+static t_tokens	*lstnew_token(char *str, TokenType type)
+{
+	t_tokens	*node;
+
+	node = malloc(sizeof(t_tokens));
+	if (node == NULL)
+		return (NULL);
+	node->str = str;
+	node->type = type;
+	node->next = NULL;
+	return (node);
+}
+
+static t_tokens	*lstlast_token(t_tokens *lst)
+{
+	if (!lst)
+        return (NULL);
+   	while (lst->next)
+        lst = lst->next;
+    return (lst);
+}
+
+static void	lstadd_back_token(t_tokens **lst, t_tokens *new)
+{
+	t_tokens	*tail;
+
+	if (!new)
+		return ;
+	if (!*lst)
+	{
+		*lst = new;
+		return ;
+	}
+	tail = lstlast_token(*lst);
+	tail->next = new;
+}
+
+t_tokens    *token_list(char *line)
 {
 	int     	i;
 	char    	**splitted;
@@ -31,9 +80,9 @@ void    token_list(char *line)
 	if (type == NONE)
 	{
 		printf("%s%s\n", PROMPT, UNKNOWN);
-		return ;
+		return (NULL);
 	}
-	head = lstnew(splitted[i], type);
+	head = lstnew_token(splitted[i], type);
 	current_node = head;
 	while (splitted[++i])
 	{
@@ -42,9 +91,9 @@ void    token_list(char *line)
 		{
 			printf("%s%s\n", PROMPT, UNKNOWN);
 			break ;
-		}	
-		current_node = lstnew(splitted[i], type);
-		lstadd_back(&head, current_node);
+		}
+		current_node = lstnew_token(splitted[i], type);
+		lstadd_back_token(&head, current_node);
 		current_node = current_node->next;
 	}
 	/* current_node = head;
@@ -53,55 +102,6 @@ void    token_list(char *line)
 		printf("%s\n", current_node->str);
 		printf("%u\n", current_node->token);
 		current_node = current_node->next;
-	} */
-}
-
-TokenType	token_type(char *str)
-{
-	if (is_option(str))
-		return (OPTION);
-	if (is_pipe(str))
-		return (PIPE);
-	if (is_redirect(str))
-		//return (); QUAL DOS REDIRECTS?
-/* 	if (is_arg())
-	if (is_command())*/
-	return (NONE);
-}
-
-t_tokens	*lstnew_token(char *str, TokenType type)
-{
-	t_tokens	*node;
-
-	node = malloc(sizeof(t_tokens));
-	if (node == NULL)
-		return (NULL);
-	node->str = str;
-	node->token = type;
-	node->next = NULL;
-	return (node);
-}
-
-void	lstadd_back_token(t_tokens **lst, t_tokens *new)
-{
-	t_tokens	*tail;
-
-	if (!new)
-		return ;
-	if (!*lst)
-	{
-		*lst = new;
-		return ;
-	}
-	tail = lstlast(*lst);
-	tail->next = new;
-}
-
-t_tokens	*lstlast_token(t_tokens *lst)
-{
-	if (!lst)
-        return (NULL);
-   	while (lst->next)
-        lst = lst->next;
-    return (lst);
+	} */	
+	return (head);
 }

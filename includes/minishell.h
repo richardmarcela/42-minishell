@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/25 23:15:05 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/03/30 22:52:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,30 +45,34 @@ typedef enum {
 	APPEND_IN, // <<
 	APPEND_OUT, // >> 
 	IN_OUT, // <>
-	NONE
+	NONE,
+	ERRO
 }	TokenType;
 
 typedef struct s_tokens
 {
 	char 					*str;
-	TokenType 				token;
-	struct s_tokens 	*next;
+	TokenType 				type;
+	struct s_tokens 		*next;
 }				t_tokens;
 
 typedef struct s_commands
 {
-	t_tokens *token;
-	int		stdin;
-	int		stdout;
-	struct s_commands	*next;
+	t_tokens 				*token;
+	int						stdin;
+	int						stdout;
+	struct s_commands		*next;
 }				t_commands;
 
+typedef struct s_env
+{
+	char 					*str;
+	int						was_declared;
+	struct s_env			*next;
+}				t_env;
+
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
-void    		token_list(char *line);
-void			lstadd_back_token(t_tokens **lst, t_tokens *new);
-TokenType		token_type(char *str);
-t_tokens		*lstnew_token(char *str, TokenType type);
-t_tokens		*lstlast_token(t_tokens *lst);
+t_tokens    	*token_list(char *line);
 
 //PARSER/TOKEN/DEF_TOKEN_TYPE.C
 int				is_option(char *str);
@@ -80,9 +84,17 @@ int 			isquote(int c);
 void    		ft_free(t_tokens *command);
 
 //PARSER/PIPE_SPLIT.C
-int				pipe_split(char *str);
-void			lstadd_back(t_commands **lst, t_commands *new);
-t_commands		*lstlast(t_commands *lst);
-t_commands		*lstnew(t_tokens *token, TokenType type);
+void			pipe_split(char *str, char **envp);
+
+//PARSER/PARSER.C
+void    		parser(t_commands *commands, char **envp);
+TokenType   	which_red(char *str);
+
+//PARSER/ENV_LIST.C
+t_env    		*init_env(char **envp);
+
+//PARSER/TOKEN/TOKEN_UTILS.C
+int 			token_check_bins(char *str);
+int 			token_check_builtins(char *str);
 
 #endif

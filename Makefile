@@ -3,23 +3,23 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: riolivei <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/03/25 21:06:09 by riolivei         ###   ########.fr        #
+#    Updated: 2023/03/30 22:13:28 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -I./includes -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I./includes #-fsanitize=address -g
 RM = rm -rf
 LIBFT = ./libft/libft.a
 VPATH = src src/parser src/utils src/parser/token
 
 UTILS = utils
-TOKEN = create_token_list def_token_types
-PARSER = parser pipe_split
+TOKEN = create_token_list def_token_types token_utils
+PARSER = parser pipe_split env_list
 MAIN = main
 
 SRCS =	$(addsuffix .c, $(UTILS))\
