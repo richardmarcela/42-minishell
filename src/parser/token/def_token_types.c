@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   def_token_types.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 16:29:54 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/06 17:54:49 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 19:36:14 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,18 +59,10 @@ int	is_redirect(char *str)
 			while (++j <= i)
 			{
 				if (isquote(str[j]))
-					return (ERROR);
+					return (0);
 				return (1);
 			}
 		}
 	}
-	return (0);
-}
-
-int	is_command(char *str, t_env *env)
-{
-	(void)env;
-	if (token_check_builtins(str) /* || token_check_bins(str) */)
-		return (1);
 	return (0);
 }

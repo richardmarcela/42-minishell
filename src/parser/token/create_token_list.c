@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/04/06 18:43:08 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:15:25 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //ERRO cat \"-a"
 #include "minishell.h"
 
-static TokenType	token_type(char *str, t_env *env)
+static TokenType	token_type(char *str)
 {
 	if (is_option(str))
 		return (OPTION);
@@ -24,13 +24,10 @@ static TokenType	token_type(char *str, t_env *env)
 		return (PIPE);
 	if (is_redirect(str))
 		return(which_red(str));
-	if (is_command(str, env))
-		return(COMMAND);
-	/* if (is_arg()) */
-	return (NONE);
+	return (ARG);
 }
 
-static t_tokens	*lstnew_token(char *str, TokenType type)
+t_tokens	*lstnew_token(char *str, TokenType type)
 {
 	t_tokens	*node;
 
@@ -52,7 +49,7 @@ static t_tokens	*lstlast_token(t_tokens *lst)
     return (lst);
 }
 
-static void	lstadd_back_token(t_tokens **lst, t_tokens *new)
+void	lstadd_back_token(t_tokens **lst, t_tokens *new)
 {
 	t_tokens	*tail;
 
@@ -67,42 +64,24 @@ static void	lstadd_back_token(t_tokens **lst, t_tokens *new)
 	tail->next = new;
 }
 
-t_tokens    *token_list(char *line, t_env *env)
+t_tokens    *token_list(char *line)
 {
 	int     	i;
 	char    	**splitted;
 	TokenType	type;
 	t_tokens	*head;
 	t_tokens	*current_node;
-
+	
 	i = 0;
 	splitted = ft_split(line, ' ');
-	type = token_type(splitted[i], env);
-	if (type == NONE)
-	{
-		printf("%s%s\n", PROMPT, UNKNOWN);
-		return (NULL);
-	}
-	head = lstnew_token(splitted[i], type);
+	head = define_head(splitted, &i);
 	current_node = head;
 	while (splitted[++i])
 	{
-		type = token_type(splitted[i], env);
-		if (type == NONE)
-		{
-			printf("%s%s\n", PROMPT, UNKNOWN);
-			break ;
-		}
+		type = token_type(splitted[i]);
 		current_node = lstnew_token(splitted[i], type);
 		lstadd_back_token(&head, current_node);
 		current_node = current_node->next;
 	}
-	/* current_node = head;
-	while(current_node)
-	{
-		printf("%s\n", current_node->str);
-		printf("%u\n", current_node->token);
-		current_node = current_node->next;
-	} */	
 	return (head);
 }
