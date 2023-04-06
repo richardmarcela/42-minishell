@@ -1,0 +1,7 @@
+tamos no parser
+funcao 'setting_env' deixa de ser necessaria (?)
+funcoes adaptadas para usar linked lists
+novas pastas 'builtins' e 'bins' para melhor organizacao ('bins' n esta adaptada para linked lists)
+MAKEFILE atualizado
+faltam funcoes em 'builtins' e 'bins'
+conclusao: de momento n roda :)

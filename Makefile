@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
+#    By: riolivei <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/04/06 17:58:16 by mrichard         ###   ########.fr        #
+#    Updated: 2023/04/06 22:54:26 by riolivei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,18 +15,25 @@ NAME = minishell
 CFLAGS = -Wall -Wextra -Werror -I./includes #-fsanitize=address -g
 RM = rm -rf
 LIBFT = ./libft/libft.a
-VPATH = src src/parser src/utils src/parser/token src/parser/env_list
+VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser/env_list\
+		src/parser/bins src/parser/builtins
 
 UTILS = utils
 TOKEN = create_token_list def_token_types token_utils
-PARSER = parser pipe_split
+COMMANDS = create_commands_list
+PARSER = parser
+BINS = check_bins
+BUILTINS = check_builtins
 ENV_LIST = env_list
 MAIN = main
 
 SRCS =	$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(TOKEN))\
+		$(addsuffix .c, $(COMMANDS))\
 		$(addsuffix .c, $(PARSER))\
 		$(addsuffix .c, $(ENV_LIST))\
+		$(addsuffix .c, $(BINS))\
+		$(addsuffix .c, $(BUILTINS))\
 		$(addsuffix .c, $(MAIN))
 
 OBJS = ${SRCS:.c=.o}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/04/06 17:57:56 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 20:50:11 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			line = readline(PROMPT);
-			pipe_split(line, envp);
+			pipe_commands(line, envp);
 			add_history(line);
 			free(line);
 		}

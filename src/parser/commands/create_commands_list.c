@@ -1,18 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_split.c                                       :+:      :+:    :+:   */
+/*   create_commands_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/06 18:18:56 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:15:28 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_commands	*lstnew_split(t_tokens *token)
+int	lstsize_commands(t_commands *commands)
+{
+	int	count;
+
+	count = 0;
+	while (commands)
+	{
+		count++;
+		commands = commands->next;
+	}
+	return (count);
+}
+
+static t_commands	*lstnew_commands(t_tokens *token)
 {
 	t_commands	*node;
 
@@ -26,7 +39,7 @@ static t_commands	*lstnew_split(t_tokens *token)
 	return (node);
 }
 
-static t_commands	*lstlast_split(t_commands *lst)
+static t_commands	*lstlast_commands(t_commands *lst)
 {
 	if (!lst)
         return (NULL);
@@ -35,7 +48,7 @@ static t_commands	*lstlast_split(t_commands *lst)
     return (lst);
 }
 
-static void	lstadd_back_split(t_commands **lst, t_commands *new)
+static void	lstadd_back_commands(t_commands **lst, t_commands *new)
 {
 	t_commands	*tail;
 
@@ -46,11 +59,11 @@ static void	lstadd_back_split(t_commands **lst, t_commands *new)
 		*lst = new;
 		return ;
 	}
-	tail = lstlast_split(*lst);
+	tail = lstlast_commands(*lst);
 	tail->next = new;
 }
 
-void	pipe_split(char *str, char **envp)
+void	pipe_commands(char *str, char **envp)
 {
 	int			i;
 	char		**pipe_splitted;
@@ -59,17 +72,17 @@ void	pipe_split(char *str, char **envp)
 	t_env	*env;
 	
 	i = 0;
+	env = init_env(envp);
 	pipe_splitted = ft_split(str, '|');
 	if (!pipe_splitted[0])
 		return ;
-	head = lstnew_split(token_list(pipe_splitted[i], env));
+	head = lstnew_commands(token_list(pipe_splitted[i]));
 	current_node = head;
 	while (pipe_splitted[++i])
 	{
-		current_node = lstnew_split(token_list(pipe_splitted[i], env));
-		lstadd_back_split(&head, current_node);
+		current_node = lstnew_commands(token_list(pipe_splitted[i]));
+		lstadd_back_commands(&head, current_node);
 		current_node = current_node->next;
 	}
-	env = init_env(env, head);
-	parser(head);
+	parser(head, env);
 }
