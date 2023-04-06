@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:20:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/30 22:43:34 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:16:16 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ int token_check_bins(char *str)
 
 	path = ft_split(getenv("PATH"), ':');
 	i = -1;
-	/* while (path & path[++i])
+	while (path && path[++i])
 	{
-		
-	} */
+		bin_path = ft_strjoin(ft_strjoin(path[i], "/"), str);
+	}
 }

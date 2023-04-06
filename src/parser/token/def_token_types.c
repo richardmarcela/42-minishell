@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 16:29:54 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/30 22:42:56 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:54:49 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,10 @@ int	is_redirect(char *str)
 	return (0);
 }
 
-int	is_command(char *str)
+int	is_command(char *str, t_env *env)
 {
-	if (token_check_builtins(str) || token_check_bins(str))
+	(void)env;
+	if (token_check_builtins(str) /* || token_check_bins(str) */)
 		return (1);
 	return (0);
 }

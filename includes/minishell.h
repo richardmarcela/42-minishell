@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/03/30 22:52:40 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:55:31 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_commands
 	t_tokens 				*token;
 	int						stdin;
 	int						stdout;
+	
 	struct s_commands		*next;
 }				t_commands;
 
@@ -72,12 +73,13 @@ typedef struct s_env
 }				t_env;
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
-t_tokens    	*token_list(char *line);
+t_tokens    	*token_list(char *line, t_env *env);
 
 //PARSER/TOKEN/DEF_TOKEN_TYPE.C
 int				is_option(char *str);
 int 			is_pipe(char *str);
 int				is_redirect(char *str);
+int				is_command(char *str, t_env *env);
 
 //UTILS/UTILS.C
 int 			isquote(int c);
@@ -87,7 +89,7 @@ void    		ft_free(t_tokens *command);
 void			pipe_split(char *str, char **envp);
 
 //PARSER/PARSER.C
-void    		parser(t_commands *commands, char **envp);
+void    		parser(t_commands *commands);
 TokenType   	which_red(char *str);
 
 //PARSER/ENV_LIST.C

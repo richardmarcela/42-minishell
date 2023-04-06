@@ -6,10 +6,9 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/30 22:41:15 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 18:43:08 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 //NOTA: -n e a unica flag valida para o echo neste projeto
 //se for introduzido "echo -a", "-a" deve ser considerado uma OPTION
@@ -17,7 +16,7 @@
 //ERRO cat \"-a"
 #include "minishell.h"
 
-static TokenType	token_type(char *str)
+static TokenType	token_type(char *str, t_env *env)
 {
 	if (is_option(str))
 		return (OPTION);
@@ -25,6 +24,8 @@ static TokenType	token_type(char *str)
 		return (PIPE);
 	if (is_redirect(str))
 		return(which_red(str));
+	if (is_command(str, env))
+		return(COMMAND);
 	/* if (is_arg()) */
 	return (NONE);
 }
@@ -66,7 +67,7 @@ static void	lstadd_back_token(t_tokens **lst, t_tokens *new)
 	tail->next = new;
 }
 
-t_tokens    *token_list(char *line)
+t_tokens    *token_list(char *line, t_env *env)
 {
 	int     	i;
 	char    	**splitted;
@@ -76,7 +77,7 @@ t_tokens    *token_list(char *line)
 
 	i = 0;
 	splitted = ft_split(line, ' ');
-	type = token_type(splitted[i]);
+	type = token_type(splitted[i], env);
 	if (type == NONE)
 	{
 		printf("%s%s\n", PROMPT, UNKNOWN);
@@ -86,7 +87,7 @@ t_tokens    *token_list(char *line)
 	current_node = head;
 	while (splitted[++i])
 	{
-		type = token_type(splitted[i]);
+		type = token_type(splitted[i], env);
 		if (type == NONE)
 		{
 			printf("%s%s\n", PROMPT, UNKNOWN);

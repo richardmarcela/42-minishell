@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 22:13:13 by mrichard          #+#    #+#             */
-/*   Updated: 2023/03/30 22:51:21 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 16:44:00 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,15 @@ static t_env	*lstnew_env(char *str)
 	return (node);
 }
 
+static t_env	*lstlast_env(t_env *lst)
+{
+	if (!lst)
+        return (NULL);
+   	while (lst->next)
+        lst = lst->next;
+    return (lst);
+}
+
 static void	lstadd_back_env(t_env **lst, t_env *new)
 {
 	t_env	*tail;
@@ -38,15 +47,6 @@ static void	lstadd_back_env(t_env **lst, t_env *new)
 	}
 	tail = lstlast_env(*lst);
 	tail->next = new;
-}
-
-static t_env	*lstlast_env(t_env *lst)
-{
-	if (!lst)
-        return (NULL);
-   	while (lst->next)
-        lst = lst->next;
-    return (lst);
 }
 
 t_env   *init_env(char **envp)
