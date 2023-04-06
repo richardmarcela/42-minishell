@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 00:06:20 by marcela           #+#    #+#             */
-/*   Updated: 2023/03/24 20:42:59 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/04/06 17:47:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		ft_tolower(int ch);
 int		ft_toupper(int ch);
 
 typedef struct s_list
-{ 
+{
 	char			*name;
 	char			*content;
 	struct s_list	*next;

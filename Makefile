@@ -3,28 +3,30 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: riolivei <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/03/25 21:06:09 by riolivei         ###   ########.fr        #
+#    Updated: 2023/04/06 17:58:16 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -I./includes -fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I./includes #-fsanitize=address -g
 RM = rm -rf
 LIBFT = ./libft/libft.a
-VPATH = src src/parser src/utils src/parser/token
+VPATH = src src/parser src/utils src/parser/token src/parser/env_list
 
 UTILS = utils
-TOKEN = create_token_list def_token_types
+TOKEN = create_token_list def_token_types token_utils
 PARSER = parser pipe_split
+ENV_LIST = env_list
 MAIN = main
 
 SRCS =	$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(TOKEN))\
 		$(addsuffix .c, $(PARSER))\
+		$(addsuffix .c, $(ENV_LIST))\
 		$(addsuffix .c, $(MAIN))
 
 OBJS = ${SRCS:.c=.o}
