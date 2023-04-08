@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/06 22:48:44 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/08 22:03:48 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@
 # define PLICAS 39
 # define ERROR -1
 
-typedef enum {
+typedef enum TokenType
+{
 	SETTING, //setting a variable (fds=a)
 	COMMAND, //ls, wc, echo (builtin, executables)
 	OPTION, //-a, -l... (flags)
@@ -56,21 +57,21 @@ typedef struct s_tokens
 	struct s_tokens 		*next;
 }				t_tokens;
 
-typedef struct s_commands
-{
-	t_tokens 				*token;
-	int						stdin;
-	int						stdout;
-	
-	struct s_commands		*next;
-}				t_commands;
-
 typedef struct s_env
 {
 	char 					*str;
 	int						was_declared;
 	struct s_env			*next;
 }				t_env;
+
+typedef struct s_commands
+{
+	t_tokens 				*token;
+	t_env					*env;
+	int						stdin;
+	int						stdout;
+	struct s_commands		*next;
+}				t_commands;
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens    	*token_list(char *line);
@@ -93,19 +94,28 @@ void    		parser(t_commands *commands, t_env	*env);
 //PARSER/ENV_LIST.C
 t_env    		*init_env(char **envp);
 
+//PARSER/TOKEN/CREATE_TOKEN_LIST.C
+t_tokens	*lstnew_token(char *str, TokenType type);
+void	lstadd_back_token(t_tokens **lst, t_tokens *new);
+
 //PARSER/TOKEN/TOKEN_UTILS.C
-int 			token_check_bins(char *str);
-int 			token_check_builtins(char *str);
 TokenType   	which_red(char *str);
 t_tokens 		*define_head(char **splitted, int *i);
 
-//PARSER/BUILTINS/CHECK_BUILTINS.C
+//BUILTINS/CHECK_BUILTINS.C
 int	check_builtins(t_tokens *token, t_env *env);
 
-//PARSER/BINS/CHECK_BINS.C
+//BINS/CHECK_BINS.C
 int	check_bins(char **line);
 
-t_tokens	*lstnew_token(char *str, TokenType type);
-void	lstadd_back_token(t_tokens **lst, t_tokens *new);
+//BUILTINS/ECHO/ECHO.C
+int	print(t_tokens *token);
+int	has_unclosed_quotes(char *str);
+
+//BUILTINS/ECHO/ECHO2.C
+void	process_argument(char *str);
+void	single_quotes(char *command);
+void	double_quotes(char *command);
+void	no_quotes(char *command);
 
 #endif

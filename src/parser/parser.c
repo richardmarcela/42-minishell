@@ -6,62 +6,72 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/06 22:58:56 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/08 21:41:52 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* static int	setting_env(t_commands *commands)
+static int lstsize_tokens(t_tokens *token)
 {
-	int		i;
-	int		res;
-    t_commands *current;
-	t_list	*linked = NULL;
+    int	count;
 
-    if (lstsize_commands(commands) > 1)
-        return (0);
-    current = commands;
-	res = 0;
-    while (current)
+	count = 0;
+	while (token)
+	{
+		count++;
+		token = token->next;
+	}
+	return (count);
+}
+
+int unclosed_quotes(t_commands *commands)
+{
+    while (commands)
     {
-	    i = -1;
-        while (current->token->str[++i])
-            if (current->token->str[i] == '=')
-                res = 1;
-        if (res)
-		ft_lstadd_back(&linked, ft_lstnew(get_env_name(current->token->str), get_env_value(current->token->str)));
-        current = current->next;
+        while(commands->token)
+        {
+            if (has_unclosed_quotes(commands->token->str))
+                return (1);
+            commands->token = commands->token->next;
+        }
+        commands = commands->next;
     }
-	
-	
-	return (res);
-} */
+    return (0);
+}
 
 void    parser(t_commands *commands, t_env	*env)
 {
     struct stat	f;
     (void)env;
     
+    if (unclosed_quotes(commands))
+    {
+        //ah e tal cheio de merda
+        //tem unclosed quotes num dos tokens
+        readline(EPROMPT);
+        return ;
+    }
     while (commands)
     {
-        while (commands->token)
+        if (commands->token->type == SETTING && lstsize_tokens(commands->token) == 1)
         {
-            /* if (setting_env(commands))
-                return (1); */
-            if (check_builtins(commands->token, env) || check_bins(commands->token))
-                return ;
-            if (lstat(commands->token->str, &f) != -1)
+            //se tiver a dar set a uma variavel
+            //faz merdas e avanca nos tokens
+            commands->token = commands->token->next;
+        }
+        if (check_builtins(commands->token, env) /* || check_bins(commands->token, env) */)
+            return ;
+        if (lstat(commands->token->str, &f) != -1)
+        {
+            if (f.st_mode & __S_IFDIR)
             {
-                if (f.st_mode & __S_IFDIR)
-                {
-                    commands->token = commands->token->next;
-                    change_dir(commands->token->str);
-                    return ;
-                }	
-                /* if (f.st_mode & S_IXUSR)
-                    return(run_cmd(ft_strdup(commands->token->str), commands)); */
-            }
+                commands->token = commands->token->next;
+                /* change_dir(commands->token->str); */
+                return ;
+            }	
+            /* if (f.st_mode & S_IXUSR)
+                return(run_cmd(ft_strdup(commands->token->str), commands)); */
         }
         commands = commands->next;
     }
