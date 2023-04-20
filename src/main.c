@@ -6,11 +6,9 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/04/06 20:50:11 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/14 19:04:37 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-//LINE E A LINHA INTEIRA
 
 #include "minishell.h"
 

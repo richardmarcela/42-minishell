@@ -6,13 +6,13 @@
 #    By: riolivei <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/04/08 19:06:48 by riolivei         ###   ########.fr        #
+#    Updated: 2023/04/14 20:25:46 by riolivei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -I./includes #-fsanitize=address -g
+CFLAGS = -Wall -Wextra -Werror -I./includes
 RM = rm -rf
 LIBFT = ./libft/libft.a
 VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser/env_list\

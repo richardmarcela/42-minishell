@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/24 20:29:00 by mrichard          #+#    #+#             */
-/*   Updated: 2023/04/08 22:39:33 by riolivei         ###   ########.fr       */
+/*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
+/*   Updated: 2023/04/20 22:53:15 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,76 +15,63 @@
 #define ASPAS 34
 #define PLICAS 39
 
-static int	count_words(char const *s, char c)
+static int	skip_quoted_content(char *s, int *i, int flag)
+{
+	if (!flag)
+	{
+		(*i)++;
+		if (!s[*i])
+			return (0);
+		while (s[*i] && !isquote(s[*i]))
+			(*i)++;
+		return (1);
+	}
+	return (0);
+}
+
+static int	has_open_quotes(char *str, int pos)
+{
+	if (count(ft_substr(str, 0, pos), ASPAS) % 2 != 0 || count(ft_substr(str, 0, pos), PLICAS) % 2 != 0)
+		return (1);
+	return (0);
+}
+
+static int	count_words(char *s, char c)
 {
 	int	words;
 	int	flag;
-	int	quoted;
+	int	i;
 
 	words = 0;
 	flag = 0;
-	quoted = 0;
-	while (*s)
+	i = -1;
+	while (s[++i])
 	{
-		if (isquote(*s))
+		if (isquote(s[i]))
+			words += skip_quoted_content(s, &i, flag);
+		if (s[i] != c && flag == 0 && !isquote(s[i]) && s[i])
 		{
-			if (!quoted)
-			{
-				//o if abaixo serve para tratar unclosed quotes iniciais (ex: "a)
-				// unclosed quotes finais (ex: a") funcionam sem problema
-				quoted = 1;
-				if (*(s-1) == c)
-				{
-					words++;
-					flag = 1;
-				}
-			}
-			else
-				quoted = 0;
+			flag = 1;
+			words++;
 		}
-		if (!quoted)
-		{
-			if (*s != c && flag == 0)
-			{
-				flag = 1;
-				words++;
-			}
-			else if (*s == c)
-				flag = 0;
-		}
-		s++;
+		else if (s[i] == c && !has_open_quotes(s, i))
+			flag = 0;
 	}
 	return (words);
 }
 
-static int skip_quoted_content(const char *str, int *pos)
-{
-	int count;
-
-	count = 1;
-	(*pos)++;
-	while (str[*pos] && !isquote(str[*pos]))
-	{
-		count++;
-		(*pos)++;
-	}
-	return (count + 1);
-}
-
-static int	count_letters(char const *s, char c, int i)
+static int	count_letters(char *s, char c, int i)
 {
 	int	size;
-	int pos;
-	
-	pos = i;
+
 	size = 0;
-	while (s[pos] && s[pos] != c)
+	while (s[i])
 	{
-		if (isquote(s[pos]))
-			size += skip_quoted_content(s, &pos);
-		else
+		if (s[i] != c)
 			size++;
-		pos++;
+		else if (!has_open_quotes(s, i))
+		size++;
+		i++;
 	}
 	return (size);
 }
@@ -93,26 +80,29 @@ char	**ft_split(char *s, char c)
 {
 	int		i;
 	int		j;
-	int		word;
+	int		words;
 	char	**str;
 
-	i = 0;
-	j = -1;
+	printf("CHAR = '%c'\n", c);
+	printf("STRING = %s\n", s);
 	if (!s)
 		return (NULL);
-	word = count_words(s, c);
-	str = (char **)malloc((word + 1) * sizeof(char *));
+	i = 0;
+	j = -1;
+	words = count_words(s, c);
+	printf("WORDS = %d\n", words);
+	str = (char **)malloc((words + 1) * sizeof(char *));
 	if (!str)
 		return (NULL);
-	while (++j < word)
+	while (++j < words)
 	{
-		while (s[i] == c)
-			i++;
 		str[j] = ft_substr(s, i, count_letters(s, c, i));
+		printf("WORD [%d] = %s\n", j+1, str[j]);
 		if (!str)
 			return (NULL);
 		i += count_letters(s, c, i);
 	}
 	str[j] = 0;
+	printf("--------------------------------------------------\n");
 	return (str);
 }

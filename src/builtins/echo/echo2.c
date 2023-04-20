@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/08 22:47:20 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/15 18:36:23 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_q
 {
 	if (str[*pos] == PLICAS)
 	{
+		(*pos)++;
 		change_flag(unclosed_squotes);
 		while(str[*pos] && str[*pos] != PLICAS)
 			printf("%c", str[(*pos)++]);
@@ -71,15 +72,15 @@ void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_q
 	}
 	else
 	{
+		(*pos)++;
 		change_flag(unclosed_quotes);
 		while(str[*pos] && str[*pos] != ASPAS)
 		{
-			if (!*unclosed_squotes)
+			if (!(*unclosed_squotes))
 			{
 				if (str[*pos] == '$')
 					search_variable(str, pos);
 			}
-			printf("%c", str[(*pos)++]);
 		}
 		change_flag(unclosed_quotes);
 	}
@@ -96,16 +97,20 @@ void	process_argument(char *str)
 	i = -1;
 	while (str[++i])
 	{
+		/* if (str[i] == PLICAS)
+			change_flag(&unclosed_squotes);
+		if (str[i] == ASPAS)
+			change_flag(&unclosed_quotes); */
 		if (str[i] == '$' && !unclosed_squotes)
 			search_variable(str, &i);
-		else if (isquote(str[i]))
+		if (isquote(str[i]))
 			quote_handler(str, &i, &unclosed_squotes, &unclosed_quotes);
 		else
 			printf("%c", str[i]);
 	}
 }
 
-void	no_quotes(char *command)
+/* void	no_quotes(char *command)
 {
 	int	i;
 
@@ -145,4 +150,4 @@ void	single_quotes(char *command)
 		if (command[i] != PLICAS) //ignorar plicas(')
 			printf("%c", command[i]);
 	}
-}
+} */

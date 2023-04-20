@@ -1,5 +1,1 @@
-de momento a corrigir o echo (check_command incerto)
-
-NOTA: comandos quoted funcionam no bash (ex: "echo")
-
-CONCLUSAO: da segfault :)
+currently working on count_letters (split) in processing pipes inside quotes

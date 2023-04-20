@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/08 22:03:48 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:03:39 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,7 @@ int	check_bins(char **line);
 //BUILTINS/ECHO/ECHO.C
 int	print(t_tokens *token);
 int	has_unclosed_quotes(char *str);
+int	count(char *command, int n);
 
 //BUILTINS/ECHO/ECHO2.C
 void	process_argument(char *str);

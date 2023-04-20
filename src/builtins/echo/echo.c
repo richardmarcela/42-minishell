@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:46:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/08 22:45:58 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:14:29 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int	print(t_tokens *token)
 {
 	/* int		method; */
 	bool	flag;
-
+	
 	flag = true;
 	if (token == NULL) //quando echo n tem args nem flags
 		return(printf("\n"));
