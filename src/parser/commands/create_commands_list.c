@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/20 22:18:00 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/21 16:31:25 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,6 @@ void	pipe_commands(char *str, char **envp)
 	i = 0;
 	env = init_env(envp);
 	pipe_splitted = ft_split(str, '|');
-	printf("%s\n", pipe_splitted[0]);
-	printf("%s\n", pipe_splitted[1]);
-	printf("%s\n", pipe_splitted[2]);
-	printf("%s\n", pipe_splitted[3]);
-	exit(0);
 	if (!pipe_splitted[0])
 		return ;
 	head = lstnew_commands(token_list(pipe_splitted[i]));

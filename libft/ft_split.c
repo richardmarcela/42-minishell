@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/20 22:53:15 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/21 17:19:37 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static int	count_words(char *s, char c)
 	i = -1;
 	while (s[++i])
 	{
+		while (s[i] == ' ')
+			i++;
 		if (isquote(s[i]))
 			words += skip_quoted_content(s, &i, flag);
 		if (s[i] != c && flag == 0 && !isquote(s[i]) && s[i])
@@ -67,9 +69,8 @@ static int	count_letters(char *s, char c, int i)
 	size = 0;
 	while (s[i])
 	{
-		if (s[i] != c)
-			size++;
-		else if (!has_open_quotes(s, i))
+		if (s[i] == c && !has_open_quotes(s, i))
+			break ;
 		size++;
 		i++;
 	}
@@ -96,11 +97,14 @@ char	**ft_split(char *s, char c)
 		return (NULL);
 	while (++j < words)
 	{
+		while (s[i] == c)
+			i++;
 		str[j] = ft_substr(s, i, count_letters(s, c, i));
-		printf("WORD [%d] = %s\n", j+1, str[j]);
+		printf("WORD [%d] = %s\n", j + 1, str[j]);
 		if (!str)
 			return (NULL);
 		i += count_letters(s, c, i);
+		//printf("CHAR [%c]\n", s[i]);
 	}
 	str[j] = 0;
 	printf("--------------------------------------------------\n");
