@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/21 17:19:37 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:14:47 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,11 @@ static int	count_words(char *s, char c)
 	i = -1;
 	while (s[++i])
 	{
-		while (s[i] == ' ')
+		while (s[i] == ' ' && !has_open_quotes(s, i) && c == ' ')
+		{
 			i++;
+			flag = 0;
+		}
 		if (isquote(s[i]))
 			words += skip_quoted_content(s, &i, flag);
 		if (s[i] != c && flag == 0 && !isquote(s[i]) && s[i])
@@ -84,14 +87,11 @@ char	**ft_split(char *s, char c)
 	int		words;
 	char	**str;
 
-	printf("CHAR = '%c'\n", c);
-	printf("STRING = %s\n", s);
 	if (!s)
 		return (NULL);
 	i = 0;
 	j = -1;
 	words = count_words(s, c);
-	printf("WORDS = %d\n", words);
 	str = (char **)malloc((words + 1) * sizeof(char *));
 	if (!str)
 		return (NULL);
@@ -100,13 +100,10 @@ char	**ft_split(char *s, char c)
 		while (s[i] == c)
 			i++;
 		str[j] = ft_substr(s, i, count_letters(s, c, i));
-		printf("WORD [%d] = %s\n", j + 1, str[j]);
 		if (!str)
 			return (NULL);
 		i += count_letters(s, c, i);
-		//printf("CHAR [%c]\n", s[i]);
 	}
 	str[j] = 0;
-	printf("--------------------------------------------------\n");
 	return (str);
 }

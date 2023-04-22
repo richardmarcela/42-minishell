@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/20 22:03:39 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:33:42 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <readline/history.h>
 
 # define PROMPT "minishell 🐚> "
+# define EPARSE "parse error near '|'"
 # define EPROMPT "> "
 # define CNF "command not found"
 # define UNKNOWN "No such file or directory"
@@ -34,6 +35,7 @@
 # define ASPAS 34
 # define PLICAS 39
 # define ERROR -1
+# define PERROR -2
 
 typedef enum TokenType
 {
@@ -83,6 +85,7 @@ int				is_redirect(char *str);
 
 //UTILS/UTILS.C
 int 			isquote(int c);
+int				has_empty_pipe(char **splitted);
 void    		ft_free(t_tokens *command);
 
 //PARSER/PIPE_SPLIT.C
@@ -95,28 +98,28 @@ void    		parser(t_commands *commands, t_env	*env);
 t_env    		*init_env(char **envp);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
-t_tokens	*lstnew_token(char *str, TokenType type);
-void	lstadd_back_token(t_tokens **lst, t_tokens *new);
+t_tokens		*lstnew_token(char *str, TokenType type);
+void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 
 //PARSER/TOKEN/TOKEN_UTILS.C
 TokenType   	which_red(char *str);
 t_tokens 		*define_head(char **splitted, int *i);
 
 //BUILTINS/CHECK_BUILTINS.C
-int	check_builtins(t_tokens *token, t_env *env);
+int				check_builtins(t_tokens *token, t_env *env);
 
 //BINS/CHECK_BINS.C
-int	check_bins(char **line);
+int				check_bins(char **line);
 
 //BUILTINS/ECHO/ECHO.C
-int	print(t_tokens *token);
-int	has_unclosed_quotes(char *str);
-int	count(char *command, int n);
+int				print(t_tokens *token);
+int				has_unclosed_quotes(char *str);
+int				count(char *command, int n);
 
 //BUILTINS/ECHO/ECHO2.C
-void	process_argument(char *str);
-void	single_quotes(char *command);
-void	double_quotes(char *command);
-void	no_quotes(char *command);
+void			process_argument(char *str);
+void			single_quotes(char *command);
+void			double_quotes(char *command);
+void			no_quotes(char *command);
 
 #endif

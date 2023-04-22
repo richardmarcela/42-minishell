@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/21 16:31:25 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/21 22:40:27 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,15 @@ void	pipe_commands(char *str, char **envp)
 	i = 0;
 	env = init_env(envp);
 	pipe_splitted = ft_split(str, '|');
-	if (!pipe_splitted[0])
+	//a candonga abaixo executada serve para tratar empty commands (ex: so espacos)
+	if (!pipe_splitted[0] || !ft_strtrim(pipe_splitted[0], " ")
+		|| !ft_strtrim(ft_strtrim(pipe_splitted[0], " "), " "))
+		return	;
+	if (has_empty_pipe(pipe_splitted))
+	{
+		printf("%s\n", EPARSE);
 		return ;
+	}
 	head = lstnew_commands(token_list(pipe_splitted[i]));
 	current_node = head;
 	while (pipe_splitted[++i])

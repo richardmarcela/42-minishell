@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/20 22:15:05 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:34:51 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ int	process_tokens(t_tokens *token, t_env *env)
 {
 	struct stat	f;
 
-	while (token)
-	{
-		printf("%s\n", token->str);
-		token = token->next;
-	}
 	while (token)
 	{
 		if (has_unclosed_quotes(token->str))

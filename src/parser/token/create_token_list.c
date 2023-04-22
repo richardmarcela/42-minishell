@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/04/20 15:47:30 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:19:22 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ t_tokens    *token_list(char *line)
 	t_tokens	*current_node;
 	
 	i = 0;
-	printf("ENTROU\n");
 	splitted = ft_split(line, ' ');
 	head = define_head(splitted, &i);
 	current_node = head;

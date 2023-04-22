@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/15 18:36:23 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:52:01 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_q
 			{
 				if (str[*pos] == '$')
 					search_variable(str, pos);
+				else
+					printf("%c", str[(*pos)++]);
 			}
 		}
 		change_flag(unclosed_quotes);
@@ -97,10 +99,6 @@ void	process_argument(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		/* if (str[i] == PLICAS)
-			change_flag(&unclosed_squotes);
-		if (str[i] == ASPAS)
-			change_flag(&unclosed_quotes); */
 		if (str[i] == '$' && !unclosed_squotes)
 			search_variable(str, &i);
 		if (isquote(str[i]))
@@ -109,45 +107,3 @@ void	process_argument(char *str)
 			printf("%c", str[i]);
 	}
 }
-
-/* void	no_quotes(char *command)
-{
-	int	i;
-
-	i = -1;
-	while (command[++i])
-	{
-		while (command[i] == '$')
-			search_variable(command, &i);
-		while (command[i] == ' ' && command[i + 1] == ' ')
-			i++;
-		if (command[i] != ASPAS) //ignorar aspas(")
-			printf("%c", command[i]);
-	}
-}
-
-void	double_quotes(char *command)
-{
-	int	i;
-
-	i = -1;
-	while (command[++i])
-	{
-		while (command[i] == '$')
-			search_variable(command, &i);
-		if (command[i] != ASPAS) //ignorar aspas(")
-			printf("%c", command[i]);
-	}
-}
-
-void	single_quotes(char *command)
-{
-	int	i;
-
-	i = -1;
-	while (command[++i])
-	{
-		if (command[i] != PLICAS) //ignorar plicas(')
-			printf("%c", command[i]);
-	}
-} */

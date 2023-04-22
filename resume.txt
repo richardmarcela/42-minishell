@@ -1,1 +1,3 @@
-currently working on count_letters (split) in processing pipes inside quotes
+PROBLEMS
+
+3 - Marcela's entire life (nothing i can do)

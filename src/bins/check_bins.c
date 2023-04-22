@@ -6,13 +6,13 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/08 15:41:14 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/22 16:33:53 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* static int	env_len(char **envp)
+static int	env_len(char **envp)
 {
 	int	i;
 	int	count;
@@ -84,4 +84,4 @@ int	run_cmd(char *path, char **args)
 	if (path)
 		free(path);
 	return (1);
-} */
+}
