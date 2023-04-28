@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_commands_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/21 22:40:27 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/28 17:44:55 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,8 @@ void	pipe_commands(char *str, char **envp)
 	char		**pipe_splitted;
 	t_commands	*head;
 	t_commands	*current_node;
-	t_env	*env;
 	
 	i = 0;
-	env = init_env(envp);
 	pipe_splitted = ft_split(str, '|');
 	//a candonga abaixo executada serve para tratar empty commands (ex: so espacos)
 	if (!pipe_splitted[0] || !ft_strtrim(pipe_splitted[0], " ")
@@ -91,5 +89,6 @@ void	pipe_commands(char *str, char **envp)
 		lstadd_back_commands(&head, current_node);
 		current_node = current_node->next;
 	}
-	parser(head, env);
+	init_env(head, envp);
+	parser(head);
 }

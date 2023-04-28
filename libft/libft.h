@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 00:06:20 by marcela           #+#    #+#             */
-/*   Updated: 2023/04/08 18:48:41 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/28 20:30:50 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ char	*ft_uitoa(unsigned int n);
 int		ft_print_unsigned(unsigned int n);
 int		ft_printf(const char *str, ...);
 char	**ft_split(char *s, char c);
+int		has_open_quotes(char *str, int pos);
 
 #endif

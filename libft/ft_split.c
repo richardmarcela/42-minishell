@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/21 18:14:47 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/28 22:46:53 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 #define ASPAS 34
 #define PLICAS 39
 
-static int	skip_quoted_content(char *s, int *i, int flag)
+static int	skip_quoted_content(char *s, int *i, int *flag)
 {
-	if (!flag)
+	if (!(*flag))
 	{
-		(*i)++;
-		if (!s[*i])
-			return (0);
+		if (s[(*i) + 1])
+			(*i)++;
 		while (s[*i] && !isquote(s[*i]))
 			(*i)++;
+		(*flag) = 1;
 		return (1);
 	}
 	return (0);
 }
 
-static int	has_open_quotes(char *str, int pos)
+int	has_open_quotes(char *str, int pos)
 {
 	if (count(ft_substr(str, 0, pos), ASPAS) % 2 != 0 || count(ft_substr(str, 0, pos), PLICAS) % 2 != 0)
 		return (1);
@@ -44,23 +44,24 @@ static int	count_words(char *s, char c)
 
 	words = 0;
 	flag = 0;
-	i = -1;
-	while (s[++i])
+	i = 0;
+	while (s[i])
 	{
-		while (s[i] == ' ' && !has_open_quotes(s, i) && c == ' ')
+		while (s[i] && s[i] == ' ' && !has_open_quotes(s, i) && c == ' ')
 		{
 			i++;
 			flag = 0;
 		}
-		if (isquote(s[i]))
-			words += skip_quoted_content(s, &i, flag);
-		if (s[i] != c && flag == 0 && !isquote(s[i]) && s[i])
+		if (s[i] && isquote(s[i]))
+			words += skip_quoted_content(s, &i, &flag);
+		if (s[i] && s[i] != c && flag == 0 && !isquote(s[i]))
 		{
 			flag = 1;
 			words++;
 		}
-		else if (s[i] == c && !has_open_quotes(s, i))
+		else if (s[i] && s[i] == c && !has_open_quotes(s, i))
 			flag = 0;
+		i++;
 	}
 	return (words);
 }

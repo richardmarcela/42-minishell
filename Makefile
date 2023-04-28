@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: riolivei <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/04/14 20:25:46 by riolivei         ###   ########.fr        #
+#    Updated: 2023/04/22 17:35:28 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,17 +22,15 @@ UTILS = utils
 TOKEN = create_token_list def_token_types token_utils
 COMMANDS = create_commands_list
 PARSER = parser
-BINS = check_bins
+BINS = check_bins signal_handler
 BUILTINS = check_builtins
 ECHO = echo echo2
-ENV_LIST = env_list
 MAIN = main
 
 SRCS =	$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(TOKEN))\
 		$(addsuffix .c, $(COMMANDS))\
 		$(addsuffix .c, $(PARSER))\
-		$(addsuffix .c, $(ENV_LIST))\
 		$(addsuffix .c, $(BINS))\
 		$(addsuffix .c, $(BUILTINS))\
 		$(addsuffix .c, $(ECHO))\

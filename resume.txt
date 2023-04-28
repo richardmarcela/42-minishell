@@ -1,3 +1,4 @@
 PROBLEMS
 
+1 - currently working on check_tokens (parser) -> Infinite loop :)
 3 - Marcela's entire life (nothing i can do)

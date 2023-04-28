@@ -3,14 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/21 20:46:28 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/28 22:57:13 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int lstsize_tokens(t_tokens *token)
+{
+	int	count;
+
+	count = 0;
+	while (token)
+	{
+		count++;
+		token = token->next;
+	}
+	return (count);
+}
 
 int isquote(int c)
 {
@@ -36,7 +49,42 @@ int	has_empty_pipe(char **splitted)
 	return (0);
 }
 
-/* void    ft_free(t_command_line *command)
+char	**fill_args(t_tokens *token)
 {
-    free(command->str);
-} */
+	int		i;
+	char	**args;
+	
+	i = -1; 
+	args = malloc(sizeof(char *) * (lstsize_tokens(token) + 1));
+	while (token)
+	{
+		args[++i] = token->str;
+		token = token->next;
+	}
+	args[++i] = 0; //has to end with NULL
+	return (args);
+}
+
+int	search_ops_in_str(char *s1, char *s2, int n)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	//este if e msm preciso?
+	/* if (*s2 == '\0')
+		return (0); */
+	while (s1[i] && i < n)
+	{
+		j = 0;
+		while (s1[i + j] && s2[j]
+			&& s1[i + j] == s2[j] && (i + j) < n)
+		{
+			if (s2[j + 1] == '\0')
+				return (i);
+			j++;
+		}
+		i++;
+	}
+	return (-1); //n encontrou o char
+}

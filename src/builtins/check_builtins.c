@@ -3,23 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/22 16:58:54 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:09:49 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_builtins(t_tokens *token, t_env *env)
+int	check_builtins(t_tokens *token, char **envp)
 {
-	char	*pwd;
-	(void)env;
+	//char	*pwd;
+	(void)envp;
     
 	if (!ft_strcmp(token->str, "echo"))
-			return (print(token->next));
-	else if (!ft_strcmp(token->str, "cd"))
+		return (print(token->next));
+	return (0);
+	/*else if (!ft_strcmp(token->str, "cd"))
     {
         token = token->next;
 		return (change_dir(token->str));
@@ -35,7 +36,6 @@ int	check_builtins(t_tokens *token, t_env *env)
 		unsetenv();
 	else if (!ft_strcmp(line[0], "export"))
 		export();
-	else if (!ft_strcmp(line[0], "env"))
-		print_env();
-	return (0);
+	[TIREI DAQUI O ENV PQ E UM BINARIO]
+	return (0);*/
 }

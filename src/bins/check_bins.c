@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/22 16:33:53 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:10:17 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,64 +24,77 @@ static int	env_len(char **envp)
 	return (count);	
 }
 
-static int	is_executable(char *bin_path, struct stat f, char **line)
+void	init_env(t_commands *commands, char **envp)
+{
+	int	i;
+	int	len;
+	
+	i = -1;
+	len = env_len(envp);
+	commands->envp = (char **)malloc(sizeof(char *) * len + 1);
+	commands->envp[len] = 0;
+	while (++i < len)
+		commands->envp[i] = envp[i];
+}
+
+static int	is_executable(char *bin_path, struct stat f)
 {
 	if (f.st_mode & __S_IFREG)
 	{
 		if (f.st_mode & S_IXUSR)
-			return (run_cmd(bin_path, line));
+			return (1);
 		else 
-		{
-			printf("minishell: permission denied: ");
-			printf("%s\n", bin_path);
-		}
+			printf("permission denied: %s\n", bin_path);
 		free(bin_path);
-		return (1);
+		return (0);
 	}
 	free(bin_path);
 	return (0);
 }
 
-int	check_bins(char **line)
+int	check_bins(t_tokens *token, char **envp)
 {
 	int			i;
 	char		*bin_path;
 	char		**path;
-	struct stat	f;
-	
+	struct 		stat	f;
+	t_tokens	*head;
+	t_tokens	*current;
+
 	path = ft_split(getenv("PATH"), ':');
 	i = -1;
+	head = token;
+	current = head;
 	while (path && path[++i])
 	{
-		bin_path = ft_strjoin(ft_strjoin(path[i], "/"), line[0]);
+		bin_path = ft_strjoin(ft_strjoin(path[i], "/"), head->str);
 		if (lstat(bin_path, &f) == -1)
 			free(bin_path);
-		else if (is_executable(bin_path, f, line))
+		else if (is_executable(bin_path, f))
 		{
-			ft_free(path);	
+			run_cmd(bin_path, token, envp);
 			return (1);
 		}
 	}
-	ft_free(path);
 	return (0);
 }
 
-int	run_cmd(char *path, char **args)
+int	run_cmd(char *bin_path, t_tokens *token, char **envp)
 {
-	pid_t	pid;
+	char 		**args;
+	pid_t		pid;
 
+	args = fill_args(token);
 	pid = fork();
-	signal(SIGINT, proc_signal_handler);
+	/* signal(SIGINT, proc_signal_handler); */
 	if (pid == 0)
-		execve(path, args, global_env);
-	else if (pid < 0)
+		execve(bin_path, args, envp);
+	if (pid < 0)
 	{
-		free(path);
-		printf("Fork failed to create a new process.");
+		free(bin_path);
+		printf("Fork failed to create a new process.\n");
 		return (0);
 	}
 	wait(&pid);
-	if (path)
-		free(path);
 	return (1);
 }
