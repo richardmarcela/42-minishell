@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/28 22:58:22 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/04 22:34:49 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,28 +17,35 @@ static char	**fill_ops(void)
 	char	**ops;
 
 	ops = (char **)malloc(sizeof(char *) * 7);
-	ops[0] = "|";
-	ops[1] = "<";
-	ops[2] = ">";
-	ops[3] = "<<";
-	ops[4] = ">>";
-	ops[5] = "<>";
-	ops[6] = 0;
+	ops[0] = "<>";
+	ops[1] = "<<";
+	ops[2] = ">>";
+	ops[3] = "<";
+	ops[4] = ">";
+	ops[5] = "|";
+	ops[6] = NULL;
 	return	(ops);
 }
 
-static void	adding_new_token(t_tokens *token, int pos)
+static void	adding_new_token(t_tokens *token, int pos, char *op)
 {
-	char		*temp_str;
+	char		*original_str;
+	char		*op_str;
+	char		*new_str = NULL;
+	t_tokens	*op_token;
 	t_tokens	*new_token;
-	t_tokens	*temp_next;
 
-	temp_str = token->str;
-	temp_next = token->next;
-	token->str = ft_substr(token->str, 0, pos);
-	new_token = lstnew_token(temp_str, PIPE);
-	token->next = new_token;
-	new_token = temp_next;
+	if (ft_strlen(token->str) > ft_strlen(op)) //avoids some unnacessary tokens
+	{
+		original_str = token->str;
+		op_str = ft_substr(original_str, pos, ft_strlen(op));
+		token->str = ft_substr(original_str, 0, pos);
+		new_str = ft_substr(original_str, pos + ft_strlen(op), ft_strlen(original_str) - ft_strlen(op_str) - ft_strlen(token->str));
+		op_token = lstnew_token(op_str, PIPE);
+		token->next = op_token;
+		new_token = lstnew_token(new_str, PIPE);
+		op_token->next = new_token;	
+	}
 }
 
 static void	check_tokens(t_tokens *token)
@@ -46,75 +53,63 @@ static void	check_tokens(t_tokens *token)
 	int	i;
 	int pos;
 	char **ops;
-	t_tokens	*head = token;
 
 	ops = fill_ops();
 	while (token)
 	{
 		i = -1;
-		printf("TOKEN Q ENTROU: %s\n", token->str);
 		while (ops[++i])
 		{
 			pos = search_ops_in_str(token->str, ops[i], ft_strlen(token->str));
-			printf("POS: %d - CHAR: %s\n", pos, ops[i]);
 			if (pos > -1 && !has_open_quotes(token->str, pos))
 			{
-				/* printf("CHAR Q SAIU: %s\n", ops[i]);
-				exit(0); */
-				adding_new_token(token, pos);
+				adding_new_token(token, pos, ops[i]);
+				token = token->next; //skips the operator token and avoids infinite loop
+				break ;
 			}
 		}
 		token = token->next;
 	}
-	while (head)
-	{
-		printf("TOKEN: %s\n", head->str);
-		head = head->next;
-	}
 }
 
-int		process_tokens(t_tokens *token, char **envp)
+int		process_tokens(t_commands *command)
 {
-	struct stat	f;
+	/* struct stat	f; */
 
-	while (token)
+	if (has_unclosed_quotes(command->token))
+		return (ERROR);
+	if (!check_builtins(command) && !check_bins(command->token, command->envp))
 	{
-		if (has_unclosed_quotes(token))
-			return (ERROR);
-		/* DO WE REALLY NEED THIS?
-		if (token->type == SETTING && lstsize_tokens(token) == 1)
-		{
-			//se tiver a dar set a uma variavel
-			//faz merdas e avanca nos tokens
-			token = token->next;
-		} */
-		if (check_builtins(token, envp)  || check_bins(token, envp))
-			return (1);
-		if (lstat(token->str, &f) != -1)
-		{
-			if (f.st_mode & __S_IFDIR)
-			{
-				token = token->next;
-				/* change_dir(token->str); */
-				return (1);
-			}	
-			if (f.st_mode & S_IXUSR)
-				return(run_cmd("", token, envp)); //sending an empty string just for the program to work
-		}
-		token = token->next;
+		printf("%s\n", CNF);
+		return (0);
 	}
+	/* DO WE REALLY NEED THIS?
+	if (lstat(token->str, &f) != -1)
+	{
+		if (f.st_mode & __S_IFDIR)
+		{
+			token = token->next;
+			change_dir(token->str);
+			return (1);
+		}	
+		if (f.st_mode & S_IXUSR)
+			return(run_cmd("", token, envp));
+	} */
 	return (1);
 }
 
 void	parser(t_commands *commands)
 {
+	int	res;
+
 	while (commands)
 	{
 		check_tokens(commands->token);
-		if (process_tokens(commands->token, commands->envp) == ERROR)
+		res = process_tokens(commands);
+		if (res != 1)
 		{
-			readline(EPROMPT);
-			break ;
+			if (res == ERROR)
+				printf("%s\n", EPROMPT);
 		}
 		commands = commands->next;
 	}

@@ -6,7 +6,7 @@
 #    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/04/22 17:35:28 by mrichard         ###   ########.fr        #
+#    Updated: 2023/05/04 22:11:12 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -I./includes
 RM = rm -rf
 LIBFT = ./libft/libft.a
 VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser/env_list\
-		src/bins src/builtins src/builtins/echo
+		src/bins src/builtins src/builtins/echo src/builtins/directory src/builtins/export
 
 UTILS = utils
 TOKEN = create_token_list def_token_types token_utils
@@ -25,6 +25,8 @@ PARSER = parser
 BINS = check_bins signal_handler
 BUILTINS = check_builtins
 ECHO = echo echo2
+DIRECTORY = directory
+EXPORT = export
 MAIN = main
 
 SRCS =	$(addsuffix .c, $(UTILS))\
@@ -34,6 +36,8 @@ SRCS =	$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(BINS))\
 		$(addsuffix .c, $(BUILTINS))\
 		$(addsuffix .c, $(ECHO))\
+		$(addsuffix .c, $(DIRECTORY))\
+		$(addsuffix .c, $(EXPORT))\
 		$(addsuffix .c, $(MAIN))
 
 OBJS = ${SRCS:.c=.o}

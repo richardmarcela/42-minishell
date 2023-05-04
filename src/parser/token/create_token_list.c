@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/04/28 22:51:25 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/04 21:43:23 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static TokenType	token_type(char *str)
 		return (PIPE);
 	if (is_redirect(str))
 		return(which_red(str));
+	if (!ft_strcmp(str, "export"))
+		return(SETTING);
 	return (ARG);
 }
 

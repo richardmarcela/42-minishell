@@ -1,4 +1,9 @@
 PROBLEMS
 
-1 - currently working on check_tokens (parser) -> Infinite loop :)
+1 - currently implementing export
 3 - Marcela's entire life (nothing i can do)
+
+NOTES:
+1 - in adding_new_token (parser) unnacessary tokens are created if "ls a >b" or "ls a> b"
+2 - export only happens if it has '='
+3 - the export value has to be immediatly after '=' and can be quoted ('fds= a' exports only ' ')

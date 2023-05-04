@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/28 22:30:12 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/04 22:31:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@
 
 # define PROMPT "minishell 🐚> "
 # define EPARSE "parse error near '|'"
-# define EPROMPT "> "
+# define EPROMPT "unclosed quotes"
 # define CNF "command not found"
-# define UNKNOWN "No such file or directory"
-# define PD "Permission denied"
+# define UNKNOWN "no such file or directory"
+# define PD "permission denied"
 # define ASPAS 34
 # define PLICAS 39
 # define ERROR -1
@@ -94,7 +94,7 @@ int				search_ops_in_str(char *s1, char *s2, int n);
 void			pipe_commands(char *str, char **envp);
 
 //PARSER/PARSER.C
-int				process_tokens(t_tokens *token, char **envp);
+int				process_tokens(t_commands *command);
 void    		parser(t_commands *commands);
 
 //PARSER/ENV_LIST.C
@@ -111,7 +111,7 @@ int				count_token(t_tokens *token);
 char			**fill_args(t_tokens *token);
 
 //BUILTINS/CHECK_BUILTINS.C
-int				check_builtins(t_tokens *token, char **envp);
+int				check_builtins(t_commands *command);
 
 //BINS/CHECK_BINS.C
 int				check_bins(t_tokens *token, char **envp);
@@ -125,5 +125,11 @@ int				count(char *command, int n);
 
 //BUILTINS/ECHO/ECHO2.C
 void			process_argument(char *str);
+
+//BUILTINS/DIRECTORY/DIRECTORY.C
+int				change_dir(char *dir);
+
+//BUILTINS/EXPORT/EXPORT.C
+int				export(t_commands *command);
 
 #endif
