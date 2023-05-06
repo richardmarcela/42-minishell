@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/04 22:34:49 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:24:02 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 		original_str = token->str;
 		op_str = ft_substr(original_str, pos, ft_strlen(op));
 		token->str = ft_substr(original_str, 0, pos);
-		new_str = ft_substr(original_str, pos + ft_strlen(op), ft_strlen(original_str) - ft_strlen(op_str) - ft_strlen(token->str));
+		new_str = ft_substr(original_str, pos + ft_strlen(op), ft_strlen(original_str)
+			- ft_strlen(op_str) - ft_strlen(token->str));
 		op_token = lstnew_token(op_str, PIPE);
 		token->next = op_token;
 		new_token = lstnew_token(new_str, PIPE);
@@ -78,22 +79,22 @@ int		process_tokens(t_commands *command)
 
 	if (has_unclosed_quotes(command->token))
 		return (ERROR);
-	if (!check_builtins(command) && !check_bins(command->token, command->envp))
+	if (!check_builtins(command) && !check_bins(command->token, command->env))
 	{
 		printf("%s\n", CNF);
 		return (0);
 	}
-	/* DO WE REALLY NEED THIS?
-	if (lstat(token->str, &f) != -1)
+	/* checks if is a folder or executable file
+	if (lstat(command->token->str, &f) != -1)
 	{
 		if (f.st_mode & __S_IFDIR)
 		{
-			token = token->next;
-			change_dir(token->str);
+			command->token = command->token->next;
+			change_dir(command->token->str);
 			return (1);
 		}	
 		if (f.st_mode & S_IXUSR)
-			return(run_cmd("", token, envp));
+			return(run_cmd("", command->token, command->envp));
 	} */
 	return (1);
 }

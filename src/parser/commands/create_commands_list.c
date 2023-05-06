@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/28 17:44:55 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/05 19:34:58 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	lstsize_commands(t_commands *commands)
 	return (count);
 }
 
-static t_commands	*lstnew_commands(t_tokens *token)
+static t_commands	*lstnew_commands(t_tokens *token, t_env *env)
 {
 	t_commands	*node;
 
@@ -33,6 +33,7 @@ static t_commands	*lstnew_commands(t_tokens *token)
 	if (node == NULL)
 		return (NULL);
 	node->token = token;
+	node->env = env;
 	node->stdin = 0;
 	node->stdout = 1;
 	node->next = NULL;
@@ -63,7 +64,7 @@ static void	lstadd_back_commands(t_commands **lst, t_commands *new)
 	tail->next = new;
 }
 
-void	pipe_commands(char *str, char **envp)
+void	pipe_commands(char *str, t_env *env)
 {
 	int			i;
 	char		**pipe_splitted;
@@ -81,14 +82,13 @@ void	pipe_commands(char *str, char **envp)
 		printf("%s\n", EPARSE);
 		return ;
 	}
-	head = lstnew_commands(token_list(pipe_splitted[i]));
+	head = lstnew_commands(token_list(pipe_splitted[i]), env);
 	current_node = head;
 	while (pipe_splitted[++i])
 	{
-		current_node = lstnew_commands(token_list(pipe_splitted[i]));
+		current_node = lstnew_commands(token_list(pipe_splitted[i]), env);
 		lstadd_back_commands(&head, current_node);
 		current_node = current_node->next;
 	}
-	init_env(head, envp);
 	parser(head);
 }

@@ -6,7 +6,7 @@
 #    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/05/04 22:11:12 by mrichard         ###   ########.fr        #
+#    Updated: 2023/05/05 18:50:13 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,16 +16,17 @@ CFLAGS = -Wall -Wextra -Werror -I./includes
 RM = rm -rf
 LIBFT = ./libft/libft.a
 VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser/env_list\
-		src/bins src/builtins src/builtins/echo src/builtins/directory src/builtins/export
+		src/bins src/builtins src/builtins/echo src/builtins/export\
+		src/parser/env
 
 UTILS = utils
 TOKEN = create_token_list def_token_types token_utils
 COMMANDS = create_commands_list
 PARSER = parser
+ENV = create_env_list env_utils
 BINS = check_bins signal_handler
-BUILTINS = check_builtins
+BUILTINS = check_builtins env directory
 ECHO = echo echo2
-DIRECTORY = directory
 EXPORT = export
 MAIN = main
 
@@ -33,23 +34,31 @@ SRCS =	$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(TOKEN))\
 		$(addsuffix .c, $(COMMANDS))\
 		$(addsuffix .c, $(PARSER))\
+		$(addsuffix .c, $(ENV))\
 		$(addsuffix .c, $(BINS))\
 		$(addsuffix .c, $(BUILTINS))\
 		$(addsuffix .c, $(ECHO))\
-		$(addsuffix .c, $(DIRECTORY))\
 		$(addsuffix .c, $(EXPORT))\
 		$(addsuffix .c, $(MAIN))
 
-OBJS = ${SRCS:.c=.o}
+OBJ_DIR = obj
+OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJ_DIR) $(OBJS)
 	$(MAKE) --no-print-directory -C ./libft
 	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT) -lreadline
 
+$(OBJ_DIR):
+	mkdir -p obj
+
+$(OBJ_DIR)/%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@ $(LINK)
+
 clean:
 	$(MAKE) clean -C ./libft
+	$(RM) $(OBJ_DIR)
 	$(RM) $(OBJS)
 	
 fclean: clean

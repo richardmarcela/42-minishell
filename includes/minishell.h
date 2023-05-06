@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/04 22:31:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:19:42 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 
-# define PROMPT "minishell 🐚> "
+# define PROMPT "shell pequeno 🐚> "
 # define EPARSE "parse error near '|'"
 # define EPROMPT "unclosed quotes"
-# define CNF "command not found"
+# define CNF "shell pequeno: command not found"
 # define UNKNOWN "no such file or directory"
 # define PD "permission denied"
 # define ASPAS 34
@@ -59,17 +59,17 @@ typedef struct s_tokens
 	struct s_tokens 		*next;
 }				t_tokens;
 
-/* typedef struct s_env
+typedef struct s_env
 {
 	char 					*str;
-	int						was_declared;
+	/* int						was_declared; */
 	struct s_env			*next;
-}				t_env; */
+}				t_env;
 
 typedef struct s_commands
 {
+	t_env					*env;
 	t_tokens 				*token;
-	char					**envp;
 	int						stdin;
 	int						stdout;
 	struct s_commands		*next;
@@ -91,14 +91,14 @@ int 			lstsize_tokens(t_tokens *token);
 int				search_ops_in_str(char *s1, char *s2, int n);
 
 //PARSER/PIPE_SPLIT.C
-void			pipe_commands(char *str, char **envp);
+void			pipe_commands(char *str, t_env *env);
 
 //PARSER/PARSER.C
 int				process_tokens(t_commands *command);
 void    		parser(t_commands *commands);
 
 //PARSER/ENV_LIST.C
-void			init_env(t_commands *commands, char **envp);
+t_env			*init_env(char **envp);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*lstnew_token(char *str, TokenType type);
@@ -114,9 +114,10 @@ char			**fill_args(t_tokens *token);
 int				check_builtins(t_commands *command);
 
 //BINS/CHECK_BINS.C
-int				check_bins(t_tokens *token, char **envp);
+int				check_bins(t_tokens *token, t_env *env);
 void    		proc_signal_handler(int sig);
-int				run_cmd(char *bin_path, t_tokens *token, char **envp);
+int				run_cmd(char *bin_path, t_tokens *token, t_env *env);
+int				env_len(t_env *env);
 
 //BUILTINS/ECHO/ECHO.C
 int				print(t_tokens *token);
@@ -131,5 +132,14 @@ int				change_dir(char *dir);
 
 //BUILTINS/EXPORT/EXPORT.C
 int				export(t_commands *command);
+
+//BUILTINS/ENV/ENV.C
+int				env(t_env *env);
+
+//BUILTINS/ENV/ENV.C
+char			**fill_env_matrix(t_env *env);
+t_env	*lstnew_env(char *envp);
+void	lstadd_back_env(t_env **lst, t_env *new);
+
 
 #endif

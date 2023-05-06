@@ -6,27 +6,20 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/04 22:47:33 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/05 19:09:32 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* static int  envp_size(char **envp)
-{
-    int count;
-
-    count = 0;
-    while (envp[count])
-        count++;
-    return (count);
-} */
-
 int    export(t_commands *command)
 {
-    int     size;
-   
-    printf("%s\n", command->token->str);
+    t_env *new;
     
-    return(1);
+    if (ft_strchr(command->token->str, '='))
+    {
+        new = lstnew_env(command->token->str);
+        lstadd_back_env(&command->env, new);
+    }
+    return (1);
 }

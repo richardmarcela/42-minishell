@@ -1,35 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/05 19:34:46 by mrichard         ###   ########.fr       */
+/*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
+/*   Updated: 2023/05/05 19:34:53 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+int env(t_env *env)
 {
-	char		*line;
-	t_env		*env;
+	int	i;
 	
-	(void)argv;
-	if (argc == 1)
+	i = -1;
+	while (env)
 	{
-		env = init_env(envp);
-		while (1)
-		{
-			line = readline(PROMPT);
-			pipe_commands(line, env);
-			add_history(line);
-			free(line);
-		}
+		printf("%s\n", env->str);
+		env = env->next;
 	}
-	else
-		printf("Error: Too many arguments!\n");
-	return (0);
+	return (1);
 }

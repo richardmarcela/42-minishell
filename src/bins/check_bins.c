@@ -6,35 +6,23 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/04 21:13:59 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/05 20:27:17 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	env_len(char **envp)
+int	env_len(t_env *env)
 {
-	int	i;
 	int	count;
 
-	i = -1;
 	count = 0;
-	while (envp[++i])
+	while (env)
+	{
 		count++;
+		env = env->next;
+	}
 	return (count);	
-}
-
-void	init_env(t_commands *commands, char **envp)
-{
-	int	i;
-	int	len;
-	
-	i = -1;
-	len = env_len(envp);
-	commands->envp = (char **)malloc(sizeof(char *) * len + 1);
-	commands->envp[len] = 0;
-	while (++i < len)
-		commands->envp[i] = envp[i];
 }
 
 static int	is_executable(char *bin_path, struct stat f)
@@ -52,7 +40,7 @@ static int	is_executable(char *bin_path, struct stat f)
 	return (0);
 }
 
-int	check_bins(t_tokens *token, char **envp)
+int	check_bins(t_tokens *token, t_env *env)
 {
 	int			i;
 	char		*bin_path;
@@ -72,23 +60,25 @@ int	check_bins(t_tokens *token, char **envp)
 			free(bin_path);
 		else if (is_executable(bin_path, f))
 		{
-			run_cmd(bin_path, token, envp);
+			run_cmd(bin_path, token, env);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-int	run_cmd(char *bin_path, t_tokens *token, char **envp)
+int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 {
 	char 		**args;
+	char 		**env_matrix;
 	pid_t		pid;
 
 	args = fill_args(token);
+	env_matrix = fill_env_matrix(env);
 	pid = fork();
-	/* signal(SIGINT, proc_signal_handler); */
+	signal(SIGINT, proc_signal_handler);
 	if (pid == 0)
-		execve(bin_path, args, envp);
+		execve(bin_path, args, env_matrix);
 	if (pid < 0)
 	{
 		free(bin_path);

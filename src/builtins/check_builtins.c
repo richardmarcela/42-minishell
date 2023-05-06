@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/04 22:34:45 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/05 18:44:14 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ int	check_builtins(t_commands *command)
 		command->token = command->token->next;
 		return (export(command));
 	}
+	else if (!ft_strcmp(command->token->str, "env"))
+		return (env(command->env));
 	/* else if (!ft_strcmp(line[0], "unset"))
-		unsetenv();
-	[TIREI DAQUI O ENV PQ E UM BINARIO] */
+		unsetenv(); */
 	return (0);
 }
