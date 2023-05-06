@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/05 20:19:42 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/06 19:38:48 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,5 +141,6 @@ char			**fill_env_matrix(t_env *env);
 t_env	*lstnew_env(char *envp);
 void	lstadd_back_env(t_env **lst, t_env *new);
 
-
+void	handle_global_signals(void);
+void	handle_cmd_signals(void);
 #endif

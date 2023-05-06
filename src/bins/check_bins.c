@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/05 20:27:17 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/06 19:49:00 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int	check_bins(t_tokens *token, t_env *env)
 	char		**path;
 	struct 		stat	f;
 	t_tokens	*head;
-	t_tokens	*current;
+	//t_tokens	*current;
 
 	path = ft_split(getenv("PATH"), ':');
 	i = -1;
 	head = token;
-	current = head;
+	//current = head;
 	while (path && path[++i])
 	{
 		bin_path = ft_strjoin(ft_strjoin(path[i], "/"), head->str);
@@ -76,7 +76,8 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	args = fill_args(token);
 	env_matrix = fill_env_matrix(env);
 	pid = fork();
-	signal(SIGINT, proc_signal_handler);
+	//lida com sinais para interromper comandos em execução
+	handle_cmd_signals();
 	if (pid == 0)
 		execve(bin_path, args, env_matrix);
 	if (pid < 0)
@@ -86,5 +87,7 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 		return (0);
 	}
 	wait(&pid);
+	//lida com outros momentos que o CTRL C seja enviado
+	handle_global_signals();
 	return (1);
 }

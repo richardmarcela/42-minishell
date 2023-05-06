@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/05 19:34:53 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/06 18:13:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 
 int env(t_env *env)
 {
-	int	i;
-	
-	i = -1;
 	while (env)
 	{
 		printf("%s\n", env->str);

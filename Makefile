@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/05/05 18:50:13 by mrichard         ###   ########.fr        #
+#    Updated: 2023/05/06 19:34:12 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,12 @@ OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
+	@printf "\n"
+	@echo $(G)"       _     _     _       _ _ "$(X)
+	@echo $(G)" _____|_|___|_|___| |_ ___| | |"$(X)
+	@echo $(G)"|     | |   | |_ -|   | -_| | |"$(X)
+	@echo $(G)"|_|_|_|_|_|_|_|___|_|_|___|_|_|"$(X)
+	@printf "\n\n"
 
 $(NAME): $(OBJ_DIR) $(OBJS)
 	$(MAKE) --no-print-directory -C ./libft
