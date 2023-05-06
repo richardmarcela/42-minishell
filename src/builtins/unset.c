@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   unset.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/06 20:14:27 by mrichard         ###   ########.fr       */
+/*   Created: 2023/05/06 20:23:02 by mrichard          #+#    #+#             */
+/*   Updated: 2023/05/06 21:07:15 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int main(int argc, char **argv, char **envp)
+/* static void delete(t_env *env, int i)
 {
-	char		*line;
-	t_env		*env;
-	
-	(void)argv;
-	handle_global_signals();
-	if (argc == 1)
-	{
-		env = init_env(envp);
-		while (1)
-		{
-			line = readline(PROMPT);
-			pipe_commands(line, env);
-			add_history(line);
-			free(line);
-		}
-	}
-	else
-		printf("Error: Too many arguments!\n");
-	return (0);
-}
+    
+} */
+
+int unset_env(t_commands *command)
+{
+    (void)command;
+    /* int i;
+    t_env *current;
+
+    i = 0;
+    current = command->env;
+    while (command->env)
+    {
+        if (!ft_strcmp(command->token->str, current->str))
+            delete(command->env, i);
+        i++;
+        current = current->next;
+    }*/
+    return (1);
+} 

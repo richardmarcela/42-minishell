@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/06 19:38:48 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/06 20:34:29 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,6 @@ void			pipe_commands(char *str, t_env *env);
 int				process_tokens(t_commands *command);
 void    		parser(t_commands *commands);
 
-//PARSER/ENV_LIST.C
-t_env			*init_env(char **envp);
-
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*lstnew_token(char *str, TokenType type);
 void			lstadd_back_token(t_tokens **lst, t_tokens *new);
@@ -119,6 +116,10 @@ void    		proc_signal_handler(int sig);
 int				run_cmd(char *bin_path, t_tokens *token, t_env *env);
 int				env_len(t_env *env);
 
+//BINS/SIGNAL_HANDLER.C
+void			handle_global_signals(void);
+void			handle_cmd_signals(void);
+
 //BUILTINS/ECHO/ECHO.C
 int				print(t_tokens *token);
 int				has_unclosed_quotes(t_tokens *token);
@@ -136,11 +137,15 @@ int				export(t_commands *command);
 //BUILTINS/ENV/ENV.C
 int				env(t_env *env);
 
-//BUILTINS/ENV/ENV.C
+//PARSER/ENV/ENV_UTILS.C
 char			**fill_env_matrix(t_env *env);
-t_env	*lstnew_env(char *envp);
-void	lstadd_back_env(t_env **lst, t_env *new);
 
-void	handle_global_signals(void);
-void	handle_cmd_signals(void);
+//BUILTINS/ENV/UNSET.C
+int unset_env(t_commands *command);
+
+//PARSER/ENV/CREATE_ENV_LIST.C
+t_env			*init_env(char **envp);
+t_env			*lstnew_env(char *envp);
+void			lstadd_back_env(t_env **lst, t_env *new);
+
 #endif
