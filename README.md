@@ -1,14 +1,5 @@
 # 42-minishell
 
-TO-DO:
-
-- Pipe
-- Export
-- Unset
-- Signals (CNTRL+D, CNTRL+C)
-- Implementar os sinais na nova funcao 'echo_error'
-- Redirections
-
 https://github.com/iciamyplant/Minishell
 
 https://github.com/vportens/minishell
@@ -28,8 +19,3 @@ https://stackoverflow.com/questions/1516122/how-to-capture-controld-signal -- SI
 https://www.youtube.com/watch?v=SToUyjAsaFk
 
 https://rodsmade.notion.site/Acelera-Minishell-f6c3f8463e3e4580b4e61f4886036faf
-
-echo precisa de nº par de aspas/plicas
-echo consegue escrever variáveis q n foram exportadas
-
-Conclusão: refazer echo
