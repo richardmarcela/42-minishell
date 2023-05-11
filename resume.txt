@@ -1,12 +1,13 @@
 PROBLEMS
 
-1 - currently implementing export
+1 - currently implementing export and unset
 2 - add newline 'cat'
 3 - change env in parser (checks if is a folder or executable file)
 4 - cannot access should be just the first file but it does to every token* and it's doing for cat too
 5 - error status
 6 - ctrl d seg fault
-7 - Marcela's entire life (nothing i can do)
+7 - unset just by name and not by whole string (fds=a)
+8 - Marcela's entire life (nothing i can do)
 
 NOTES:
 1 - in adding_new_token (parser) unnacessary tokens are created if "ls a >b" or "ls a> b"
