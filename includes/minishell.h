@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/06 20:34:29 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/12 15:46:20 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,6 +127,7 @@ int				count(char *command, int n);
 
 //BUILTINS/ECHO/ECHO2.C
 void			process_argument(char *str);
+char	*get_variable(char *str, int *pos);
 
 //BUILTINS/DIRECTORY/DIRECTORY.C
 int				change_dir(char *dir);

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 20:23:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/11 16:24:51 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/12 16:07:09 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,35 +14,37 @@
 
 static void    free_env_var(t_env *env)
 {
-    free(env->str);
-    free(env);
+	free(env->str);
+	free(env);
 }
 
 int unset_env(t_commands *command)
 {
-    t_env   *prev;
-    t_env   *curr;
+	t_env   *prev;
+	t_env   *curr;
+	size_t  var_len;
 
-    // Caso a variável a ser removida seja a primeira da lista
-    if (!ft_strcmp(command->token->str, command->env->str))
-    {
-        curr = command->env;
-        command->env = curr->next;
-        free_env_var(curr);
-        return (0);
-    }
-    prev = command->env;
-    curr = prev->next;
-    while (curr)
-    {
-        if (!ft_strcmp(command->token->str, curr->str))
-        {
-            prev->next = curr->next;
-            free_env_var(curr);
-            return (0);
-        }
-        prev = curr;
-        curr = prev->next;
-    }
-    return (1);
+	var_len = ft_strlen(command->token->str);
+	// Caso a variável a ser removida seja a primeira da lista
+	if (!ft_strncmp(command->token->str, command->env->str, var_len))
+	{
+		curr = command->env;
+		command->env = curr->next;
+		free_env_var(curr);
+		return (1);
+	}
+	prev = command->env;
+	curr = prev->next;
+	while (curr)
+	{
+		if (!ft_strncmp(command->token->str, curr->str, var_len))
+		{
+			prev->next = curr->next;
+			free_env_var(curr);
+			return (1);
+		}
+		prev = curr;
+		curr = prev->next;
+	}
+	return (0);
 }

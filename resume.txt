@@ -6,7 +6,8 @@ PROBLEMS
 4 - cannot access should be just the first file but it does to every token* and it's doing for cat too
 5 - error status
 6 - ctrl d seg fault
-7 - unset just by name and not by whole string (fds=a)
+7 - export (a=$HOME)
+8 - checks if a variable with that name already exists then substitute the value
 8 - Marcela's entire life (nothing i can do)
 
 NOTES:
