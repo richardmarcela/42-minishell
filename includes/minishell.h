@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/12 15:46:20 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/13 19:37:11 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,7 @@ int				count(char *command, int n);
 
 //BUILTINS/ECHO/ECHO2.C
 void			process_argument(char *str);
-char	*get_variable(char *str, int *pos);
+char			*get_variable(char *str, int *pos);
 
 //BUILTINS/DIRECTORY/DIRECTORY.C
 int				change_dir(char *dir);
@@ -135,8 +135,12 @@ int				change_dir(char *dir);
 //BUILTINS/EXPORT/EXPORT.C
 int				export(t_commands *command);
 
+//BUILTINS/EXPORT/EXPORT_UTILS.C
+char			*process_env_variable(char *str, t_env *env);
+
 //BUILTINS/ENV/ENV.C
 int				env(t_env *env);
+char			*env_value(char *str, t_env *env);
 
 //PARSER/ENV/ENV_UTILS.C
 char			**fill_env_matrix(t_env *env);

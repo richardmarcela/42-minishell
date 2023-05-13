@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/06 18:13:11 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/13 20:29:41 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,29 @@ int env(t_env *env)
 		env = env->next;
 	}
 	return (1);
+}
+
+char	*env_value(char *str, t_env *env)
+{
+	int		pos;
+	char	*search;
+	char	*env_name;
+	char	*value;
+
+	search = ft_strtrim(str, "$");
+	value = NULL;
+	while (env)
+	{
+		pos = search_ops_in_str(env->str, "=", ft_strlen(env->str));
+		env_name = ft_substr(env->str, 0, pos);
+		if (!ft_strcmp(search, env_name))
+		{
+			value = ft_strtrim(ft_strchr(env->str, '='), "=");
+			break;
+		}
+		env = env->next;
+	}
+	free(env_name);
+	free(search);
+	return (value);
 }

@@ -1,19 +1,22 @@
 PROBLEMS
 
-1 - currently implementing export and unset
+1 - export ends in seg fault when has quotes or content after variable
 2 - add newline 'cat'
 3 - change env in parser (checks if is a folder or executable file)
-4 - cannot access should be just the first file but it does to every token* and it's doing for cat too
+4 - cannot access should be just the first file but it does to every token and it's doing for cat too*
 5 - error status
 6 - ctrl d seg fault
 7 - export (a=$HOME)
-8 - checks if a variable with that name already exists then substitute the value
-8 - Marcela's entire life (nothing i can do)
+8 - in adding_new_token (parser) unnacessary tokens are created if "ls a >b" or "ls a> b"
+9 - the whole program is working with 'getenv' which does not use our t_env
+
+
+
+999 - Marcela's entire life (nothing i can do)
 
 NOTES:
-1 - in adding_new_token (parser) unnacessary tokens are created if "ls a >b" or "ls a> b"
-2 - export only happens if it has '='
-3 - the export value has to be immediatly after '=' and can be quoted ('fds= a' exports only ' ')
+1 - export only happens if it has '='
+2 - the export value has to be immediatly after '=' and can be quoted ('fds= a' exports only ' ')
 
 
 *ls: cannot access 'a': No such file or directory

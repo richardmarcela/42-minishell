@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+         #
+#    By: riolivei <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/05/11 16:02:37 by mrichard         ###   ########.fr        #
+#    Updated: 2023/05/13 17:28:36 by riolivei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ COMMANDS = create_commands_list
 PARSER = parser
 ENV = create_env_list env_utils
 BINS = check_bins signal_handler
-BUILTINS = check_builtins env cd export unset
+BUILTINS = check_builtins env cd export export_utils unset
 ECHO = echo echo2
 MAIN = main
 
