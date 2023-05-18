@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/13 22:45:04 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/05/18 16:37:52 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,26 +64,25 @@ static char	*env_quote_handler(char *str, int *pos, bool *unclosed_squotes, bool
 	int		start;
 	
 	new_str = NULL;
-	if (str[*pos] == PLICAS)
+	(*pos)++;
+	if (str[(*pos) - 1] == PLICAS)
 	{
-		(*pos)++;
 		start = (*pos);
 		env_change_flag(unclosed_squotes);
 		while(str[*pos] && str[*pos] != PLICAS)
 			(*pos)++;
-		new_str = ft_strjoin(new_str, ft_substr(str, start, (*pos)));
+		new_str = ft_substr(str, start, (*pos) - start);
 		env_change_flag(unclosed_squotes);
 	}
 	else
 	{
-		(*pos)++;
 		env_change_flag(unclosed_quotes);
 		while(str[*pos] && str[*pos] != ASPAS)
 		{
 			if (!(*unclosed_squotes))
 			{
 				if (str[*pos] == '$')
-					env_search_variable(str, pos, env);
+					new_str = env_search_variable(str, pos, env);
 				else
 					new_str = ft_strjoin(new_str, ft_substr(str, (*pos), 1));
 			}
@@ -114,10 +113,7 @@ char	*process_env_variable(char *input, t_env *env)
 	while (input[i])
 	{
 		if (isquote(input[i]))
-		{
 			result = ft_strjoin(result, env_quote_handler(input, &i, &unclosed_squotes, &unclosed_quotes, env));
-			printf("RES: %s\n", result);
-		}
 		else if (input[i] == '$' && !unclosed_squotes)
 			result = ft_strjoin(result, env_search_variable(input, &i, env));
 		else
@@ -129,7 +125,5 @@ char	*process_env_variable(char *input, t_env *env)
 		}
 		i++;
 	}
-	printf("FINAL: %s\n", result);
-	exit(0);
 	return (result);
 }

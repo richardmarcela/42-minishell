@@ -1,6 +1,6 @@
 PROBLEMS
 
-1 - export ends in seg fault when has quotes or content after variable
+1 - export results in infinite cicle when "'$HOME'"
 2 - add newline 'cat'
 3 - change env in parser (checks if is a folder or executable file)
 4 - cannot access should be just the first file but it does to every token and it's doing for cat too*
