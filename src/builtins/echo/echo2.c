@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/13 17:25:55 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:00:51 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	search_variable(char *command, int *pos)
 		printf("%c", command[i]);
 	else
 	{
+		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 		env = getenv(get_variable(command, &i));
 		if (env)
 			printf("%s", env);

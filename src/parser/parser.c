@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/05 20:24:02 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:48:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,27 +75,21 @@ static void	check_tokens(t_tokens *token)
 
 int		process_tokens(t_commands *command)
 {
-	/* struct stat	f; */
+	t_tokens	*head;
 
-	if (has_unclosed_quotes(command->token))
-		return (ERROR);
+	head = command->token;
+	while (command->token)
+	{
+		if (has_open_quotes(command->token->str, ft_strlen(command->token->str)))
+			return (ERROR);
+		command->token = command->token->next;
+	}
+	command->token = head;
 	if (!check_builtins(command) && !check_bins(command->token, command->env))
 	{
 		printf("%s\n", CNF);
 		return (0);
 	}
-	/* checks if is a folder or executable file
-	if (lstat(command->token->str, &f) != -1)
-	{
-		if (f.st_mode & __S_IFDIR)
-		{
-			command->token = command->token->next;
-			change_dir(command->token->str);
-			return (1);
-		}	
-		if (f.st_mode & S_IXUSR)
-			return(run_cmd("", command->token, command->envp));
-	} */
 	return (1);
 }
 

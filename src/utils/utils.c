@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/28 22:57:13 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:29:50 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,6 @@ int	search_ops_in_str(char *s1, char *s2, int n)
 	int	j;
 
 	i = 0;
-	//este if e msm preciso?
-	/* if (*s2 == '\0')
-		return (0); */
 	while (s1[i] && i < n)
 	{
 		j = 0;

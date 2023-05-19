@@ -6,12 +6,11 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/04 20:05:17 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:56:29 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "../includes/minishell.h"
 #define ASPAS 34
 #define PLICAS 39
 
@@ -31,7 +30,35 @@ static int	skip_quoted_content(char *s, int *i, int *flag)
 
 int	has_open_quotes(char *str, int pos)
 {
-	if (count(ft_substr(str, 0, pos), ASPAS) % 2 != 0 || count(ft_substr(str, 0, pos), PLICAS) % 2 != 0)
+	int		i;
+	int		counts;
+	int		countd;
+	bool	squote;
+	bool	dquote;
+
+	i = 0;
+	counts = 0;
+	countd = 0;
+	squote = false;
+	dquote = false;
+	while (str[i] && i < pos)
+	{
+		if (isquote(str[i]))
+		{
+			if (str[i] == ASPAS && !squote)
+			{
+				change_flag(&dquote);
+				countd++;
+			}
+			else if (str[i] == PLICAS && !dquote)
+			{
+				change_flag(&squote);
+				counts++;
+			}
+		}
+		i++;
+	}
+	if (counts % 2 != 0 || countd % 2 != 0)
 		return (1);
 	return (0);
 }

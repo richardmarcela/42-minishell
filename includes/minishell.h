@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/13 19:37:11 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/05/19 20:04:56 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_tokens
 typedef struct s_env
 {
 	char 					*str;
-	/* int						was_declared; */
 	struct s_env			*next;
 }				t_env;
 
@@ -74,9 +73,6 @@ typedef struct s_commands
 	int						stdout;
 	struct s_commands		*next;
 }				t_commands;
-
-//PARSER/TOKEN/CREATE_TOKEN_LIST.C
-t_tokens    	*token_list(char *line);
 
 //PARSER/TOKEN/DEF_TOKEN_TYPE.C
 int				is_option(char *str);
@@ -98,13 +94,13 @@ int				process_tokens(t_commands *command);
 void    		parser(t_commands *commands);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
+t_tokens    	*token_list(char *line);
 t_tokens		*lstnew_token(char *str, TokenType type);
 void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 
 //PARSER/TOKEN/TOKEN_UTILS.C
 TokenType   	which_red(char *str);
 t_tokens 		*define_head(char **splitted, int *i);
-int				count_token(t_tokens *token);
 char			**fill_args(t_tokens *token);
 
 //BUILTINS/CHECK_BUILTINS.C
@@ -112,7 +108,6 @@ int				check_builtins(t_commands *command);
 
 //BINS/CHECK_BINS.C
 int				check_bins(t_tokens *token, t_env *env);
-void    		proc_signal_handler(int sig);
 int				run_cmd(char *bin_path, t_tokens *token, t_env *env);
 int				env_len(t_env *env);
 
@@ -122,15 +117,15 @@ void			handle_cmd_signals(void);
 
 //BUILTINS/ECHO/ECHO.C
 int				print(t_tokens *token);
-int				has_unclosed_quotes(t_tokens *token);
 int				count(char *command, int n);
 
 //BUILTINS/ECHO/ECHO2.C
 void			process_argument(char *str);
+void			change_flag(bool *flag);
 char			*get_variable(char *str, int *pos);
 
 //BUILTINS/DIRECTORY/DIRECTORY.C
-int				change_dir(char *dir);
+int				change_dir(char *dir, t_env *env);
 
 //BUILTINS/EXPORT/EXPORT.C
 int				export(t_commands *command);
@@ -142,13 +137,11 @@ char			*process_env_variable(char *str, t_env *env);
 int				env(t_env *env);
 char			*env_value(char *str, t_env *env);
 
-//PARSER/ENV/ENV_UTILS.C
-char			**fill_env_matrix(t_env *env);
-
 //BUILTINS/ENV/UNSET.C
-int unset_env(t_commands *command);
+int 			unset_env(t_commands *command);
 
 //PARSER/ENV/CREATE_ENV_LIST.C
+char			**fill_env_matrix(t_env *env);
 t_env			*init_env(char **envp);
 t_env			*lstnew_env(char *envp);
 void			lstadd_back_env(t_env **lst, t_env *new);

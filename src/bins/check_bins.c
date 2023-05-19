@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/06 19:49:00 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/19 19:59:27 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,10 @@ int	check_bins(t_tokens *token, t_env *env)
 	char		**path;
 	struct 		stat	f;
 	t_tokens	*head;
-	//t_tokens	*current;
 
-	path = ft_split(getenv("PATH"), ':');
+	path = ft_split(env_value("PATH", env), ':');
 	i = -1;
 	head = token;
-	//current = head;
 	while (path && path[++i])
 	{
 		bin_path = ft_strjoin(ft_strjoin(path[i], "/"), head->str);

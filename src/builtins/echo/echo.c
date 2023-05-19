@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:46:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/04/27 20:41:54 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/18 18:49:10 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,6 @@ int	is_right_flag(char *str)
 {
 	if (!ft_strcmp(ft_strtrim(str, "\""), "-n") || !ft_strcmp(ft_strtrim(str, "'"), "-n"))
 		return (1);
-	return (0);
-}
-
-int	has_unclosed_quotes(t_tokens *token)
-{
-	while (token)
-	{
-		//printf("token = %s\n", token->str);
-		if (count(token->str, PLICAS) % 2 != 0 || count(token->str, ASPAS) % 2 != 0)
-			return (1);
-		token = token->next;
-	}
 	return (0);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 00:06:20 by marcela           #+#    #+#             */
-/*   Updated: 2023/05/13 17:44:30 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/05/18 19:33:09 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 #  define BUFFER_SIZE 1
 # endif
 
+# include "../includes/minishell.h"
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
