@@ -6,17 +6,19 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:08:50 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/19 19:20:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:36:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+//CTRL C no meio de um processo
 static void	handle_cmd_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
-		//set_err_code(130);
+		g_exit_status = 130;
+		printf("\nERROR STATUS SIGINT MIDDLE OF PROCESS: %d\n", g_exit_status);
 		printf("\n");
 		//move o cursor para a próxima linha e att o buffer interno do readline
 		rl_on_new_line();
@@ -25,11 +27,13 @@ static void	handle_cmd_signal(int sig)
 	}
 }
 
+//outros momentos de CTRL C
 static void	handle_global_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
-		//set_err_code(1);
+		g_exit_status = 130;
+		printf("\nERROR STATUS SIGINT: %d\n", g_exit_status);
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);

@@ -6,7 +6,7 @@
 #    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/05/19 20:08:21 by mrichard         ###   ########.fr        #
+#    Updated: 2023/05/20 16:15:03 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ CFLAGS = -Wall -Wextra -Werror -I./includes
 RM = rm -rf
 LIBFT = ./libft/libft.a
 VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser/env_list\
-		src/bins src/builtins src/builtins/echo	src/builtins/export src/parser/env 
+		src/bins src/builtins src/builtins/echo	src/builtins/export src/parser/env src/pipe
 
 UTILS = utils
 TOKEN = create_token_list def_token_types token_utils
@@ -27,6 +27,7 @@ BINS = check_bins signal_handler
 BUILTINS = check_builtins env cd unset
 ECHO = echo echo2
 EXPORT = export export_utils
+PIPE = pipe
 MAIN = main
 
 SRCS =	$(addsuffix .c, $(UTILS))\
@@ -38,6 +39,7 @@ SRCS =	$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(BUILTINS))\
 		$(addsuffix .c, $(ECHO))\
 		$(addsuffix .c, $(EXPORT))\
+		$(addsuffix .c, $(PIPE))\
 		$(addsuffix .c, $(MAIN))
 
 OBJ_DIR = obj

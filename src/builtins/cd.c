@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:40:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/19 19:58:09 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:32:01 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	change_dir(char *dir, t_env *env)
 		dir = env_value("HOME", env);
 	if (chdir(dir))
 	{
+		g_exit_status = 1;
+		printf("EXIT STATUS NO SUCH FILE OR DIR: %d\n", g_exit_status);
 		printf("%s\n", UNKNOWN);
 		return (0);
 	}

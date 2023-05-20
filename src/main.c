@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/19 19:46:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:27:08 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,11 @@ int main(int argc, char **argv, char **envp)
 		{
 			line = readline(PROMPT);
 			if (!line)
+			{
+				g_exit_status = 0;
+				printf("EXIT STATUS CTRL D: %d\n", g_exit_status);
 				exit(0);
+			}
 			pipe_commands(line, env);
 			add_history(line);
 			free(line);

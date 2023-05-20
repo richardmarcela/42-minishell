@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/19 18:36:28 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:06:07 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,7 @@ int    export(t_commands *command)
 	{
 		pos = search_ops_in_str(command->token->str, "=", ft_strlen(command->token->str));
 		env_name = ft_substr(command->token->str, 0, pos);
-		printf("ENV NAME: %s\n", env_name);
 		env_value = process_env_variable(command->token->str, command->env);
-		printf("ENV VALUE: %s\n", env_value);
 		if (!env_exists(env_head, env_name, env_value))
 		{
 			new = lstnew_env(env_value);

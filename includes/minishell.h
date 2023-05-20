@@ -6,73 +6,16 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 20:04:56 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:19:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "../libft/libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-# include <stdbool.h>
-# include <dirent.h>
-# include <sys/types.h>
-# include <sys/stat.h>
-# include <sys/wait.h>
-# include <signal.h>
-# include <readline/readline.h>
-# include <readline/history.h>
+# include "structs.h"
 
-# define PROMPT "shell pequeno 🐚> "
-# define EPARSE "parse error near '|'"
-# define EPROMPT "unclosed quotes"
-# define CNF "shell pequeno: command not found"
-# define UNKNOWN "no such file or directory"
-# define PD "permission denied"
-# define ASPAS 34
-# define PLICAS 39
-# define ERROR -1
-# define PERROR -2
-
-typedef enum TokenType
-{
-	SETTING, //setting a variable (fds=a)
-	COMMAND, //ls, wc, echo (builtin, executables)
-	OPTION, //-a, -l... (flags)
-	PIPE, // |
-	ARG, //entre "" ou '', o que vem dps de um command... echo a, echo -n a. a = arg em ambos os casos
-	RED_IN, // <
-	RED_OUT, // >
-	APPEND_IN, // <<
-	APPEND_OUT, // >> 
-	IN_OUT, // <>
-	ERRO
-}	TokenType;
-
-typedef struct s_tokens
-{
-	char 					*str;
-	TokenType 				type;
-	struct s_tokens 		*next;
-}				t_tokens;
-
-typedef struct s_env
-{
-	char 					*str;
-	struct s_env			*next;
-}				t_env;
-
-typedef struct s_commands
-{
-	t_env					*env;
-	t_tokens 				*token;
-	int						stdin;
-	int						stdout;
-	struct s_commands		*next;
-}				t_commands;
+extern int	g_exit_status;
 
 //PARSER/TOKEN/DEF_TOKEN_TYPE.C
 int				is_option(char *str);
@@ -145,5 +88,8 @@ char			**fill_env_matrix(t_env *env);
 t_env			*init_env(char **envp);
 t_env			*lstnew_env(char *envp);
 void			lstadd_back_env(t_env **lst, t_env *new);
+
+//SRC/PIPE/PIPE.C
+void            open_pipe(t_commands *commands);
 
 #endif

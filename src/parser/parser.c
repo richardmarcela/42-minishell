@@ -6,11 +6,13 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/18 18:48:40 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/20 18:39:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_exit_status;
 
 static char	**fill_ops(void)
 {
@@ -86,10 +88,7 @@ int		process_tokens(t_commands *command)
 	}
 	command->token = head;
 	if (!check_builtins(command) && !check_bins(command->token, command->env))
-	{
-		printf("%s\n", CNF);
 		return (0);
-	}
 	return (1);
 }
 
@@ -104,8 +103,14 @@ void	parser(t_commands *commands)
 		if (res != 1)
 		{
 			if (res == ERROR)
+			{
+				g_exit_status = 2;
+				printf("EXIT STATUS UNCLOSED QUOTES: %d\n", g_exit_status);
 				printf("%s\n", EPROMPT);
+			}
 		}
 		commands = commands->next;
 	}
+	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+	//open_pipe(commands);
 }

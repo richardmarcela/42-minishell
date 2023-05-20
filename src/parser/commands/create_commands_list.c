@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/05 19:34:58 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/20 16:23:43 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	pipe_commands(char *str, t_env *env)
 	if (has_empty_pipe(pipe_splitted))
 	{
 		printf("%s\n", EPARSE);
+		g_exit_status = 1;
+		printf("EXIT STATUS PIPE: %d\n", g_exit_status);
 		return ;
 	}
 	head = lstnew_commands(token_list(pipe_splitted[i]), env);

@@ -1,3 +1,6 @@
+CURRENTLY IMPLEMENTING Marcela linda: pipe + error status
+CURRENTLY IMPLEMENTING Melo gay: echo2?
+
 PROBLEMS
 
 1 - add newline 'cat'
@@ -12,3 +15,9 @@ PROBLEMS
 *ls: cannot access 'a': No such file or directory
  ls: cannot access '>': No such file or directory
  ls: cannot access 'b': No such file or directory
+
+
+NOTES:
+
+ - open_pipe should be called before executing the commands
+ - create a function for error cases?
