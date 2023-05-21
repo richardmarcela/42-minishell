@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 18:29:45 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:45:10 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	env_len(t_env *env)
 		count++;
 		env = env->next;
 	}
-	return (count);	
+	return (count);
 }
 
 static int	is_executable(char *bin_path, struct stat f)
@@ -63,6 +63,8 @@ int	check_bins(t_tokens *token, t_env *env)
 		else if (is_executable(bin_path, f))
 		{
 			run_cmd(bin_path, token, env);
+			if (!ft_strcmp(head->str, "cat"))
+				printf("\n");
 			return (1);
 		}
 	}
@@ -78,10 +80,13 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	args = fill_args(token);
 	env_matrix = fill_env_matrix(env);
 	pid = fork();
-	//lida com sinais para interromper comandos em execução
 	handle_cmd_signals();
 	if (pid == 0)
+	{
+		if (lstsize_tokens(token, 1) != lstsize_tokens(token, 0)) //significa q ha redirects
+			handle_redir(token, bin_path, args, env_matrix);
 		execve(bin_path, args, env_matrix);
+	}
 	if (pid < 0)
 	{
 		free(bin_path);
@@ -91,7 +96,6 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 		return (0);
 	}
 	wait(&pid);
-	//lida com outros momentos que o CTRL C seja enviado
 	handle_global_signals();
 	return (1);
 }

@@ -6,7 +6,7 @@
 #    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/05/20 16:15:03 by mrichard         ###   ########.fr        #
+#    Updated: 2023/05/21 18:14:25 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,8 @@ CFLAGS = -Wall -Wextra -Werror -I./includes
 RM = rm -rf
 LIBFT = ./libft/libft.a
 VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser/env_list\
-		src/bins src/builtins src/builtins/echo	src/builtins/export src/parser/env src/pipe
+		src/bins src/builtins src/builtins/echo	src/builtins/export src/parser/env src/pipe\
+		src/redir
 
 UTILS = utils
 TOKEN = create_token_list def_token_types token_utils
@@ -28,6 +29,7 @@ BUILTINS = check_builtins env cd unset
 ECHO = echo echo2
 EXPORT = export export_utils
 PIPE = pipe
+REDIR = redir
 MAIN = main
 
 SRCS =	$(addsuffix .c, $(UTILS))\
@@ -40,6 +42,7 @@ SRCS =	$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(ECHO))\
 		$(addsuffix .c, $(EXPORT))\
 		$(addsuffix .c, $(PIPE))\
+		$(addsuffix .c, $(REDIR))\
 		$(addsuffix .c, $(MAIN))
 
 OBJ_DIR = obj

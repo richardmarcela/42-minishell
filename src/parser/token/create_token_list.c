@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/04 21:43:23 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/21 16:12:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 //ERRO cat \"-a"
 #include "minishell.h"
 
-static TokenType	token_type(char *str)
+TokenType	token_type(char *str)
 {
 	if (is_option(str))
 		return (OPTION);

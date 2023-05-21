@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 19:57:51 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/21 20:59:51 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int	check_builtins(t_commands *command)
 {    
 	if (!ft_strcmp(command->token->str, "echo"))
-		return (print(command->token->next));
+		return (print(command->token->next, command->env));
 	else if (!ft_strcmp(command->token->str, "cd"))
     {
         command->token = command->token->next;

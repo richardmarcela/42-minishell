@@ -1,23 +1,26 @@
 CURRENTLY IMPLEMENTING Marcela linda: pipe + error status
-CURRENTLY IMPLEMENTING Melo gay: echo2?
+CURRENTLY IMPLEMENTING Melo gay: redirects (only APPEND_IN left)
+
+MAJOR PROBLEMS (!!!)
+
+1 - absolute path bins don't work (ex: /bin/ls)
+2 - trying to unset a env variable not ours ends in core dump (ex: PATH, USER, HOME)*
 
 PROBLEMS
 
-1 - add newline 'cat'
-2 - cannot access should be just the first file but it does to every token*
-3 - error status
-4 - in adding_new_token (parser) unnacessary tokens are created if "ls a >b" or "ls a> b"
-5 - the whole program is working with 'getenv' which does not use our t_env
-6 - pipe
+1 - error status
+2 - in adding_new_token (parser) unnacessary tokens are created if "ls a >b" or "ls a> b"
+3 - pipe
+4 - if the file in "<" doesnt exist it doesnt work as it should (ex: cat < file.txt)
 
 999 - Marcela's entire life (nothing i can do)
-
-*ls: cannot access 'a': No such file or directory
- ls: cannot access '>': No such file or directory
- ls: cannot access 'b': No such file or directory
-
 
 NOTES:
 
  - open_pipe should be called before executing the commands
  - create a function for error cases?
+ - cat is a bit weird because of the forced '\n' (!!!)
+
+
+
+*unset ends in core dump but changing its value works fine

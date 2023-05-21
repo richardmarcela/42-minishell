@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 17:19:19 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/20 17:27:21 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:04:00 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 # include <stdbool.h>
 # include <dirent.h>
 # include <sys/types.h>
@@ -29,7 +30,7 @@
 # define PROMPT "shell pequeno 🐚> "
 # define EPARSE "parse error near '|'"
 # define EPROMPT "unclosed quotes"
-# define CNF "shell pequeno: command not found"
+# define CNF "command not found"
 # define UNKNOWN "no such file or directory"
 # define PD "permission denied"
 # define ASPAS 34

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 18:39:11 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/21 21:03:03 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,12 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 		original_str = token->str;
 		op_str = ft_substr(original_str, pos, ft_strlen(op));
 		token->str = ft_substr(original_str, 0, pos);
+		token->type = token_type(token->str);
 		new_str = ft_substr(original_str, pos + ft_strlen(op), ft_strlen(original_str)
 			- ft_strlen(op_str) - ft_strlen(token->str));
-		op_token = lstnew_token(op_str, PIPE);
+		op_token = lstnew_token(op_str, token_type(op_str));
 		token->next = op_token;
-		new_token = lstnew_token(new_str, PIPE);
+		new_token = lstnew_token(new_str, token_type(new_str));
 		op_token->next = new_token;	
 	}
 }
@@ -108,7 +109,10 @@ void	parser(t_commands *commands)
 				printf("EXIT STATUS UNCLOSED QUOTES: %d\n", g_exit_status);
 				printf("%s\n", EPROMPT);
 			}
+			else
+				printf("%s\n", CNF);
 		}
+		
 		commands = commands->next;
 	}
 	//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

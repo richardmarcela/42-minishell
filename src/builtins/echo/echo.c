@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:46:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/18 18:49:10 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:06:25 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	is_right_flag(char *str)
 	return (0);
 }
 
-int	print(t_tokens *token)
+int	print(t_tokens *token, t_env *env)
 {
 	bool	flag;
 	
@@ -46,7 +46,7 @@ int	print(t_tokens *token)
 	}
 	while (token)
 	{
-		process_argument(token->str);
+		process_argument(token->str, env);
 		if (token->next)
 			printf(" ");
 		token = token->next;

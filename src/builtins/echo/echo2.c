@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/19 20:00:51 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/21 15:12:21 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,20 +35,19 @@ char	*get_variable(char *str, int *pos)
 	return (variable);
 }
 
-void	search_variable(char *command, int *pos)
+void	search_variable(char *command, int *pos, t_env *env)
 {
 	int		i;
-	char	*env;
+	char	*value;
 
 	i = (*pos);
 	if (command[i + 1] == ' ' || command[i + 1] == '\0')
 		printf("%c", command[i]);
 	else
 	{
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-		env = getenv(get_variable(command, &i));
-		if (env)
-			printf("%s", env);
+		value = env_value(get_variable(command, &i), env);
+		if (value)
+			printf("%s", value);
 	}
 	(*pos) = i + 1;
 }
@@ -61,7 +60,7 @@ void	change_flag(bool *flag)
 		*flag = false;
 }
 
-void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_quotes)
+void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_quotes, t_env *env)
 {
 	if (str[*pos] == PLICAS)
 	{
@@ -80,7 +79,7 @@ void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_q
 			if (!(*unclosed_squotes))
 			{
 				if (str[*pos] == '$')
-					search_variable(str, pos);
+					search_variable(str, pos, env);
 				else
 					printf("%c", str[(*pos)++]);
 			}
@@ -89,7 +88,7 @@ void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_q
 	}
 }
 
-void	process_argument(char *str)
+void	process_argument(char *str, t_env *env)
 {
 	int		i;
 	bool	unclosed_quotes;
@@ -101,9 +100,9 @@ void	process_argument(char *str)
 	while (str[++i])
 	{
 		if (str[i] == '$' && !unclosed_squotes)
-			search_variable(str, &i);
+			search_variable(str, &i, env);
 		if (isquote(str[i]))
-			quote_handler(str, &i, &unclosed_squotes, &unclosed_quotes);
+			quote_handler(str, &i, &unclosed_squotes, &unclosed_quotes, env);
 		else
 			printf("%c", str[i]);
 	}

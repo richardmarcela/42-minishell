@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 18:19:11 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/21 22:45:31 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int				is_redirect(char *str);
 int 			isquote(int c);
 int				has_empty_pipe(char **splitted);
 void    		ft_free(t_tokens *command);
-int 			lstsize_tokens(t_tokens *token);
+int 			lstsize_tokens(t_tokens *token, int filter);
 int				search_ops_in_str(char *s1, char *s2, int n);
 
 //PARSER/PIPE_SPLIT.C
@@ -39,6 +39,7 @@ void    		parser(t_commands *commands);
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens    	*token_list(char *line);
 t_tokens		*lstnew_token(char *str, TokenType type);
+TokenType	    token_type(char *str);
 void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 
 //PARSER/TOKEN/TOKEN_UTILS.C
@@ -59,11 +60,11 @@ void			handle_global_signals(void);
 void			handle_cmd_signals(void);
 
 //BUILTINS/ECHO/ECHO.C
-int				print(t_tokens *token);
+int				print(t_tokens *token, t_env *env);
 int				count(char *command, int n);
 
 //BUILTINS/ECHO/ECHO2.C
-void			process_argument(char *str);
+void			process_argument(char *str, t_env *env);
 void			change_flag(bool *flag);
 char			*get_variable(char *str, int *pos);
 
@@ -91,5 +92,8 @@ void			lstadd_back_env(t_env **lst, t_env *new);
 
 //SRC/PIPE/PIPE.C
 void            open_pipe(t_commands *commands);
+
+//SRC/REDIRECTIONS/REDIRECTIONS.C
+void    handle_redir(t_tokens *token, char *bin_path, char **args, char **env_matrix);
 
 #endif
