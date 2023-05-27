@@ -6,15 +6,15 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 16:29:54 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/21 19:41:08 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:36:06 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int has_content(char *str, int ipos, int fpos)
+static int	has_content(char *str, int ipos, int fpos)
 {
-	while(++ipos < fpos)
+	while (++ipos < fpos)
 	{
 		if (!isquote(str[ipos]))
 			return (1);
@@ -38,7 +38,7 @@ int	is_option(char *str)
 	return (0);
 }
 
-int is_pipe(char *str)
+int	is_pipe(char *str)
 {
 	if (*str == '|')
 		return (1);
@@ -53,7 +53,7 @@ int	is_redirect(char *str)
 	i = -1;
 	while (str[++i])
 	{
-		if (str[i] == '>' || str[i] == '<')	
+		if (str[i] == '>' || str[i] == '<')
 		{
 			j = -1;
 			while (++j <= i)

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/21 22:45:31 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:24:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 
 # include "structs.h"
 
-extern int	g_exit_status;
+extern long long	g_exit_status;
 
 //PARSER/TOKEN/DEF_TOKEN_TYPE.C
 int				is_option(char *str);
-int 			is_pipe(char *str);
+int				is_pipe(char *str);
 int				is_redirect(char *str);
 
 //UTILS/UTILS.C
-int 			isquote(int c);
+int				isquote(int c);
 int				has_empty_pipe(char **splitted);
-void    		ft_free(t_tokens *command);
-int 			lstsize_tokens(t_tokens *token, int filter);
+void			ft_free(t_tokens *command);
+int				lstsize_tokens(t_tokens *token, int filter);
 int				search_ops_in_str(char *s1, char *s2, int n);
 
 //PARSER/PIPE_SPLIT.C
@@ -34,17 +34,20 @@ void			pipe_commands(char *str, t_env *env);
 
 //PARSER/PARSER.C
 int				process_tokens(t_commands *command);
-void    		parser(t_commands *commands);
+void			parser(t_commands *commands);
+
+//PARSER/PARSER_UTILS.C
+int				search_content(char *str, char *op, int flag);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
-t_tokens    	*token_list(char *line);
-t_tokens		*lstnew_token(char *str, TokenType type);
-TokenType	    token_type(char *str);
+t_tokens		*token_list(char *line);
+t_tokens		*lstnew_token(char *str, t_TokenType type);
+t_TokenType		token_type(char *str);
 void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 
 //PARSER/TOKEN/TOKEN_UTILS.C
-TokenType   	which_red(char *str);
-t_tokens 		*define_head(char **splitted, int *i);
+t_TokenType		which_red(char *str);
+t_tokens		*define_head(char **splitted, int *i);
 char			**fill_args(t_tokens *token);
 
 //BUILTINS/CHECK_BUILTINS.C
@@ -82,7 +85,7 @@ int				env(t_env *env);
 char			*env_value(char *str, t_env *env);
 
 //BUILTINS/ENV/UNSET.C
-int 			unset_env(t_commands *command);
+int				unset_env(t_commands *command);
 
 //PARSER/ENV/CREATE_ENV_LIST.C
 char			**fill_env_matrix(t_env *env);
@@ -91,9 +94,13 @@ t_env			*lstnew_env(char *envp);
 void			lstadd_back_env(t_env **lst, t_env *new);
 
 //SRC/PIPE/PIPE.C
-void            open_pipe(t_commands *commands);
+void			open_pipe(t_commands *commands);
 
 //SRC/REDIRECTIONS/REDIRECTIONS.C
-void    handle_redir(t_tokens *token, char *bin_path, char **args, char **env_matrix);
+void			handle_redir(t_tokens *token, char *bin_path,
+					char **args, char **env_matrix);
+
+//SRC/BUILTINS/EXIT.C
+int				exit_terminal(t_tokens *token);
 
 #endif

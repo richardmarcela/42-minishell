@@ -6,17 +6,17 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:16:01 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/19 20:01:56 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:48:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char **fill_env_matrix(t_env *env)
+char	**fill_env_matrix(t_env *env)
 {
-	int     i;
-	int     size;
-	char    **envp;
+	int		i;
+	int		size;
+	char	**envp;
 
 	i = -1;
 	size = env_len(env) + 1;
@@ -45,10 +45,10 @@ t_env	*lstnew_env(char *envp)
 static t_env	*lstlast_env(t_env *lst)
 {
 	if (!lst)
-        return (NULL);
-   	while (lst->next)
-        lst = lst->next;
-    return (lst);
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
 
 void	lstadd_back_env(t_env **lst, t_env *new)
@@ -71,7 +71,7 @@ t_env	*init_env(char **envp)
 	int		i;
 	t_env	*head;
 	t_env	*current;
-	
+
 	i = -1;
 	head = lstnew_env(envp[++i]);
 	current = head;

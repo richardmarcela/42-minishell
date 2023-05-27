@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:46:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/21 15:06:25 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:24:14 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ int	count(char *command, int n)
 
 int	is_right_flag(char *str)
 {
-	if (!ft_strcmp(ft_strtrim(str, "\""), "-n") || !ft_strcmp(ft_strtrim(str, "'"), "-n"))
+	if (!ft_strcmp(ft_strtrim(str, "\""), "-n")
+		|| !ft_strcmp(ft_strtrim(str, "'"), "-n"))
 		return (1);
 	return (0);
 }
@@ -35,11 +36,11 @@ int	is_right_flag(char *str)
 int	print(t_tokens *token, t_env *env)
 {
 	bool	flag;
-	
+
 	flag = true;
-	if (token == NULL) //quando echo n tem args nem flags
-		return(printf("\n"));
-	if(token->type == OPTION && is_right_flag(token->str))
+	if (token == NULL)
+		return (printf("\n"));
+	if (token->type == OPTION && is_right_flag(token->str))
 	{
 		flag = false;
 		token = token->next;

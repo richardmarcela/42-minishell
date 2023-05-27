@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/21 22:45:10 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:23:59 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,14 +31,12 @@ static int	is_executable(char *bin_path, struct stat f)
 	{
 		if (f.st_mode & S_IXUSR)
 			return (1);
-		else 
+		else
 		{
 			g_exit_status = 126;
-			printf("EXIT STATUS PERMISSION DENIED: %d\n", g_exit_status);
+			printf("EXIT STATUS PERMISSION DENIED: %lld\n", g_exit_status);
 			printf("permission denied: %s\n", bin_path);
 		}
-		free(bin_path);
-		return (0);
 	}
 	free(bin_path);
 	return (0);
@@ -49,7 +47,7 @@ int	check_bins(t_tokens *token, t_env *env)
 	int			i;
 	char		*bin_path;
 	char		**path;
-	struct 		stat	f;
+	struct stat	f;
 	t_tokens	*head;
 
 	path = ft_split(env_value("PATH", env), ':');
@@ -73,8 +71,8 @@ int	check_bins(t_tokens *token, t_env *env)
 
 int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 {
-	char 		**args;
-	char 		**env_matrix;
+	char		**args;
+	char		**env_matrix;
 	pid_t		pid;
 
 	args = fill_args(token);
@@ -83,7 +81,7 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	handle_cmd_signals();
 	if (pid == 0)
 	{
-		if (lstsize_tokens(token, 1) != lstsize_tokens(token, 0)) //significa q ha redirects
+		if (lstsize_tokens(token, 1) != lstsize_tokens(token, 0))
 			handle_redir(token, bin_path, args, env_matrix);
 		execve(bin_path, args, env_matrix);
 	}
@@ -91,7 +89,7 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	{
 		free(bin_path);
 		g_exit_status = 1;
-		printf("EXIT STATUS FORK FAILED: %d\n", g_exit_status);
+		printf("EXIT STATUS FORK FAILED: %lld\n", g_exit_status);
 		printf("Fork failed to create a new process.\n");
 		return (0);
 	}

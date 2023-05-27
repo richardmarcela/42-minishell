@@ -6,23 +6,23 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/21 22:17:10 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:11:51 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int lstsize_tokens(t_tokens *token, int filter)
+int	lstsize_tokens(t_tokens *token, int filter)
 {
 	int	count;
 
 	count = 0;
 	while (token)
 	{
-		if (filter) //filtra a contagem para tudo menos argumentos
+		if (filter)
 		{
 			if (is_redirect(token->str))
-				token = token->next; //skipa o argumento a seguir ao redirect
+				token = token->next;
 			else
 				count++;
 		}
@@ -33,18 +33,18 @@ int lstsize_tokens(t_tokens *token, int filter)
 	return (count);
 }
 
-int isquote(int c)
+int	isquote(int c)
 {
 	if (c == ASPAS || c == PLICAS)
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 int	has_empty_pipe(char **splitted)
 {
-	int	i;
-	char *temp;
-	
+	int		i;
+	char	*temp;
+
 	i = -1;
 	while (splitted[++i])
 	{
@@ -62,8 +62,8 @@ char	**fill_args(t_tokens *token)
 	int			i;
 	int			size;
 	char		**args;
-	t_tokens	previous; //n ser um pointer faz com que seja uma copia !!!!
-	
+	t_tokens	previous;
+
 	i = 0;
 	previous = *token;
 	previous.str = "";
@@ -79,7 +79,7 @@ char	**fill_args(t_tokens *token)
 		previous = *token;
 		token = token->next;
 	}
-	args[i] = 0; //has to end with NULL
+	args[i] = 0;
 	return (args);
 }
 
@@ -101,5 +101,5 @@ int	search_ops_in_str(char *s1, char *s2, int n)
 		}
 		i++;
 	}
-	return (-1); //n encontrou o char
+	return (-1);
 }

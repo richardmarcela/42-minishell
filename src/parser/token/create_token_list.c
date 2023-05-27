@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/21 16:12:40 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:40:38 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,20 @@
 //ERRO cat \"-a"
 #include "minishell.h"
 
-TokenType	token_type(char *str)
+t_TokenType	token_type(char *str)
 {
 	if (is_option(str))
 		return (OPTION);
 	if (is_pipe(str))
 		return (PIPE);
 	if (is_redirect(str))
-		return(which_red(str));
+		return (which_red(str));
 	if (!ft_strcmp(str, "export"))
-		return(SETTING);
+		return (SETTING);
 	return (ARG);
 }
 
-t_tokens	*lstnew_token(char *str, TokenType type)
+t_tokens	*lstnew_token(char *str, t_TokenType type)
 {
 	t_tokens	*node;
 
@@ -45,10 +45,10 @@ t_tokens	*lstnew_token(char *str, TokenType type)
 static t_tokens	*lstlast_token(t_tokens *lst)
 {
 	if (!lst)
-        return (NULL);
-   	while (lst->next)
-        lst = lst->next;
-    return (lst);
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
 
 void	lstadd_back_token(t_tokens **lst, t_tokens *new)
@@ -66,14 +66,14 @@ void	lstadd_back_token(t_tokens **lst, t_tokens *new)
 	tail->next = new;
 }
 
-t_tokens    *token_list(char *line)
+t_tokens	*token_list(char *line)
 {
-	int     	i;
-	char    	**splitted;
-	TokenType	type;
+	int			i;
+	char		**splitted;
+	t_TokenType	type;
 	t_tokens	*head;
 	t_tokens	*current_node;
-	
+
 	i = 0;
 	splitted = ft_split(line, ' ');
 	head = define_head(splitted, &i);

@@ -6,13 +6,13 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:14:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/20 18:39:05 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:10:04 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void left_pipe(t_commands *commands, int pipedes[2])
+static void	left_pipe(t_commands *commands, int pipedes[2])
 {
 	close(STDOUT_FILENO);
 	dup(pipedes[1]);
@@ -23,7 +23,7 @@ static void left_pipe(t_commands *commands, int pipedes[2])
 	//process_tokens(commands);
 }
 
-static void right_pipe(t_commands *commands, int pipedes[2])
+static void	right_pipe(t_commands *commands, int pipedes[2])
 {
 	close(STDIN_FILENO);
 	dup(pipedes[0]);
@@ -34,7 +34,7 @@ static void right_pipe(t_commands *commands, int pipedes[2])
 	//process_tokens(commands);
 }
 
-void open_pipe(t_commands *commands)
+void	open_pipe(t_commands *commands)
 {
 	pid_t	child;
 	int		pipedes[2];

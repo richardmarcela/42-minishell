@@ -6,13 +6,13 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/19 17:57:36 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:48:43 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int env(t_env *env)
+int	env(t_env *env)
 {
 	while (env)
 	{
@@ -36,7 +36,7 @@ char	*env_value(char *str, t_env *env)
 		if (!ft_strcmp(str, env_name))
 		{
 			value = ft_strtrim(ft_strchr(env->str, '='), "=");
-			break;
+			break ;
 		}
 		env = env->next;
 	}

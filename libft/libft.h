@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 00:06:20 by marcela           #+#    #+#             */
-/*   Updated: 2023/05/18 19:33:09 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 17:09:32 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # include <stdio.h>
 # include <stddef.h>
 # include <stdint.h>
+# include <stdbool.h>
 
 //libft
 int		ft_atoi(char *str);

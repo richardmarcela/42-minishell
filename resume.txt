@@ -1,17 +1,14 @@
 CURRENTLY IMPLEMENTING Marcela linda: pipe + error status
 CURRENTLY IMPLEMENTING Melo gay: redirects (only APPEND_IN left)
-
-MAJOR PROBLEMS (!!!)
-
-1 - absolute path bins don't work (ex: /bin/ls)
-2 - trying to unset a env variable not ours ends in core dump (ex: PATH, USER, HOME)*
+CURRENTLY IMPLEMENTING both: error status
 
 PROBLEMS
 
 1 - error status
-2 - in adding_new_token (parser) unnacessary tokens are created if "ls a >b" or "ls a> b"
-3 - pipe
-4 - if the file in "<" doesnt exist it doesnt work as it should (ex: cat < file.txt)
+2 - pipe
+3 - if the file in "<" doesnt exist it doesnt work as it should (ex: cat < file.txt)
+4 - there are functions with more than 4 parameters in *export_utils* and *echo2*
+5 - functions with more than 25 lines
 
 999 - Marcela's entire life (nothing i can do)
 
@@ -19,8 +16,4 @@ NOTES:
 
  - open_pipe should be called before executing the commands
  - create a function for error cases?
- - cat is a bit weird because of the forced '\n' (!!!)
-
-
-
-*unset ends in core dump but changing its value works fine
+ - create struct to hold both message and exit status

@@ -6,7 +6,7 @@
 #    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/05/21 18:14:25 by mrichard         ###   ########.fr        #
+#    Updated: 2023/05/26 18:30:01 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,10 +22,10 @@ VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser
 UTILS = utils
 TOKEN = create_token_list def_token_types token_utils
 COMMANDS = create_commands_list
-PARSER = parser
+PARSER = parser parser_utils
 ENV = create_env_list
 BINS = check_bins signal_handler
-BUILTINS = check_builtins env cd unset
+BUILTINS = check_builtins env cd unset exit
 ECHO = echo echo2
 EXPORT = export export_utils
 PIPE = pipe

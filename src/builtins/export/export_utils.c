@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/19 19:05:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:12:49 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static char	*env_search_variable(char *command, int *pos, t_env *env)
 {
 	int		i;
 	char	*variable;
-	
+
 	i = (*pos);
 	variable = env_value(env_get_variable(command, &i), env);
 	(*pos) = i + 1;
@@ -56,18 +56,20 @@ static void	env_change_flag(bool *flag)
 		*flag = false;
 }
 
-static char	*env_quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_quotes, t_env *env)
+//MAIS DE 4 PARAMETROS E MAIS DE 25 LINHAS
+static char	*env_quote_handler(char *str, int *pos,
+bool *unclosed_squotes, bool *unclosed_quotes, t_env *env)
 {
 	char	*new_str;
 	int		start;
-	
+
 	new_str = NULL;
 	(*pos)++;
 	if (str[(*pos) - 1] == PLICAS)
 	{
 		start = (*pos);
 		env_change_flag(unclosed_squotes);
-		while(str[*pos] && str[*pos] != PLICAS)
+		while (str[*pos] && str[*pos] != PLICAS)
 			(*pos)++;
 		new_str = ft_substr(str, start, (*pos) - start);
 		env_change_flag(unclosed_squotes);
@@ -75,10 +77,11 @@ static char	*env_quote_handler(char *str, int *pos, bool *unclosed_squotes, bool
 	else
 	{
 		env_change_flag(unclosed_quotes);
-		while(str[*pos] && str[*pos] != ASPAS)
+		while (str[*pos] && str[*pos] != ASPAS)
 		{
 			if (str[*pos] == '$')
-				new_str = ft_strjoin(new_str, env_search_variable(str, pos, env));
+				new_str = ft_strjoin(new_str,
+						env_search_variable(str, pos, env));
 			else
 				new_str = ft_strjoin(new_str, ft_substr(str, (*pos)++, 1));
 		}
@@ -87,6 +90,7 @@ static char	*env_quote_handler(char *str, int *pos, bool *unclosed_squotes, bool
 	return (new_str);
 }
 
+//MAIS DE 25 LINHAS
 char	*process_env_variable(char *input, t_env *env)
 {
 	int		i;
@@ -104,11 +108,13 @@ char	*process_env_variable(char *input, t_env *env)
 	while (input[i])
 	{
 		if (isquote(input[i]))
-			result = ft_strjoin(result, env_quote_handler(input, &i, &unclosed_squotes, &unclosed_quotes, env));
+			result = ft_strjoin(result,
+					env_quote_handler(input, &i, &unclosed_squotes,
+						&unclosed_quotes, env));
 		else if (input[i] == '$' && !unclosed_squotes)
 		{
 			result = ft_strjoin(result, env_search_variable(input, &i, env));
-			i--; //multiplas variaveis seguidas fds=$USER$HOME
+			i--;
 		}
 		else
 		{

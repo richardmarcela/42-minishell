@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/21 15:12:21 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 19:08:20 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,15 @@ void	change_flag(bool *flag)
 		*flag = false;
 }
 
-void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_quotes, t_env *env)
+//MAIS DE 4 PARAMETROS
+void	quote_handler(char *str, int *pos,
+bool *unclosed_squotes, bool *unclosed_quotes, t_env *env)
 {
 	if (str[*pos] == PLICAS)
 	{
 		(*pos)++;
 		change_flag(unclosed_squotes);
-		while(str[*pos] && str[*pos] != PLICAS)
+		while (str[*pos] && str[*pos] != PLICAS)
 			printf("%c", str[(*pos)++]);
 		change_flag(unclosed_squotes);
 	}
@@ -74,7 +76,7 @@ void	quote_handler(char *str, int *pos, bool *unclosed_squotes, bool *unclosed_q
 	{
 		(*pos)++;
 		change_flag(unclosed_quotes);
-		while(str[*pos] && str[*pos] != ASPAS)
+		while (str[*pos] && str[*pos] != ASPAS)
 		{
 			if (!(*unclosed_squotes))
 			{

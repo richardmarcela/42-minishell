@@ -6,16 +6,16 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/20 16:06:07 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:09:16 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int  env_exists(t_env *head, char *new_env, char *env_value)
+static int	env_exists(t_env *head, char *new_env, char *env_value)
 {
-	int     pos;
-	char    *env_name;
+	int		pos;
+	char	*env_name;
 
 	while (head)
 	{
@@ -31,18 +31,19 @@ static int  env_exists(t_env *head, char *new_env, char *env_value)
 	return (0);
 }
 
-int    export(t_commands *command)
+int	export(t_commands *command)
 {
-	t_env   *new;
-	t_env   *env_head;
+	t_env	*new;
+	t_env	*env_head;
 	int		pos;
 	char	*env_value;
 	char	*env_name;
-	
+
 	env_head = command->env;
 	if (ft_strchr(command->token->str, '='))
 	{
-		pos = search_ops_in_str(command->token->str, "=", ft_strlen(command->token->str));
+		pos = search_ops_in_str(command->token->str, "=",
+				ft_strlen(command->token->str));
 		env_name = ft_substr(command->token->str, 0, pos);
 		env_value = process_env_variable(command->token->str, command->env);
 		if (!env_exists(env_head, env_name, env_value))

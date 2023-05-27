@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/20 16:23:43 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/05/27 18:21:38 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,10 @@ static t_commands	*lstnew_commands(t_tokens *token, t_env *env)
 static t_commands	*lstlast_commands(t_commands *lst)
 {
 	if (!lst)
-        return (NULL);
-   	while (lst->next)
-        lst = lst->next;
-    return (lst);
+		return (NULL);
+	while (lst->next)
+		lst = lst->next;
+	return (lst);
 }
 
 static void	lstadd_back_commands(t_commands **lst, t_commands *new)
@@ -70,18 +70,17 @@ void	pipe_commands(char *str, t_env *env)
 	char		**pipe_splitted;
 	t_commands	*head;
 	t_commands	*current_node;
-	
+
 	i = 0;
 	pipe_splitted = ft_split(str, '|');
-	//a candonga abaixo executada serve para tratar empty commands (ex: so espacos)
 	if (!pipe_splitted[0] || !ft_strtrim(pipe_splitted[0], " ")
 		|| !ft_strtrim(ft_strtrim(pipe_splitted[0], " "), " "))
-		return	;
+		return ;
 	if (has_empty_pipe(pipe_splitted))
 	{
 		printf("%s\n", EPARSE);
 		g_exit_status = 1;
-		printf("EXIT STATUS PIPE: %d\n", g_exit_status);
+		printf("EXIT STATUS PIPE: %lld\n", g_exit_status);
 		return ;
 	}
 	head = lstnew_commands(token_list(pipe_splitted[i]), env);
@@ -92,5 +91,6 @@ void	pipe_commands(char *str, t_env *env)
 		lstadd_back_commands(&head, current_node);
 		current_node = current_node->next;
 	}
+	/* open_pipe(commands); */
 	parser(head);
 }
