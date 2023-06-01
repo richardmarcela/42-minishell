@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 18:32:00 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:39:34 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,34 +31,28 @@ static int	skip_quoted_content(char *s, int *i, int *flag)
 int	has_open_quotes(char *str, int pos)
 {
 	int		i;
-	int		counts;
-	int		countd;
-	bool	squote;
-	bool	dquote;
+	bool	*variables;
 
 	i = 0;
-	counts = 0;
-	countd = 0;
-	squote = false;
-	dquote = false;
+	variables = attr_values();
 	while (str[i] && i < pos)
 	{
 		if (isquote(str[i]))
 		{
-			if (str[i] == ASPAS && !squote)
+			if (str[i] == ASPAS && !variables[2])
 			{
-				change_flag(&dquote);
-				countd++;
+				change_flag(&variables[3]);
+				change_flag(&variables[1]);
 			}
-			else if (str[i] == PLICAS && !dquote)
+			else if (str[i] == PLICAS && !variables[3])
 			{
-				change_flag(&squote);
-				counts++;
+				change_flag(&variables[2]);
+				change_flag(&variables[0]);
 			}
 		}
 		i++;
 	}
-	if (counts % 2 != 0 || countd % 2 != 0)
+	if (variables[0] || variables[1])
 		return (1);
 	return (0);
 }
@@ -71,8 +65,8 @@ static int	count_words(char *s, char c)
 
 	words = 0;
 	flag = 0;
-	i = 0;
-	while (s[i])
+	i = -1;
+	while (s[++i])
 	{
 		while (s[i] && s[i] == ' ' && !has_open_quotes(s, i) && c == ' ')
 		{
@@ -88,7 +82,6 @@ static int	count_words(char *s, char c)
 		}
 		else if (s[i] && s[i] == c && !has_open_quotes(s, i))
 			flag = 0;
-		i++;
 	}
 	return (words);
 }

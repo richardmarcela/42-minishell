@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 18:21:14 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:50:03 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,33 +30,24 @@ static char	**fill_ops(void)
 static void	adding_new_token(t_tokens *token, int pos, char *op)
 {
 	char		*original_str;
-	char		*op_str;
-	char		*new_str;
-	t_tokens	*op_token;
 	t_tokens	*new_token;
 
-	new_str = NULL;
 	new_token = NULL;
 	if (ft_strlen(token->str) > ft_strlen(op))
 	{
 		original_str = token->str;
-		op_str = ft_substr(original_str, pos, ft_strlen(op));
 		if (search_content(original_str, op, 0))
-		{
-			token->str = ft_substr(original_str, 0, pos);
-			token->type = token_type(token->str);
-			op_token = lstnew_token(op_str, token_type(op_str));
-			op_token->next = token->next;
-			token->next = op_token;
-		}
+			handle_content_before(token, pos, op, original_str);
 		if (search_content(original_str, op, 1))
 		{
-			new_str = ft_substr(original_str, pos + ft_strlen(op),
-					ft_strlen(original_str) - ft_strlen(op_str)
-					- ft_strlen(token->str));
-			new_token = lstnew_token(new_str, token_type(new_str));
-			token->str = op_str;
-			token->next = new_token;
+			new_token = handle_content_after(original_str, pos, op, token);
+			if (!search_content(original_str, op, 0))
+			{
+				token->str = op;
+				token->next = new_token;
+			}
+			else
+				token->next->next = new_token;
 		}
 	}
 }
@@ -121,7 +112,6 @@ void	parser(t_commands *commands)
 			if (res == ERROR)
 			{
 				g_exit_status = 2;
-				printf("EXIT STATUS UNCLOSED QUOTES: %lld\n", g_exit_status);
 				printf("%s\n", EPROMPT);
 			}
 			else

@@ -1,31 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cd.c                                               :+:      :+:    :+:   */
+/*   split_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/04 20:40:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/01 19:53:31 by mrichard         ###   ########.fr       */
+/*   Created: 2023/06/01 20:20:36 by mrichard          #+#    #+#             */
+/*   Updated: 2023/06/01 21:41:38 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-int	change_dir(t_tokens *token, t_env *env)
+bool	*attr_values(void)
 {
-	char	*dir;
+	bool	*variables;
 
-	dir = NULL;
-	if (!token->next)
-		dir = env_value("HOME", env);
-	else
-		dir = token->next->str;
-	if (chdir(dir))
-	{
-		g_exit_status = 1;
-		printf("%s\n", UNKNOWN);
-		return (1);
-	}
-	return (0);
+	variables = malloc(sizeof(bool) * 5);
+	variables[4] = '\0';
+	variables[0] = false;
+	variables[1] = false;
+	variables[2] = false;
+	variables[3] = false;
+	return (variables);
 }

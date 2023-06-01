@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 00:06:20 by marcela           #+#    #+#             */
-/*   Updated: 2023/05/27 17:09:32 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/01 21:41:54 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,5 +108,8 @@ int		ft_print_unsigned(unsigned int n);
 int		ft_printf(const char *str, ...);
 char	**ft_split(char *s, char c);
 int		has_open_quotes(char *str, int pos);
+
+//minishell
+bool	*attr_values(void);
 
 #endif

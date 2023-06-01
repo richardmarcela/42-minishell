@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 18:23:59 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/01 22:06:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ static int	is_executable(char *bin_path, struct stat f)
 		else
 		{
 			g_exit_status = 126;
-			printf("EXIT STATUS PERMISSION DENIED: %lld\n", g_exit_status);
-			printf("permission denied: %s\n", bin_path);
+			printf("%s\n", PD);
 		}
 	}
 	free(bin_path);
@@ -89,8 +88,7 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	{
 		free(bin_path);
 		g_exit_status = 1;
-		printf("EXIT STATUS FORK FAILED: %lld\n", g_exit_status);
-		printf("Fork failed to create a new process.\n");
+		printf("%s\n", FF);
 		return (0);
 	}
 	wait(&pid);

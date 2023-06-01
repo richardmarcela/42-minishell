@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 17:24:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/01 19:52:48 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,10 @@ void			parser(t_commands *commands);
 
 //PARSER/PARSER_UTILS.C
 int				search_content(char *str, char *op, int flag);
+void			handle_content_before(t_tokens *token, int pos,
+					char *op_str, char *original_str);
+t_tokens		*handle_content_after(char *original_str, int pos,
+					char *op, t_tokens *token);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*token_list(char *line);
@@ -72,7 +76,7 @@ void			change_flag(bool *flag);
 char			*get_variable(char *str, int *pos);
 
 //BUILTINS/DIRECTORY/DIRECTORY.C
-int				change_dir(char *dir, t_env *env);
+int				change_dir(t_tokens *token, t_env *env);
 
 //BUILTINS/EXPORT/EXPORT.C
 int				export(t_commands *command);

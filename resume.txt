@@ -1,14 +1,12 @@
-CURRENTLY IMPLEMENTING Marcela linda: pipe + error status
+CURRENTLY IMPLEMENTING Marcela linda: 1
 CURRENTLY IMPLEMENTING Melo gay: redirects (only APPEND_IN left)
-CURRENTLY IMPLEMENTING both: error status
+CURRENTLY IMPLEMENTING both: 3 e 4
 
 PROBLEMS
 
-1 - error status
-2 - pipe
-3 - if the file in "<" doesnt exist it doesnt work as it should (ex: cat < file.txt)
-4 - there are functions with more than 4 parameters in *export_utils* and *echo2*
-5 - functions with more than 25 lines
+1 - pipe
+2 - there are functions with more than 4 parameters in *export_utils* and *echo2*
+3 - functions with more than 25 lines
 
 999 - Marcela's entire life (nothing i can do)
 
