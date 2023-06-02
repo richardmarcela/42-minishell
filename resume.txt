@@ -7,6 +7,7 @@ PROBLEMS
 1 - pipe
 2 - there are functions with more than 4 parameters in *export_utils* and *echo2*
 3 - functions with more than 25 lines
+4 - ~ no cd
 
 999 - Marcela's entire life (nothing i can do)
 
@@ -14,4 +15,3 @@ NOTES:
 
  - open_pipe should be called before executing the commands
  - create a function for error cases?
- - create struct to hold both message and exit status

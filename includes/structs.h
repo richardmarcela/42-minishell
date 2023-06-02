@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:19:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/01 16:45:23 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:54:39 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define UNKNOWN "no such file or directory"
 # define PD "permission denied"
 # define FF "fork failed to create a new process"
+# define PF "pipe failed to create a new process"
 # define ASPAS 34
 # define PLICAS 39
 # define ERROR -1

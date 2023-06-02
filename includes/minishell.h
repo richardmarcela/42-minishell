@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/01 19:52:48 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/02 17:35:31 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,7 @@ void			handle_redir(t_tokens *token, char *bin_path,
 
 //SRC/BUILTINS/EXIT.C
 int				exit_terminal(t_tokens *token);
+
+int				lstsize_commands(t_commands *commands);
 
 #endif
