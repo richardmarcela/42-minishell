@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/01 22:23:59 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/04 20:05:21 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ char	**fill_args(t_tokens *token)
 	args = malloc(sizeof(char *) * (size + 1));
 	while (i < size)
 	{
-		if (!is_redirect(token->str) && (ft_strcmp(previous.str, "<") || ft_strcmp(previous.str, "<<")))
+		if (!is_redirect(token->str) && (ft_strcmp(previous.str, "<")
+				|| ft_strcmp(previous.str, "<<")))
 		{
 			args[i] = token->str;
 			i++;

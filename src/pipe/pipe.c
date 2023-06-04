@@ -6,106 +6,81 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:14:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/02 18:38:20 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/04 22:30:35 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	left_pipe(t_commands *commands, int pipedes[2])
+static void	left_pipe(int curr_pipe[2])
 {
 	close(STDOUT_FILENO);
-	dup(pipedes[1]); //duplicates the write end of the left side of pipe
-	close(pipedes[0]);
-	close(pipedes[1]);
-	//function to exec commands, should be parser or process_tokens?
-	process_tokens(commands);
+	close(curr_pipe[0]);
+	dup2(curr_pipe[1], STDOUT_FILENO);
+	close(curr_pipe[1]);
 }
 
-static void	right_pipe(t_commands *commands, int pipedes[2])
+static void	right_pipe(int prev_pipe[2])
 {
 	close(STDIN_FILENO);
-	dup(pipedes[0]); //duplicates the read end of the right side of pipe
-	close(pipedes[0]);
-	close(pipedes[1]);
-	//function to exec commands, should be parser or process_tokens?
-	process_tokens(commands);
+	close(prev_pipe[1]);
+	dup2(prev_pipe[0], STDIN_FILENO);
+	close(prev_pipe[0]);
 }
 
-static void error_message(int error, char *mes)
+static void	error_message(int error, char *mes)
 {
 	printf("%s\n", mes);
 	exit(error);
 }
 
-static void	exec_pipe(int pipedes[4], int i, int size, t_commands *commands)
+static void	exec_pipe(int prev_pipe[2], int curr_pipe[2],
+	int size, t_commands *commands)
 {
-	pid_t	child;
+	/* int			temp; */
+	pid_t		child;
 
 	child = fork();
 	if (child == -1)
-		error_message(EXIT_FAILURE, PF);
+		error_message(g_exit_status, PF);
 	else if (child == 0)
 	{
-		if (i > 0)
-			left_pipe(commands, pipedes);
-		if (i < size - 1)
-			right_pipe(commands, pipedes);
+		if (commands->index > 0)
+			right_pipe(prev_pipe);
+		if (commands->index < size - 1)
+			left_pipe(curr_pipe);
 		parser(commands);
+		exit(g_exit_status);
 	}
 	else
-	{
-		if (i > 0) {
-			close(pipedes[0]);
-			close(pipedes[1]);
-		}
-		if (i < size - 1) {
-			pipedes[0] = pipedes[2];
-			pipedes[1] = pipedes[3];
-		}
-	}
+		assign_pipes(prev_pipe, curr_pipe, commands->index, size);
+	/* waitpid(child, &temp, 0);
+	g_exit_status = temp >> 8; */
 }
 
 void	open_pipe(t_commands *commands)
 {
-	int		pipedes[4];
+	int		prev_pipe[2];
+	int		curr_pipe[2];
 	int		size;
-	int		i;
 
-	i = -1;
-	pipedes[0] = 0;
-	pipedes[1] = 0;
+	commands->index = -1;
+	prev_pipe[0] = 0;
+	prev_pipe[1] = 0;
 	size = lstsize_commands(commands);
-	while (++i < size)
+	if (size == 1)
+		return (parser(commands));
+	while (++commands->index < size)
 	{
-		if (i < size - 1 && (pipe(pipedes) == -1))
-		{
-			printf(PF);
-			exit(EXIT_FAILURE);
-		}
-		exec_pipe(pipedes, i, size, commands);
-		commands = commands->next;
+		if (commands->index < size - 1 && (pipe(curr_pipe) == -1))
+			error_message(g_exit_status, PF);
+		exec_pipe(prev_pipe, curr_pipe, size, commands);
+		if (commands->next)
+			commands = commands->next;
 	}
-	i = -1;
-	while (++i < size)
+	commands->index = -1;
+	while (++commands->index < size)
 		wait(NULL);
-	/* if (pipe(pipedes) == -1) //create a pair of fd 
-	{
-		printf("pipe() failed\n");
-		exit(g_exit_status);
-	}
-	if (child == -1)
-	{
-		printf("%s\n", FF);
-		exit(g_exit_status);
-	}
-	if (child == 0) //means we are in the child process
-		left_pipe(commands, pipedes);
-	right_pipe(commands->next, pipedes);
-	close(pipedes[0]);
-	close(pipedes[1]);
-	waitpid(child, &temp, 0); //parent waits for child to finish */
-	/* g_exit_status = temp >> 8; */
 }
 
 /* void	open_pipe(t_commands *commands)
