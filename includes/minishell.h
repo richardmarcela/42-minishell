@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/04 20:04:11 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:19:45 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void			open_pipe(t_commands *commands);
 //SRC/PIPE/PIPE_UTILS.C
 void			assign_pipes(int prev_pipe[2], int curr_pipe[2],
 					int i, int size);
+void			close_all(int prev_pipe[2], int curr_pipe[2]);
 
 //SRC/REDIRECTIONS/REDIRECTIONS.C
 void			handle_redir(t_tokens *token, char *bin_path,

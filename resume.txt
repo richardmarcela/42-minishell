@@ -4,8 +4,7 @@ CURRENTLY IMPLEMENTING both: 1
 
 PROBLEMS
 
-1 - pipe (only works when forced terminated)
-2 - there are functions with more than 4 parameters in *export_utils* and *echo2*
-3 - functions with more than 25 lines
+1 - there are functions with more than 4 parameters in *export_utils* and *echo2*
+2 - functions with more than 25 lines
 
 999 - Marcela's entire life (nothing i can do)

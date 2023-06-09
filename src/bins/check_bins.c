@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/02 16:51:40 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/09 17:06:42 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ int	check_bins(t_tokens *token, t_env *env)
 		else if (is_executable(bin_path, f))
 		{
 			run_cmd(bin_path, token, env);
-			if (!ft_strcmp(head->str, "cat"))
-				printf("\n");
 			return (1);
 		}
 	}
