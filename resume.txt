@@ -1,10 +1,15 @@
 CURRENTLY IMPLEMENTING Marcela linda: 1
 CURRENTLY IMPLEMENTING Melo gay: redirects (only APPEND_IN left)
-CURRENTLY IMPLEMENTING both: 1
+
+MAJOR PROBLEMS
+1 - pipe doesn't always work
 
 PROBLEMS
 
 1 - there are functions with more than 4 parameters in *export_utils* and *echo2*
 2 - functions with more than 25 lines
+3 - when the output is not accepted by the input the pipe fails (ex: cat | ls) (cat is the worst)
+4 - in bash all commands result in g_exit_status = 0 (?)
+5 - free structs
 
 999 - Marcela's entire life (nothing i can do)

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/09 22:55:01 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:24:00 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 			else
 				token->next->next = new_token;
 		}
+		free(original_str);
 	}
 }
 
@@ -76,6 +77,7 @@ static void	check_tokens(t_tokens *token)
 		}
 		token = token->next;
 	}
+	free(ops);
 }
 
 int	process_tokens(t_commands *command)

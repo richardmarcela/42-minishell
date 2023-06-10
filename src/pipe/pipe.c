@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:14:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/09 22:54:48 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:51:43 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 static void	left_pipe(int curr_pipe[2])
 {
-	/* close(curr_pipe[0]); */
+	close(curr_pipe[0]);
 	dup2(curr_pipe[1], STDOUT_FILENO);
 	close(curr_pipe[1]);
 }
 
 static void	right_pipe(int prev_pipe[2])
 {
-	/* close(prev_pipe[1]); */
+	close(prev_pipe[1]);
 	dup2(prev_pipe[0], STDIN_FILENO);
 	close(prev_pipe[0]);
 }
@@ -35,9 +35,10 @@ static void	error_message(int error, char *mes)
 static void	exec_pipe(int prev_pipe[2], int curr_pipe[2],
 	int size, t_commands *commands)
 {
-	//int			temp;
+	int			temp;
 	pid_t		child;
 
+	temp = 0;
 	child = fork();
 	if (child == -1)
 		error_message(g_exit_status, PF);
@@ -55,7 +56,7 @@ static void	exec_pipe(int prev_pipe[2], int curr_pipe[2],
 	{
 		assign_pipes(prev_pipe, curr_pipe, commands->index, size);
 		waitpid(child, (int *)&g_exit_status, 0);
-		//g_exit_status = WEXITSTATUS(temp);
+		g_exit_status = WEXITSTATUS(temp);
 	}
 }
 

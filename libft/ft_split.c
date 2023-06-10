@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/01 21:39:34 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:01:57 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,7 @@ char	**ft_split(char *s, char c)
 	int		words;
 	char	**str;
 
-	if (!s)
-		return (NULL);
+	s = ft_strtrim(s, " ");
 	i = 0;
 	j = -1;
 	words = count_words(s, c);

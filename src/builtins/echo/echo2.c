@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/01 17:13:00 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:41:51 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,19 @@ char	*get_variable(char *str, int *pos)
 void	search_variable(char *command, int *pos, t_env *env)
 {
 	int		i;
-	char	*value;
+	char	*var_name;
 
 	i = (*pos);
 	if (command[i + 1] == ' ' || command[i + 1] == '\0')
 		printf("%c", command[i]);
 	else
 	{
-		value = env_value(get_variable(command, &i), env);
-		if (value)
-			printf("%s", value);
+		var_name = get_variable(command, &i);
+		if (!ft_strcmp(var_name, "?"))
+			printf("%lld", g_exit_status);
+		else
+			printf("%s", env_value(var_name, env));
+		free(var_name);
 	}
 	(*pos) = i + 1;
 }

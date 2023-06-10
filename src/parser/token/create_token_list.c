@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/27 17:40:38 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:22:16 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,5 +85,6 @@ t_tokens	*token_list(char *line)
 		lstadd_back_token(&head, current_node);
 		current_node = current_node->next;
 	}
+	free(splitted);
 	return (head);
 }

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/09 17:06:42 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:31:54 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ int	check_bins(t_tokens *token, t_env *env)
 		else if (is_executable(bin_path, f))
 		{
 			run_cmd(bin_path, token, env);
+			free(bin_path);
+			//free(path); 1039
 			return (1);
 		}
 	}
@@ -85,11 +87,13 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	if (pid < 0)
 	{
 		free(bin_path);
+		free(env_matrix);
 		g_exit_status = 1;
 		printf("%s\n", FF);
 		return (0);
 	}
 	wait(&pid);
 	handle_global_signals();
+	free(env_matrix);
 	return (1);
 }

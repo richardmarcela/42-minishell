@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/27 17:48:43 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/10 16:39:05 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*env_value(char *str, t_env *env)
 	char	*env_name;
 	char	*value;
 
-	value = NULL;
+	value = "";
 	while (env)
 	{
 		pos = search_ops_in_str(env->str, "=", ft_strlen(env->str));
