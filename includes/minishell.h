@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/09 17:19:45 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/16 18:23:58 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,5 +113,8 @@ void			handle_redir(t_tokens *token, char *bin_path,
 int				exit_terminal(t_tokens *token);
 
 int				lstsize_commands(t_commands *commands);
+
+//SRC/COMMANDS/CREATE_COMMANDS_LIST_UTILS
+int				verify_pipe_splitted(char **pipe_splitted);
 
 #endif

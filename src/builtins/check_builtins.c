@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/10 16:40:08 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/16 19:55:18 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ static int	check(t_commands *command)
 	if (!ft_strcmp(command->token->str, "env"))
 		return (env(command->env));
 	else if (!ft_strcmp(command->token->str, "unset"))
-	{
-		command->token = command->token->next;
 		return (unset_env(command));
-	}
 	else if (!ft_strcmp(command->token->str, "exit"))
 		return (exit_terminal(command->token));
 	else if (!ft_strcmp(command->token->str, "$?"))

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_commands_list.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/10 20:21:08 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/16 20:24:42 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,8 @@ void	pipe_commands(char *str, t_env *env)
 
 	i = 0;
 	pipe_splitted = ft_split(str, '|');
-	if (!pipe_splitted[0] || !ft_strlen(ft_strtrim(pipe_splitted[0], " ")))
+	if (!verify_pipe_splitted(pipe_splitted))
 		return ;
-	if (has_empty_pipe(pipe_splitted))
-	{
-		g_exit_status = 1;
-		printf("%s\n", EPARSE);
-		return ;
-	}
 	head = lstnew_commands(token_list(pipe_splitted[i]), env);
 	current_node = head;
 	while (pipe_splitted[++i])
@@ -89,6 +83,6 @@ void	pipe_commands(char *str, t_env *env)
 		lstadd_back_commands(&head, current_node);
 		current_node = current_node->next;
 	}
-	open_pipe(head);
 	free(pipe_splitted);
+	open_pipe(head);
 }

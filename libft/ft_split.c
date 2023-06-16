@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/10 20:01:57 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/16 20:30:04 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,7 @@ int	has_open_quotes(char *str, int pos)
 		}
 		i++;
 	}
-	if (variables[0] || variables[1])
-		return (1);
-	return (0);
+	return (process_res(variables));
 }
 
 static int	count_words(char *s, char c)
@@ -125,5 +123,6 @@ char	**ft_split(char *s, char c)
 		i += count_letters(s, c, i);
 	}
 	str[j] = 0;
+	free(s);
 	return (str);
 }

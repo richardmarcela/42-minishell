@@ -9,7 +9,7 @@ PROBLEMS
 1 - there are functions with more than 4 parameters in *export_utils* and *echo2*
 2 - functions with more than 25 lines
 3 - when the output is not accepted by the input the pipe fails (ex: cat | ls) (cat is the worst)
-4 - in bash all commands result in g_exit_status = 0 (?)
-5 - free structs
+4 - free structs
+5 - error_message not updating g_exit_status
 
 999 - Marcela's entire life (nothing i can do)

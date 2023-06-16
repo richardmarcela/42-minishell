@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/06/04 15:27:34 by mrichard         ###   ########.fr        #
+#    Updated: 2023/06/16 18:17:21 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser
 
 UTILS = utils
 TOKEN = create_token_list def_token_types token_utils
-COMMANDS = create_commands_list
+COMMANDS = create_commands_list create_commands_list_utils
 PARSER = parser parser_utils
 ENV = create_env_list
 BINS = check_bins signal_handler
