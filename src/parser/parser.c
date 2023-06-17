@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 17:07:12 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/10 20:24:00 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,9 @@ static void	check_tokens(t_tokens *token)
 	int			i;
 	int			pos;
 	char		**ops;
-	
+	t_tokens	*head;
+
+	head = token;
 	ops = fill_ops();
 	while (token)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 18:23:58 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 21:31:23 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ int				is_redirect(char *str);
 //UTILS/UTILS.C
 int				isquote(int c);
 int				has_empty_pipe(char **splitted);
-void			ft_free(t_tokens *command);
 int				lstsize_tokens(t_tokens *token, int filter);
 int				search_ops_in_str(char *s1, char *s2, int n);
+
+//UTILS/UTILS2.C
 
 //PARSER/PIPE_SPLIT.C
 void			pipe_commands(char *str, t_env *env);
@@ -61,6 +62,9 @@ int				check_builtins(t_commands *command);
 int				check_bins(t_tokens *token, t_env *env);
 int				run_cmd(char *bin_path, t_tokens *token, t_env *env);
 int				env_len(t_env *env);
+
+//BINS/CHECK_BINS_UTILS.C
+char   			**get_path(t_env *env);
 
 //BINS/SIGNAL_HANDLER.C
 void			handle_global_signals(void);
@@ -104,17 +108,14 @@ void			open_pipe(t_commands *commands);
 void			assign_pipes(int prev_pipe[2], int curr_pipe[2],
 					int i, int size);
 void			close_all(int prev_pipe[2], int curr_pipe[2]);
+void			free_structs(t_commands *commands);
 
 //SRC/REDIRECTIONS/REDIRECTIONS.C
-void			handle_redir(t_tokens *token, char *bin_path,
-					char **args, char **env_matrix);
+void			handle_redir(t_tokens *token);
 
 //SRC/BUILTINS/EXIT.C
-int				exit_terminal(t_tokens *token);
+int				exit_terminal(t_commands *command);
 
 int				lstsize_commands(t_commands *commands);
-
-//SRC/COMMANDS/CREATE_COMMANDS_LIST_UTILS
-int				verify_pipe_splitted(char **pipe_splitted);
 
 #endif

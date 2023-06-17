@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/06/16 18:17:21 by mrichard         ###   ########.fr        #
+#    Updated: 2023/06/17 20:26:45 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,12 +19,12 @@ VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser
 		src/bins src/builtins src/builtins/echo	src/builtins/export src/parser/env src/pipe\
 		src/redir
 
-UTILS = utils
+UTILS = utils utils2
 TOKEN = create_token_list def_token_types token_utils
-COMMANDS = create_commands_list create_commands_list_utils
+COMMANDS = create_commands_list
 PARSER = parser parser_utils
 ENV = create_env_list
-BINS = check_bins signal_handler
+BINS = check_bins check_bins_utils signal_handler
 BUILTINS = check_builtins env cd unset exit
 ECHO = echo echo2
 EXPORT = export export_utils

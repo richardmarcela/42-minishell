@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 01:12:31 by marcela           #+#    #+#             */
-/*   Updated: 2023/06/16 19:02:03 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 17:41:19 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static char	*ft_strncpy(char *dest, const char *src, size_t n)
 	return (dest);
 }
 
-char	*ft_strtrim(char *s1, char const *set)
+char	*ft_strtrim(char const *s1, char const *set)
 {
 	size_t	beg;
 	size_t	end;

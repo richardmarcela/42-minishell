@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:19:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/04 20:21:53 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 16:32:48 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ typedef struct s_commands
 	t_env				*env;
 	t_tokens			*token;
 	int					index;
-	int					stdin;
-	int					stdout;
 	struct s_commands	*next;
 }						t_commands;
 

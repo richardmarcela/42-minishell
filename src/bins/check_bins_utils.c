@@ -1,37 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_utils.c                                      :+:      :+:    :+:   */
+/*   check_bins_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/01 20:20:36 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/17 18:07:14 by mrichard         ###   ########.fr       */
+/*   Created: 2023/06/17 18:22:14 by mrichard          #+#    #+#             */
+/*   Updated: 2023/06/17 18:53:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-bool	*attr_values(void)
+char    **get_path(t_env *env)
 {
-	bool	*variables;
+	char		**path;
+    char        *value;
 
-	variables = malloc(sizeof(bool) * 5);
-	variables[4] = '\0';
-	variables[0] = false;
-	variables[1] = false;
-	variables[2] = false;
-	variables[3] = false;
-	return (variables);
-}
-
-int	process_res(bool *variables)
-{
-	int	res;
-
-	res = 0;
-	if (variables[0] || variables[1])
-		res = 1;
-	free(variables);
-	return (res);
+    value = env_value("PATH", env);
+	path = ft_split(value, ':');
+    free(value);
+    return (path);
 }

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/10 18:03:54 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 18:56:26 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@ int	main(int argc, char **argv, char **envp)
 			{
 				g_exit_status = 0;
 				exit(0);
+			}
+			line = ft_strtrim(line, " ");
+			if (!ft_strlen(line))
+			{
+				free(line);
+				continue ;
 			}
 			pipe_commands(line, env);
 			add_history(line);

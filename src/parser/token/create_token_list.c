@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/16 20:02:13 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:47:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,23 @@ void	lstadd_back_token(t_tokens **lst, t_tokens *new)
 t_tokens	*token_list(char *line)
 {
 	int			i;
+	char		*trimmed_line;
 	char		**splitted;
-	t_TokenType	type;
 	t_tokens	*head;
 	t_tokens	*current_node;
 
 	i = 0;
-	splitted = ft_split(line, ' ');
+	trimmed_line = ft_strtrim(line, " ");
+	splitted = ft_split(trimmed_line, ' ');
 	head = define_head(splitted, &i);
 	current_node = head;
 	while (splitted[++i])
 	{
-		type = token_type(splitted[i]);
-		current_node = lstnew_token(splitted[i], type);
+		current_node = lstnew_token(splitted[i], token_type(splitted[i]));
 		lstadd_back_token(&head, current_node);
 		current_node = current_node->next;
 	}
 	free(splitted);
+	free(trimmed_line);
 	return (head);
 }

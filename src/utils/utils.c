@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/16 20:21:31 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 21:38:53 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,8 @@ int	has_empty_pipe(char **splitted)
 {
 	int		i;
 	char	*temp;
-
-	printf("string: '%s'\n", splitted[0]);
-	if (!splitted[0])
-	{
-		return (0);
-	}
-	i = 0;
+	
+	i = -1;
 	while (splitted[++i])
 	{
 		temp = ft_strtrim(splitted[i], " ");

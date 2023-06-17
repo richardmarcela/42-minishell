@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:46:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/05/27 18:24:14 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 20:25:48 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,5 @@ int	print(t_tokens *token, t_env *env)
 	}
 	if (flag)
 		printf("\n");
-	/* ft_free(line); */
 	return (1);
 }

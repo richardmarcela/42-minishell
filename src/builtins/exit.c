@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:57:40 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/01 19:53:21 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 21:26:54 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,28 +93,30 @@ static int	is_digit_signal(char *str)
 	return (1);
 }
 
-int	exit_terminal(t_tokens *token)
+int	exit_terminal(t_commands *command)
 {
 	int		size;
 
-	size = lstsize_tokens(token, 0);
+	size = lstsize_tokens(command->token, 0);
 	if (size <= 2)
 	{
 		if (size == 2)
 		{
-			if (is_digit_signal(token->next->str)
-				&& fits_in_longlong(token->next->str))
-				g_exit_status = ft_atoll(token->next->str);
+			if (is_digit_signal(command->token->next->str)
+				&& fits_in_longlong(command->token->next->str))
+				g_exit_status = ft_atoll(command->token->next->str);
 			else
 			{
 				g_exit_status = 2;
-				printf("exit\n%s\n", NAR);
+				return (printf("%s\n", NAR));
 			}
 		}
 		else
 			g_exit_status = EXIT_SUCCESS;
+		free_structs(command);
+		printf("exit\n");
 		exit(g_exit_status);
 	}
 	g_exit_status = EXIT_FAILURE;
-	return (printf("exit\n%s\n", TMA));
+	return (printf("%s\n", TMA));
 }

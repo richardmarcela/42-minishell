@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/10 20:31:54 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/17 22:09:05 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,27 +45,40 @@ int	check_bins(t_tokens *token, t_env *env)
 {
 	int			i;
 	char		*bin_path;
+	char		*small_bin_path;
 	char		**path;
 	struct stat	f;
 	t_tokens	*head;
 
-	path = ft_split(env_value("PATH", env), ':');
+	path = get_path(env);
 	i = -1;
 	head = token;
 	while (path && path[++i])
 	{
-		bin_path = ft_strjoin(ft_strjoin(path[i], "/"), head->str);
+		small_bin_path = ft_strjoin(path[i], "/");
+		bin_path = ft_strjoin(small_bin_path, head->str);
+		free(small_bin_path);
 		if (lstat(bin_path, &f) == -1)
 			free(bin_path);
 		else if (is_executable(bin_path, f))
 		{
-			run_cmd(bin_path, token, env);
-			free(bin_path);
-			//free(path); 1039
-			return (1);
+			free(path);
+			return (run_cmd(bin_path, token, env));
 		}
 	}
+	free(bin_path);
+	free(path);
 	return (0);
+}
+
+static int	free_values(char *bin_path, char **env_matrix, char **args)
+{
+	free(bin_path);
+	free(env_matrix);
+	free(args);
+	g_exit_status = 1;
+	printf("%s\n", FF);
+	return (1);
 }
 
 int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
@@ -81,19 +94,13 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	if (pid == 0)
 	{
 		if (lstsize_tokens(token, 1) != lstsize_tokens(token, 0))
-			handle_redir(token, bin_path, args, env_matrix);
+			handle_redir(token);
 		execve(bin_path, args, env_matrix);
 	}
 	if (pid < 0)
-	{
-		free(bin_path);
-		free(env_matrix);
-		g_exit_status = 1;
-		printf("%s\n", FF);
-		return (0);
-	}
+		return (free_values(bin_path, env_matrix, args));
 	wait(&pid);
-	handle_global_signals();
+	free(args);
 	free(env_matrix);
 	return (1);
 }
