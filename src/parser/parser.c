@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/10 20:24:00 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/22 20:57:05 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static char	**fill_ops(void)
 	ops[3] = "<";
 	ops[4] = ">";
 	ops[5] = "|";
-	ops[6] = NULL;
+	ops[6] = 0;
 	return (ops);
 }
 

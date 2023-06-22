@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/17 21:31:23 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/22 19:22:24 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ int				env_len(t_env *env);
 
 //BINS/CHECK_BINS_UTILS.C
 char   			**get_path(t_env *env);
+char			*get_bin_path(char *path, char *str);
 
 //BINS/SIGNAL_HANDLER.C
 void			handle_global_signals(void);

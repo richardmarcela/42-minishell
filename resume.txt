@@ -1,9 +1,6 @@
 CURRENTLY IMPLEMENTING Marcela linda: 1
 CURRENTLY IMPLEMENTING Melo gay: redirects (heredoc not done and '<' not working properly?)
 
-MAJOR PROBLEMS
-1 - pipe doesn't always work (ACHO Q DEI FIX, AGUARDO CONFIRMACAO)
-
 PROBLEMS
 
 1 - there are functions with more than 4 parameters in *export_utils* and *echo2*
@@ -11,7 +8,7 @@ PROBLEMS
 3 - when the output is not accepted by the input the pipe fails (ex: cat | ls) (cat is the worst)
 4 - in bash all commands result in g_exit_status = 0 (?)
 5 - when first command is empty, doesnt work properly (ex: "| ls" or "   | ls")
-6 - when there are multiple pipes together, doesnt work properly (ex: " ls ||| echo a")
+6 - when there are multiple pipes together, doesnt work properly (ex: " ls || echo a")
 7 - free structs
 
 CURRENTLY FIXING LEAKS
