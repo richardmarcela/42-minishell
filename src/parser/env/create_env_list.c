@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 18:16:01 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/17 19:56:07 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:47:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ t_env	*init_env(char **envp)
 	{
 		current = lstnew_env(envp[i]);
 		lstadd_back_env(&head, current);
-		current = current->next;
 	}
 	return (head);
 }

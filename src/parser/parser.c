@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/22 20:57:05 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:22:35 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ static void	check_tokens(t_tokens *token)
 	int			i;
 	int			pos;
 	char		**ops;
-	t_tokens	*head;
-
-	head = token;
+	
 	ops = fill_ops();
 	while (token)
 	{
@@ -97,7 +95,11 @@ int	process_tokens(t_commands *command)
 	}
 	command->token = head;
 	if (!check_builtins(command) && !check_bins(command->token, command->env))
+	{
+		command->token = head;
 		return (0);
+	}
+	command->token = head;
 	return (1);
 }
 
@@ -107,14 +109,11 @@ void	parser(t_commands *commands)
 
 	check_tokens(commands->token);
 	res = process_tokens(commands);
-	if (res != 1)
+	if (res == ERROR)
 	{
-		if (res == ERROR)
-		{
-			g_exit_status = 2;
-			printf("%s\n", EPROMPT);
-		}
-		else
-			printf("%s\n", CNF);
+		g_exit_status = 2;
+		printf("%s\n", EPROMPT);
 	}
+	else if (res == 0)
+		printf("%s\n", CNF);
 }

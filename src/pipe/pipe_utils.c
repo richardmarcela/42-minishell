@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 15:15:51 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/22 17:03:25 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/23 18:13:08 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ void	free_tokens(t_tokens *token)
 	int			i;
 	t_tokens	*node;
 	
-	i = 1;
+	i = -1;
 	size = lstsize_tokens(token, 0);
-	while (i++ <= size)
+	while (++i < size)
 	{
 		node = token;
-		if (token->next)
-			token = token->next;
+		token = token->next;
+		free(node->str);
 		free(node);
 	}
 }
@@ -59,14 +59,13 @@ void	free_structs(t_commands *commands)
 	int			i;
 	t_commands	*node;
 	
-	i = 1;
+	i = -1;
 	size = lstsize_commands(commands);
-	while (i++ <= size)
+	while (++i < size)
 	{
 		node = commands;
 		free_tokens(commands->token);
-		if (commands->next)
-			commands = commands->next;
+		commands = commands->next;
 		free(node);
 	}
 }

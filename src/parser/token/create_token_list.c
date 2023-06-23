@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/22 21:08:28 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:52:45 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,12 @@ t_tokens	*token_list(char *line)
 	i = 0;
 	trimmed_line = ft_strtrim(line, " ");
 	splitted = ft_split(trimmed_line, ' ');
-	head = define_head(splitted, &i);
+	head = lstnew_token(splitted[i], COMMAND);
 	current_node = head;
 	while (splitted[++i])
 	{
 		current_node = lstnew_token(splitted[i], token_type(splitted[i]));
 		lstadd_back_token(&head, current_node);
-		current_node = current_node->next;
 	}
 	free(splitted);
 	free(trimmed_line);

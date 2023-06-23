@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/22 19:11:28 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/23 17:55:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	pipe_commands(char *str, t_env *env)
 	{
 		current_node = lstnew_commands(token_list(pipe_splitted[i]), env);
 		lstadd_back_commands(&head, current_node);
-		current_node = current_node->next;
 	}
 	free(pipe_splitted);
 	open_pipe(head);

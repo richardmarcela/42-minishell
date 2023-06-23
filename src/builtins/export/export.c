@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/27 18:09:16 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/23 16:49:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ static int	env_exists(t_env *head, char *new_env, char *env_value)
 		if (!ft_strcmp(new_env, env_name))
 		{
 			head->str = env_value;
+			free(env_name);
 			return (1);
 		}
 		head = head->next;
+		free(env_name);
 	}
 	return (0);
 }
@@ -51,6 +53,8 @@ int	export(t_commands *command)
 			new = lstnew_env(env_value);
 			lstadd_back_env(&command->env, new);
 		}
+		free(env_name);
+		//free(env_value);
 	}
 	return (1);
 }
