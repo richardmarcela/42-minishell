@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/23 18:22:35 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:43:17 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static void	check_tokens(t_tokens *token)
 	int			i;
 	int			pos;
 	char		**ops;
-	
+
 	ops = fill_ops();
 	while (token)
 	{

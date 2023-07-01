@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:57:40 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/22 22:00:27 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:10:51 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	exit_terminal(t_commands *command)
 		}
 		else
 			g_exit_status = EXIT_SUCCESS;
-		free_structs(command);
+		free_structs(command, 1);
 		printf("exit\n");
 		exit(g_exit_status);
 	}

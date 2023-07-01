@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/23 18:23:47 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/01 22:50:03 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,19 @@ int	check_bins(t_tokens *token, t_env *env)
 	return (0);
 }
 
-static int	free_values(char *bin_path, char **env_matrix, char **args)
+static int	free_values(char *bin_path, char **args, char **env_matrix)
 {
+	int	i;
+
+	i = -1;
 	free(bin_path);
-	free(env_matrix);
+	while (args[++i])
+		free(args[i]);
 	free(args);
-	g_exit_status = 1;
-	printf("%s\n", FF);
+	i = -1;
+	while (env_matrix[++i])
+		free(env_matrix[i]);
+	free(env_matrix);
 	return (1);
 }
 
@@ -85,6 +91,8 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	char		**env_matrix;
 	pid_t		pid;
 
+	if (check_awk(token, bin_path) == ERROR)
+		return (1);
 	args = fill_args(token);
 	env_matrix = fill_env_matrix(env);
 	pid = fork();
@@ -96,11 +104,12 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 		execve(bin_path, args, env_matrix);
 	}
 	if (pid < 0)
-		return (free_values(bin_path, env_matrix, args));
+	{
+		g_exit_status = 1;
+		printf("%s\n", FF);
+		return (free_values(bin_path, args, env_matrix));
+	}
 	wait(&pid);
 	handle_global_signals();
-	free(args);
-	free(bin_path);
-	free(env_matrix);
-	return (1);
+	return (free_values(bin_path, args, env_matrix));
 }

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:46:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/17 20:25:48 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/01 22:42:07 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,20 @@ int	count(char *command, int n)
 
 int	is_right_flag(char *str)
 {
-	if (!ft_strcmp(ft_strtrim(str, "\""), "-n")
-		|| !ft_strcmp(ft_strtrim(str, "'"), "-n"))
+	char	*squote_trim;
+	char	*dquote_trim;
+	
+	squote_trim = ft_strtrim(str, "'");
+	dquote_trim = ft_strtrim(str, "\"");
+	if (!ft_strcmp(dquote_trim, "-n")
+		|| !ft_strcmp(squote_trim, "-n"))
+	{
+		free(squote_trim);
+		free(dquote_trim);
 		return (1);
+	}
+	free(squote_trim);
+	free(dquote_trim);
 	return (0);
 }
 

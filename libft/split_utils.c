@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/01 20:20:36 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/17 18:07:14 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/29 16:25:56 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,7 @@ bool	*attr_values(void)
 {
 	bool	*variables;
 
-	variables = malloc(sizeof(bool) * 5);
-	variables[4] = '\0';
+	variables = malloc(sizeof(bool) * 4);
 	variables[0] = false;
 	variables[1] = false;
 	variables[2] = false;

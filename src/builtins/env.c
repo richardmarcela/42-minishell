@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/23 18:41:56 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/30 16:43:20 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,5 @@ char	*env_value(char *str, t_env *env)
 		env = env->next;
 		free(env_name);
 	}
-	free(env_name);
 	return (value);
 }

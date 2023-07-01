@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/23 17:55:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:32:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,5 @@ void	pipe_commands(char *str, t_env *env)
 	}
 	free(pipe_splitted);
 	open_pipe(head);
-	free_structs(head);
+	free_structs(head, 0);
 }

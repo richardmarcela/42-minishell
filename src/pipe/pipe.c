@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:14:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/23 17:55:36 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:32:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	open_pipe(t_commands *commands)
 	int		curr_pipe[2];
 	int		size;
 	int		i;
-	
+
 	prev_pipe[0] = 0;
 	prev_pipe[1] = 0;
 	i = -1;

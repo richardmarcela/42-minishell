@@ -6,7 +6,7 @@
 #    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/06/23 16:19:59 by mrichard         ###   ########.fr        #
+#    Updated: 2023/07/01 22:24:51 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ ENV = create_env_list
 BINS = check_bins check_bins_utils signal_handler
 BUILTINS = check_builtins env cd unset exit
 ECHO = echo echo2
-EXPORT = export export_utils
+EXPORT = export export_utils export_utils2
 PIPE = pipe pipe_utils
 REDIR = redir
 MAIN = main

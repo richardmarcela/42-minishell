@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/23 17:58:51 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/01 21:52:27 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	has_empty_pipe(char **splitted)
 {
 	int		i;
 	char	*temp;
-	
+
 	i = -1;
 	while (splitted[++i])
 	{
@@ -62,33 +62,6 @@ int	has_empty_pipe(char **splitted)
 		free(temp);
 	}
 	return (0);
-}
-
-char	**fill_args(t_tokens *token)
-{
-	int			i;
-	int			size;
-	char		**args;
-	t_tokens	previous;
-
-	i = 0;
-	previous = *token;
-	previous.str = "";
-	size = lstsize_tokens(token, 1);
-	args = malloc(sizeof(char *) * (size + 1));
-	while (i < size)
-	{
-		if (!is_redirect(token->str) && (ft_strcmp(previous.str, "<")
-				|| ft_strcmp(previous.str, "<<")))
-		{
-			args[i] = token->str;
-			i++;
-		}
-		previous = *token;
-		token = token->next;
-	}
-	args[i] = 0;
-	return (args);
 }
 
 int	search_ops_in_str(char *s1, char *s2, int n)

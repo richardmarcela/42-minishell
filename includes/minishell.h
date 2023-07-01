@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/23 16:27:54 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/01 19:10:39 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 
 //PARSER/TOKEN/TOKEN_UTILS.C
 t_TokenType		which_red(char *str);
-t_tokens		*define_head(char **splitted, int *i);
 char			**fill_args(t_tokens *token);
 
 //BUILTINS/CHECK_BUILTINS.C
@@ -64,8 +63,9 @@ int				run_cmd(char *bin_path, t_tokens *token, t_env *env);
 int				env_len(t_env *env);
 
 //BINS/CHECK_BINS_UTILS.C
-char   			**get_path(t_env *env);
+char			**get_path(t_env *env);
 char			*get_bin_path(char *path, char *str);
+int				check_awk(t_tokens *token, char *bin_path);
 
 //BINS/SIGNAL_HANDLER.C
 void			handle_global_signals(void);
@@ -84,10 +84,17 @@ char			*get_variable(char *str, int *pos);
 int				change_dir(t_tokens *token, t_env *env);
 
 //BUILTINS/EXPORT/EXPORT.C
+bool			*attr_values_quotes(void);
 int				export(t_commands *command);
 
 //BUILTINS/EXPORT/EXPORT_UTILS.C
 char			*process_env_variable(char *str, t_env *env);
+char			*env_search_variable(char *command, int *pos, t_env *env);
+char			*env_quote_handler(char *str, int *pos,
+					bool **quotes, t_env *env);
+
+//BUILTINS/EXPORT/EXPORT_UTILS2.C
+char			*attr_value_result(char *result, char *input, int *i, t_env *env);
 
 //BUILTINS/ENV/ENV.C
 int				env(t_env *env);
@@ -109,7 +116,7 @@ void			open_pipe(t_commands *commands);
 void			assign_pipes(int prev_pipe[2], int curr_pipe[2],
 					int i, int size);
 void			close_all(int prev_pipe[2], int curr_pipe[2]);
-void			free_structs(t_commands *commands);
+void			free_structs(t_commands *commands, int flag);
 
 //SRC/REDIRECTIONS/REDIRECTIONS.C
 void			handle_redir(t_tokens *token);

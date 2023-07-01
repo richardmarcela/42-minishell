@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:40:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/23 18:14:32 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:07:16 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,5 @@ int	change_dir(t_tokens *token, t_env *env)
 		g_exit_status = 1;
 		printf("%s\n", UNKNOWN);
 	}
-	//free(dir);
 	return (1);
 }

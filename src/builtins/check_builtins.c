@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/23 18:54:54 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/29 15:15:42 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	check(t_commands *command)
 
 int	check_builtins(t_commands *command)
 {
-	char value[PATH_MAX];
+	char	value[PATH_MAX];
 
 	if (!ft_strcmp(command->token->str, "echo"))
 		return (print(command->token->next, command->env));

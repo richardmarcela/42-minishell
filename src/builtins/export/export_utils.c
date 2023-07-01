@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/27 19:12:49 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:19:17 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,20 @@ static char	*env_get_variable(char *str, int *pos)
 	return (variable);
 }
 
-static char	*env_search_variable(char *command, int *pos, t_env *env)
+char	*env_search_variable(char *command, int *pos, t_env *env)
 {
 	int		i;
 	char	*variable;
+	char	*value;
 
 	i = (*pos);
-	variable = env_value(env_get_variable(command, &i), env);
+	variable = env_get_variable(command, &i);
+	value = env_value(variable, env);
+	free(variable);
 	(*pos) = i + 1;
-	if (variable)
-		return (variable);
+	if (value)
+		return (value);
+	free(value);
 	return (NULL);
 }
 
@@ -56,9 +60,8 @@ static void	env_change_flag(bool *flag)
 		*flag = false;
 }
 
-//MAIS DE 4 PARAMETROS E MAIS DE 25 LINHAS
-static char	*env_quote_handler(char *str, int *pos,
-bool *unclosed_squotes, bool *unclosed_quotes, t_env *env)
+//MAIS DE 25 LINHAS
+char	*env_quote_handler(char *str, int *pos, bool **quotes, t_env *env)
 {
 	char	*new_str;
 	int		start;
@@ -68,15 +71,15 @@ bool *unclosed_squotes, bool *unclosed_quotes, t_env *env)
 	if (str[(*pos) - 1] == PLICAS)
 	{
 		start = (*pos);
-		env_change_flag(unclosed_squotes);
+		env_change_flag(quotes[1]);
 		while (str[*pos] && str[*pos] != PLICAS)
 			(*pos)++;
 		new_str = ft_substr(str, start, (*pos) - start);
-		env_change_flag(unclosed_squotes);
+		env_change_flag(quotes[1]);
 	}
 	else
 	{
-		env_change_flag(unclosed_quotes);
+		env_change_flag(quotes[0]);
 		while (str[*pos] && str[*pos] != ASPAS)
 		{
 			if (str[*pos] == '$')
@@ -85,13 +88,29 @@ bool *unclosed_squotes, bool *unclosed_quotes, t_env *env)
 			else
 				new_str = ft_strjoin(new_str, ft_substr(str, (*pos)++, 1));
 		}
-		env_change_flag(unclosed_quotes);
+		env_change_flag(quotes[0]);
 	}
 	return (new_str);
 }
 
-//MAIS DE 25 LINHAS
 char	*process_env_variable(char *input, t_env *env)
+{
+	int		i;
+	char	*result;
+
+	i = 0;
+	while (input[i] && !isquote(input[i]) && input[i] != '$')
+		i++;
+	result = ft_substr(input, 0, i);
+	while (input[i])
+	{
+		result = attr_value_result(result, input, &i, env);
+		i++;
+	}
+	return (result);
+}
+
+/* char	*process_env_variable(char *input, t_env *env)
 {
 	int		i;
 	int		start;
@@ -126,4 +145,4 @@ char	*process_env_variable(char *input, t_env *env)
 		i++;
 	}
 	return (result);
-}
+} */

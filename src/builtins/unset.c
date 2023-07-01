@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/06 20:23:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/05/27 17:50:45 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/06/29 18:25:42 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int	unset_env(t_commands *command)
 				command->env = curr->next;
 			else
 				prev->next = curr->next;
+			free(curr->str);
 			free(curr);
 			return (1);
 		}
