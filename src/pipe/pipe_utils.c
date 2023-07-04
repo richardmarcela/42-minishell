@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 15:15:51 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/01 22:30:35 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:21:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	free_env(t_env *env)
 	{
 		node = env;
 		env = env->next;
+		free(env->str);
 		free(node);
 	}
 }

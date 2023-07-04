@@ -6,10 +6,9 @@ PROBLEMS
 1 - there are functions with more than 4 parameters in *export_utils* and *echo2*
 2 - functions with more than 25 lines
 3 - when the output is not accepted by the input the pipe fails (ex: cat | ls) (cat is the worst)
-4 - in bash all commands result in g_exit_status = 0 (?)
-5 - when first command is empty, doesnt work properly (ex: "| ls" or "   | ls")
-6 - when there are multiple pipes together, doesnt work properly (ex: " ls || echo a")
-7 - free structs
+4 - when first command is empty, doesnt work properly (ex: "| ls" or "   | ls")
+5 - when there are multiple pipes together, doesnt work properly (ex: " ls || echo a")
+6 - free structs
 
 CURRENTLY FIXING LEAKS
 

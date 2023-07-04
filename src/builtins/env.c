@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/30 16:43:20 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/04 17:35:16 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ char	*env_value(char *str, t_env *env)
 		if (!ft_strcmp(str, env_name))
 		{
 			value = ft_strtrim(ft_strchr(env->str, '='), "=");
+			free(env_name);
 			break ;
 		}
 		env = env->next;
