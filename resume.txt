@@ -12,4 +12,7 @@ PROBLEMS
 
 CURRENTLY FIXING LEAKS
 
+- Invalid read of 1 process_argument
+- Leak env_value -> trim
+
 999 - Marcela's entire life (nothing i can do)

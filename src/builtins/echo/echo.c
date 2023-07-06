@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:46:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/01 22:42:07 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/06 17:59:18 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	print(t_tokens *token, t_env *env)
 	}
 	while (token)
 	{
+		printf("STR: %s\n", token->str);
 		process_argument(token->str, env);
 		if (token->next)
 			printf(" ");
