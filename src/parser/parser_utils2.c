@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/14 22:41:20 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:51:32 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*search_variable(char *command, int *pos, t_env *env)
 	char	*var_name;
 	char	*value;
 
-	if (isquote(command[(*pos) + 1]))
+	if (isquote(command[(*pos) + 1]) && command[(*pos) + 2] != '$')
 		value = NULL;
 	else if (!ft_isalnum(command[(*pos) + 1]))
 		value = "$";
