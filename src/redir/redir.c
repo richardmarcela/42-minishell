@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/17 21:37:45 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:50:33 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ int	out(int fd, t_TokenType type, char *output_file)
 int	in(int fd, t_TokenType type, char *input_file)
 {
 	if (type == APPEND_IN)
-		fd = open(input_file, O_RDONLY | O_CREAT | O_APPEND);
+		fd = open(input_file, O_RDONLY | O_CREAT | O_APPEND, 0644);
 	else
-		fd = open(input_file, O_RDONLY);
+		fd = open(input_file, O_RDONLY, 0644);
 	dup2(fd, STDIN_FILENO);
 	return (fd);
 }

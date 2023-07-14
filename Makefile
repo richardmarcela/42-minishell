@@ -6,13 +6,13 @@
 #    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/07/04 17:21:17 by mrichard         ###   ########.fr        #
+#    Updated: 2023/07/13 21:22:52 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -I./includes #-fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I./includes #-fsanitize=address
 RM = rm -rf
 LIBFT = ./libft/libft.a
 VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser/env_list\
@@ -22,12 +22,12 @@ VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser
 UTILS = utils utils2
 TOKEN = create_token_list def_token_types token_utils
 COMMANDS = create_commands_list
-PARSER = parser parser_utils
+PARSER = parser parser_utils parser_utils2
 ENV = create_env_list
 BINS = check_bins check_bins_utils signal_handler
 BUILTINS = check_builtins env cd unset exit
-ECHO = echo echo2
-EXPORT = export export_utils export_utils2
+ECHO = echo
+EXPORT = export
 PIPE = pipe pipe_utils
 REDIR = redir
 MAIN = main

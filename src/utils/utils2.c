@@ -6,11 +6,26 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:22:55 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/01 22:30:24 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:27:55 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**fill_ops(void)
+{
+	char	**ops;
+
+	ops = (char **)malloc(sizeof(char *) * 7);
+	ops[0] = "<>";
+	ops[1] = "<<";
+	ops[2] = ">>";
+	ops[3] = "<";
+	ops[4] = ">";
+	ops[5] = "|";
+	ops[6] = 0;
+	return (ops);
+}
 
 char	*env_str(char *env)
 {

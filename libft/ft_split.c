@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 19:43:10 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/29 16:27:41 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:31:14 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static int	skip_quoted_content(char *s, int *i, int *flag)
 		while (s[*i] && !isquote(s[*i]))
 			(*i)++;
 		(*flag) = 1;
+		if (!s[(*i)])
+			(*i)--;
 		return (1);
 	}
 	return (0);

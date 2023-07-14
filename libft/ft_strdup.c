@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marcela <marcela@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/24 15:10:54 by marcela           #+#    #+#             */
-/*   Updated: 2022/10/02 02:13:19 by marcela          ###   ########.fr       */
+/*   Updated: 2023/07/13 18:18:50 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+//Duplicates the s string to s2
 char	*ft_strdup(const char *s)
 {
 	unsigned int	i;

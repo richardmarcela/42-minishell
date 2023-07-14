@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:19:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/30 15:23:35 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:17:00 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 # define PROMPT "shell pequeno 🐚> "
 # define EPARSE "parse error near '|'"
 # define CPARSE "parse error near '{}'"
+# define NAI "not an identifier:"
 # define EPROMPT "unclosed quotes"
 # define CNF "command not found"
 # define TMA "too many arguments"
@@ -69,6 +70,7 @@ typedef struct s_tokens
 
 typedef struct s_env
 {
+	int					was_added;
 	char				*str;
 	struct s_env		*next;
 }						t_env;

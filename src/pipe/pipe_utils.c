@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 15:15:51 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/04 17:21:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/12 20:28:16 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,15 @@ void	free_env(t_env *env)
 	int		i;
 	int		size;
 	t_env	*node;
-	
+
 	i = -1;
 	size = env_len(env);
 	while (++i < size)
 	{
 		node = env;
 		env = env->next;
-		free(env->str);
+		if (node->was_added)
+			free(node->str);
 		free(node);
 	}
 }
@@ -86,5 +87,5 @@ void	free_structs(t_commands *commands, int flag)
 		free_tokens(commands->token);
 		commands = commands->next;
 		free(node);
-	}	
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/01 22:50:03 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/13 22:24:57 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,14 @@ int	check_bins(t_tokens *token, t_env *env)
 	char		*bin_path;
 	char		**path;
 	struct stat	f;
-	t_tokens	*head;
 
 	path = get_path(env);
+	if (!path)
+		return (0);
 	i = -1;
-	head = token;
 	while (path && path[++i])
 	{
-		bin_path = get_bin_path(path[i], head->str);
+		bin_path = get_bin_path(path[i], token->str);
 		if (lstat(bin_path, &f) == -1)
 			free(bin_path);
 		else if (is_executable(bin_path, f))

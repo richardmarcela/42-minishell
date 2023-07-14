@@ -1,18 +1,11 @@
-CURRENTLY IMPLEMENTING Marcela linda: 
-CURRENTLY IMPLEMENTING Melo gay: redirects (heredoc not done and '<' not working properly?)
-
 PROBLEMS
 
-1 - there are functions with more than 4 parameters in *export_utils* and *echo2*
-2 - functions with more than 25 lines
-3 - when the output is not accepted by the input the pipe fails (ex: cat | ls) (cat is the worst)
-4 - when first command is empty, doesnt work properly (ex: "| ls" or "   | ls")
-5 - when there are multiple pipes together, doesnt work properly (ex: " ls || echo a")
-6 - free structs
+1 - when the output is not accepted by the input the pipe fails (ex: cat | ls) (cat is the worst)
+2 - 'ls a>b' invalid free
+3 - norminette
+4 - redirs (echo > syntax error, << with no commands, heredoc, '<' not working properly?)
 
-CURRENTLY FIXING LEAKS
-
-- Invalid read of 1 process_argument
-- Leak env_value -> trim
+MELO PAI: a fazer o 2
+MARCELA LINDA: leaks
 
 999 - Marcela's entire life (nothing i can do)

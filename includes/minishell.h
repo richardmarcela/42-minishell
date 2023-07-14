@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/01 19:10:39 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:52:26 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ int				lstsize_tokens(t_tokens *token, int filter);
 int				search_ops_in_str(char *s1, char *s2, int n);
 
 //UTILS/UTILS2.C
+char			**fill_ops(void);
 
 //PARSER/PIPE_SPLIT.C
 void			pipe_commands(char *str, t_env *env);
 
 //PARSER/PARSER.C
 int				process_tokens(t_commands *command);
-void			parser(t_commands *commands);
+void			parser(t_commands *command);
+char			*process_argument(t_commands *command);
 
 //PARSER/PARSER_UTILS.C
 int				search_content(char *str, char *op, int flag);
@@ -43,6 +45,17 @@ void			handle_content_before(t_tokens *token, int pos,
 					char *op_str, char *original_str);
 t_tokens		*handle_content_after(char *original_str, int pos,
 					char *op, t_tokens *token);
+char			*quote_handler(char *str, int *pos, int start, t_env *env);
+char			*process_variable(char *str, int *i,
+					char *expanding, t_env *env);
+
+//PARSER/PARSER_UTILS2.C
+void			change_flag(bool *flag);
+char			*get_variable(char *str, int *pos);
+char			*search_variable(char *command, int *pos, t_env *env);
+char			*add_chars(char *expanding_str, char *str, int pos, int start);
+char			*process_quoted_variable(char *str, char *expanding_str,
+					int *i, t_env *env);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*token_list(char *line);
@@ -72,32 +85,16 @@ void			handle_global_signals(void);
 void			handle_cmd_signals(void);
 
 //BUILTINS/ECHO/ECHO.C
-int				print(t_tokens *token, t_env *env);
-int				count(char *command, int n);
-
-//BUILTINS/ECHO/ECHO2.C
-void			process_argument(char *str, t_env *env);
-void			change_flag(bool *flag);
-char			*get_variable(char *str, int *pos);
+int				print(t_tokens *token);
 
 //BUILTINS/DIRECTORY/DIRECTORY.C
 int				change_dir(t_tokens *token, t_env *env);
 
 //BUILTINS/EXPORT/EXPORT.C
-bool			*attr_values_quotes(void);
 int				export(t_commands *command);
 
-//BUILTINS/EXPORT/EXPORT_UTILS.C
-char			*process_env_variable(char *str, t_env *env);
-char			*env_search_variable(char *command, int *pos, t_env *env);
-char			*env_quote_handler(char *str, int *pos,
-					bool **quotes, t_env *env);
-
-//BUILTINS/EXPORT/EXPORT_UTILS2.C
-char			*attr_value_result(char *result, char *input, int *i, t_env *env);
-
 //BUILTINS/ENV/ENV.C
-int				env(t_env *env);
+int				env(t_env *env, int flag);
 char			*env_value(char *str, t_env *env);
 
 //BUILTINS/ENV/UNSET.C
@@ -106,7 +103,7 @@ int				unset_env(t_commands *command);
 //PARSER/ENV/CREATE_ENV_LIST.C
 char			**fill_env_matrix(t_env *env);
 t_env			*init_env(char **envp);
-t_env			*lstnew_env(char *envp);
+t_env			*lstnew_env(char *envp, int flag);
 void			lstadd_back_env(t_env **lst, t_env *new);
 
 //SRC/PIPE/PIPE.C

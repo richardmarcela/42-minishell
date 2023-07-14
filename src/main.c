@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/30 15:38:16 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:45:56 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,48 @@
 
 long long	g_exit_status = 0;
 
-void	check_line(char *line)
+int	check_line(char *line)
 {
+	int		i;
+	int		pos;
+
 	if (!line)
 	{
 		g_exit_status = 0;
+		printf("exit\n");
 		exit(0);
 	}
+	i = -1;
+	pos = search_ops_in_str(line, "|", ft_strlen(line));
+	if (pos != -1)
+	{
+		while (++i < pos)
+			if (line[i] != ' ' && line[i] != '\t')
+				return (1);
+		printf("%s\n", EPARSE);
+		return (0);
+	}
+	return (1);
+}
+
+char	*check_double_pipes(char *line)
+{
+	int		i;
+	char	*new_line;
+
+	i = -1;
+	while (line[++i])
+	{
+		if (line[i] == '|' && (line[i - 1] == '|' || line[i + 1] == '|'))
+		{
+			new_line = ft_substr(line, 0, i);
+			add_history(line);
+			free(line);
+			return (new_line);
+		}
+	}
+	add_history(line);
+	return (ft_strtrim(line, " "));
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -36,13 +71,11 @@ int	main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			line = readline(PROMPT);
-			check_line(line);
-			line = ft_strtrim(line, " ");
+			if (!check_line(line))
+				continue ;
+			line = check_double_pipes(line);
 			if (ft_strlen(line))
-			{
 				pipe_commands(line, env);
-				add_history(line);
-			}
 			free(line);
 		}
 	}

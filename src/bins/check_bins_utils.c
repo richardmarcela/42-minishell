@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:22:14 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/01 22:46:59 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/14 20:51:41 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ char	**get_path(t_env *env)
 	char	*value;
 
 	value = env_value("PATH", env);
-	path = ft_split(value, ':');
+	if (value)
+	{
+		path = ft_split(value, ':');
+		free(value);
+		return (path);
+	}
 	free(value);
-	return (path);
+	return (NULL);
 }
 
 char	*get_bin_path(char *path, char *str)
@@ -46,7 +51,7 @@ int	parse_error(char *bin_path)
 void	delete_char(t_tokens *node)
 {
 	char	*new_file;
-	
+
 	if (node->str[0] == PLICAS)
 		new_file = ft_strtrim(node->str, "'");
 	else
@@ -57,8 +62,8 @@ void	delete_char(t_tokens *node)
 
 int	check_awk(t_tokens *token, char *bin_path)
 {
-	t_tokens *node;
-	
+	t_tokens	*node;
+
 	node = token;
 	if (!ft_strcmp(node->str, "awk") || !ft_strcmp(node->str, "gawk"))
 	{
@@ -67,7 +72,8 @@ int	check_awk(t_tokens *token, char *bin_path)
 			node = node->next;
 		if (node->str[0] == '{')
 			return (parse_error(bin_path));
-		if (node->str[0] == PLICAS && node->str[ft_strlen(node->str) - 1] == PLICAS)
+		if (node->str[0] == PLICAS
+			&& node->str[ft_strlen(node->str) - 1] == PLICAS)
 		{
 			node->str[0] = '"';
 			node->str[ft_strlen(node->str) - 1] = '"';

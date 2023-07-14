@@ -6,20 +6,23 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/29 18:26:55 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/14 22:45:21 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	*attr_values_quotes(void)
+static char	*form_variable(char *name, char *value)
 {
-	bool	*quotes;
+	char	*str;
+	char	*temp;
 
-	quotes = malloc(sizeof(bool) * 2);
-	quotes[0] = false;
-	quotes[1] = false;
-	return (quotes);
+	temp = ft_strjoin(name, "=");
+	str = ft_strjoin(temp, value);
+	free(name);
+	free(value);
+	free(temp);
+	return (str);
 }
 
 static int	env_exists(t_env *head, char *new_env, char *env_value)
@@ -33,7 +36,10 @@ static int	env_exists(t_env *head, char *new_env, char *env_value)
 		env_name = ft_substr(head->str, 0, pos);
 		if (!ft_strcmp(new_env, env_name))
 		{
-			head->str = env_value;
+			if (head->was_added)
+				free(head->str);
+			head->str = form_variable(new_env, env_value);
+			head->was_added = 1;
 			free(env_name);
 			return (1);
 		}
@@ -41,6 +47,17 @@ static int	env_exists(t_env *head, char *new_env, char *env_value)
 		free(env_name);
 	}
 	return (0);
+}
+
+static int	check_env_name(char *name)
+{
+	if (ft_isdigit(name[0]))
+	{
+		printf("%s %s\n", NAI, name);
+		free(name);
+		return (0);
+	}
+	return (1);
 }
 
 int	export(t_commands *command)
@@ -57,13 +74,15 @@ int	export(t_commands *command)
 		pos = search_ops_in_str(command->token->str, "=",
 				ft_strlen(command->token->str));
 		env_name = ft_substr(command->token->str, 0, pos);
-		env_value = process_env_variable(command->token->str, command->env);
+		if (!check_env_name(env_name))
+			return (1);
+		env_value = ft_substr(command->token->str, pos + 1,
+				ft_strlen(command->token->str) - ft_strlen(env_name) - 1);
 		if (!env_exists(env_head, env_name, env_value))
 		{
-			new = lstnew_env(env_value);
+			new = lstnew_env(form_variable(env_name, env_value), 1);
 			lstadd_back_env(&command->env, new);
 		}
-		free(env_name);
 	}
 	return (1);
 }

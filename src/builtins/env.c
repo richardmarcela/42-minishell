@@ -6,16 +6,18 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/06 17:52:04 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/08 19:51:23 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	env(t_env *env)
+int	env(t_env *env, int flag)
 {
 	while (env)
 	{
+		if (flag)
+			printf("declare -x ");
 		printf("%s\n", env->str);
 		env = env->next;
 	}
@@ -28,7 +30,7 @@ char	*env_value(char *str, t_env *env)
 	char	*env_name;
 	char	*value;
 
-	value = "";
+	value = NULL;
 	while (env)
 	{
 		pos = search_ops_in_str(env->str, "=", ft_strlen(env->str));

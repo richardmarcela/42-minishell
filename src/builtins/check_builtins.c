@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/29 15:15:42 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:22:44 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 static int	check(t_commands *command)
 {
 	if (!ft_strcmp(command->token->str, "env"))
-		return (env(command->env));
+		return (env(command->env, 0));
 	else if (!ft_strcmp(command->token->str, "unset"))
 	{
 		command->token = command->token->next;
@@ -38,7 +38,7 @@ int	check_builtins(t_commands *command)
 	char	value[PATH_MAX];
 
 	if (!ft_strcmp(command->token->str, "echo"))
-		return (print(command->token->next, command->env));
+		return (print(command->token->next));
 	else if (!ft_strcmp(command->token->str, "cd"))
 		return (change_dir(command->token, command->env));
 	else if (!ft_strcmp(command->token->str, "pwd"))
@@ -48,8 +48,13 @@ int	check_builtins(t_commands *command)
 	}
 	else if (!ft_strcmp(command->token->str, "export"))
 	{
-		command->token = command->token->next;
-		return (export(command));
+		if (command->token->next)
+		{
+			command->token = command->token->next;
+			return (export(command));
+		}
+		else
+			return (env(command->env, 1));
 	}
 	return (check(command));
 }
