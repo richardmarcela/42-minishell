@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/15 18:30:47 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/15 19:38:50 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,7 @@ char	*search_variable(char *command, int *pos, t_env *env)
 	char	*var_name;
 	char	*value;
 
-	if (isquote(command[(*pos) + 1]) && (command[(*pos) + 2] != '$'
-		&& command[(*pos) + 2] != '\0'))
+	if (isquote(command[(*pos) + 1]) && command[(*pos) + 2] != '$' && command[(*pos) + 2] != '\0')
 		value = NULL;
 	else if (!ft_isalnum(command[(*pos) + 1]))
 		value = "$";
@@ -84,6 +83,13 @@ char	*if_variable(char *new_str, t_commands *command, int *start, int *i)
 	printf("- NEW_STR AFTER: %s\n", new_str);
 	(*start) = (*i);
 	(*i)--;
+	printf("PROXIMA POSICAO: '%c'\n", new_str[(*i) + 1]);
+	if (!ft_strcmp(new_str, "$") && !new_str[(*i) + 1])
+	{
+		printf("SEXO NIG\n");
+		free(new_str);
+		return ("$");
+	}
 	return (new_str);
 }
 
@@ -91,14 +97,10 @@ char	*if_quotes(char *new_str, t_commands *command, int *start, int *i)
 {
 	char	*temp;
 	char	*handling;
-	
-	printf("ENTROU IF QUOTES\n");
-	printf("- NEW_STR BEFORE: %s\n", new_str);
+
 	temp = new_str;
 	handling = quote_handler(command->token->str, i, (*i) + 1, command->env);
-	printf("- HANDLING: %s\n", handling);
 	new_str = ft_strjoin(temp, handling);
-	printf("- NEW_STR AFTER: %s\n", new_str);
 	free(temp);
 	if (handling && ft_strcmp(handling, "$"))
 		free(handling);
