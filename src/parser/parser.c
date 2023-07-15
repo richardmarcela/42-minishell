@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/14 21:28:42 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:08:17 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ char	*process_argument(t_commands *command)
 	int		i;
 	int		start;
 	char	*new_str;
-	char	*temp;
-	char	*handling;
 
 	i = -1;
 	start = 0;
@@ -108,27 +106,11 @@ char	*process_argument(t_commands *command)
 			i++;
 		new_str = add_chars(new_str, command->token->str, i - start, start);
 		if (command->token->str[i] == '$')
-		{
-			new_str = process_variable(command->token->str, &i,
-					new_str, command->env);
-			start = i;
-			i--;
-		}
+			new_str = if_variable(new_str, command, &start, &i);
 		else if (isquote(command->token->str[i]))
-		{
-			temp = new_str;
-			handling = quote_handler(command->token->str, &i,
-					i + 1, command->env);
-			new_str = ft_strjoin(temp, handling);
-			free(temp);
-			if (handling && ft_strcmp(handling, "$"))
-				free(handling);
-			start = i + 1;
-		}
+			new_str = if_quotes(new_str, command, &start, &i);
 		else
 			break ;
-		/* if (!command->token->str[i])
-			break ; */
 	}
 	free(command->token->str);
 	return (new_str);

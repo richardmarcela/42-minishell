@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/14 20:52:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:04:16 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ int				isquote(int c);
 int				has_empty_pipe(char **splitted);
 int				lstsize_tokens(t_tokens *token, int filter);
 int				search_ops_in_str(char *s1, char *s2, int n);
+void			change_flag(bool *flag);
 
 //UTILS/UTILS2.C
 char			**fill_ops(void);
+char			**fill_args(t_tokens *token);
+char			**fill_env_matrix(t_env *env);
 
 //PARSER/PIPE_SPLIT.C
 void			pipe_commands(char *str, t_env *env);
@@ -50,12 +53,11 @@ char			*process_variable(char *str, int *i,
 					char *expanding, t_env *env);
 
 //PARSER/PARSER_UTILS2.C
-void			change_flag(bool *flag);
 char			*get_variable(char *str, int *pos);
 char			*search_variable(char *command, int *pos, t_env *env);
 char			*add_chars(char *expanding_str, char *str, int pos, int start);
-char			*process_quoted_variable(char *str, char *expanding_str,
-					int *i, t_env *env);
+char			*if_variable(char *new_str, t_commands *command, int *start, int *i);
+char			*if_quotes(char *new_str, t_commands *command, int *start, int *i);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*token_list(char *line);
@@ -65,7 +67,6 @@ void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 
 //PARSER/TOKEN/TOKEN_UTILS.C
 t_TokenType		which_red(char *str);
-char			**fill_args(t_tokens *token);
 
 //BUILTINS/CHECK_BUILTINS.C
 int				check_builtins(t_commands *command);
@@ -101,7 +102,6 @@ char			*env_value(char *str, t_env *env);
 int				unset_env(t_commands *command);
 
 //PARSER/ENV/CREATE_ENV_LIST.C
-char			**fill_env_matrix(t_env *env);
 t_env			*init_env(char **envp);
 t_env			*lstnew_env(char *envp, int flag);
 void			lstadd_back_env(t_env **lst, t_env *new);

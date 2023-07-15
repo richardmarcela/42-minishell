@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/14 22:51:32 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/15 18:30:47 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ char	*search_variable(char *command, int *pos, t_env *env)
 	char	*var_name;
 	char	*value;
 
-	if (isquote(command[(*pos) + 1]) && command[(*pos) + 2] != '$')
+	if (isquote(command[(*pos) + 1]) && (command[(*pos) + 2] != '$'
+		&& command[(*pos) + 2] != '\0'))
 		value = NULL;
 	else if (!ft_isalnum(command[(*pos) + 1]))
 		value = "$";
@@ -55,14 +56,6 @@ char	*search_variable(char *command, int *pos, t_env *env)
 	}
 	(*pos) += 1;
 	return (value);
-}
-
-void	change_flag(bool *flag)
-{
-	if (!*flag)
-		*flag = true;
-	else
-		*flag = false;
 }
 
 char	*add_chars(char *expanding_str, char *str, int pos, int start)
@@ -81,4 +74,34 @@ char	*add_chars(char *expanding_str, char *str, int pos, int start)
 	}
 	else
 		return (temp);
+}
+
+char	*if_variable(char *new_str, t_commands *command, int *start, int *i)
+{
+	printf("ENTROU IF VARIABLE\n");
+	printf("- NEW_STR BEFORE: %s\n", new_str);
+	new_str = process_variable(command->token->str, i, new_str, command->env);
+	printf("- NEW_STR AFTER: %s\n", new_str);
+	(*start) = (*i);
+	(*i)--;
+	return (new_str);
+}
+
+char	*if_quotes(char *new_str, t_commands *command, int *start, int *i)
+{
+	char	*temp;
+	char	*handling;
+	
+	printf("ENTROU IF QUOTES\n");
+	printf("- NEW_STR BEFORE: %s\n", new_str);
+	temp = new_str;
+	handling = quote_handler(command->token->str, i, (*i) + 1, command->env);
+	printf("- HANDLING: %s\n", handling);
+	new_str = ft_strjoin(temp, handling);
+	printf("- NEW_STR AFTER: %s\n", new_str);
+	free(temp);
+	if (handling && ft_strcmp(handling, "$"))
+		free(handling);
+	(*start) = (*i) + 1;
+	return (new_str);
 }

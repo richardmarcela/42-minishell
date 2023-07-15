@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/01 21:52:27 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:46:57 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,4 +83,12 @@ int	search_ops_in_str(char *s1, char *s2, int n)
 		i++;
 	}
 	return (-1);
+}
+
+void	change_flag(bool *flag)
+{
+	if (!*flag)
+		*flag = true;
+	else
+		*flag = false;
 }
