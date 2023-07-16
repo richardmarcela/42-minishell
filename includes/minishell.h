@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/15 18:04:16 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/16 15:04:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,10 @@ char			*process_variable(char *str, int *i,
 char			*get_variable(char *str, int *pos);
 char			*search_variable(char *command, int *pos, t_env *env);
 char			*add_chars(char *expanding_str, char *str, int pos, int start);
-char			*if_variable(char *new_str, t_commands *command, int *start, int *i);
-char			*if_quotes(char *new_str, t_commands *command, int *start, int *i);
+char			*if_variable(char *new_str, t_commands *command,
+					int *start, int *i);
+char			*if_quotes(char *new_str, t_commands *command,
+					int *start, int *i);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*token_list(char *line);

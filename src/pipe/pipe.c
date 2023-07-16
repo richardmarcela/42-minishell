@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/20 16:14:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/13 20:42:19 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:57:07 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,24 @@
 
 static void	left_pipe(int curr_pipe[2])
 {
-	close(curr_pipe[0]);
+	printf("- ENTROU LEFT\n");
+	/* close(curr_pipe[0]); */
+	printf("-- CURR 1: %d\n", curr_pipe[1]);
+	printf("-- STD OUT: %d\n", STDOUT_FILENO);
 	dup2(curr_pipe[1], STDOUT_FILENO);
-	close(curr_pipe[1]);
+	printf("-- CURR 1 AFTER: %d\n", curr_pipe[1]);
+	printf("-- STD OUT AFTER: %d\n", STDOUT_FILENO);
+	/* close(curr_pipe[1]); */
+	printf("- SAIU LEFT\n");
 }
 
 static void	right_pipe(int prev_pipe[2])
 {
-	close(prev_pipe[1]);
+	printf("ENTROU RIGHT\n");
+	/* close(prev_pipe[1]); */
 	dup2(prev_pipe[0], STDIN_FILENO);
-	close(prev_pipe[0]);
+	/* close(prev_pipe[0]); */
+	printf("SAIU RIGHT\n");
 }
 
 static void	error_message(int error, char *mes)
@@ -37,25 +45,26 @@ static void	exec_pipe(int prev_pipe[2], int curr_pipe[2],
 {
 	pid_t		child;
 
+	printf("COMMAND: %s\n", commands->token->str);
+	printf("INDEX: %d\n", commands->index);
 	child = fork();
+	printf("CHILD: %d\n", child);
 	if (child == -1)
 		error_message(g_exit_status, PF);
-	else if (child == 0)
+	if (child == 0)
 	{
 		if (commands->index > 0)
 			right_pipe(prev_pipe);
 		if (commands->index < size - 1)
 			left_pipe(curr_pipe);
-		close_all(prev_pipe, curr_pipe);
+		assign_pipes(prev_pipe, curr_pipe, commands->index, size);
+		//close_all(prev_pipe, curr_pipe);
 		parser(commands);
 		exit(g_exit_status);
 	}
-	else
-	{
-		assign_pipes(prev_pipe, curr_pipe, commands->index, size);
-		waitpid(child, (int *)&g_exit_status, 0);
-		g_exit_status = WEXITSTATUS(g_exit_status);
-	}
+	assign_pipes(prev_pipe, curr_pipe, commands->index, size);
+	waitpid(child, (int *)&g_exit_status, 0);
+	g_exit_status = WEXITSTATUS(g_exit_status);
 }
 
 void	open_pipe(t_commands *commands)

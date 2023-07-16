@@ -4,8 +4,9 @@ PROBLEMS
 2 - 'ls a>b' invalid free
 3 - norminette
 4 - redirs (echo > syntax error, << with no commands, heredoc, '<' not working properly?)
-5 - leaks echo $
-MELO PAI: a fazer o 2
-MARCELA LINDA: leaks
+5 - echo $$""$HOME  echo "$"$  leaks
+
+MELO PAI: a fazer o 2, 1 (5 pq cansei dos outros)
+MARCELA LINDA: 3, 5
 
 999 - Marcela's entire life (nothing i can do)

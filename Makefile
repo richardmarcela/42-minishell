@@ -6,7 +6,7 @@
 #    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/07/15 19:00:13 by mrichard         ###   ########.fr        #
+#    Updated: 2023/07/16 22:00:30 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ all: $(NAME)
 
 $(NAME): $(OBJ_DIR) $(OBJS)
 	$(MAKE) --no-print-directory -C ./libft
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) $(LIBFT) -lreadline
+	$(CC) $(CFLAGS) $(OBJS) -lreadline -o $(NAME) $(LIBFT)
 
 $(OBJ_DIR):
 	mkdir -p obj

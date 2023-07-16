@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/15 18:08:17 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:49:52 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,15 @@ char	*process_argument(t_commands *command)
 	i = -1;
 	start = 0;
 	new_str = NULL;
+	printf("---------------------\n");
+	printf("TOKEN: '%s'\n", command->token->str);
 	while (command->token->str[++i])
 	{
 		while (command->token->str[i] != '$' && !isquote(command->token->str[i])
 			&& command->token->str[i])
 			i++;
-		new_str = add_chars(new_str, command->token->str, i - start, start);
+		if (i - start > 0)
+			new_str = add_chars(new_str, command->token->str, i - start, start);
 		if (command->token->str[i] == '$')
 			new_str = if_variable(new_str, command, &start, &i);
 		else if (isquote(command->token->str[i]))
@@ -112,6 +115,8 @@ char	*process_argument(t_commands *command)
 		else
 			break ;
 	}
+	printf("FINAL TOKEN: '%s'\n", new_str);
+	printf("---------------------\n");
 	free(command->token->str);
 	return (new_str);
 }

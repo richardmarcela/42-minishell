@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/04 15:15:51 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/12 20:28:16 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/16 21:57:08 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 
 void	assign_pipes(int prev_pipe[2], int curr_pipe[2], int i, int size)
 {
+	printf("ENTROU ASSIGN\n");
+	printf("- PREV 0: %d\n", prev_pipe[0]);
+	printf("- PREV 1: %d\n", prev_pipe[1]);
+	printf("- CURR 0: %d\n", curr_pipe[0]);
+	printf("- CURR 1: %d\n", curr_pipe[1]);
 	if (i > 0)
 	{
 		close(prev_pipe[0]);
@@ -26,14 +31,26 @@ void	assign_pipes(int prev_pipe[2], int curr_pipe[2], int i, int size)
 		prev_pipe[0] = curr_pipe[0];
 		prev_pipe[1] = curr_pipe[1];
 	}
+	printf("- PREV 0 AFTER: %d\n", prev_pipe[0]);
+	printf("- PREV 1 AFTER: %d\n", prev_pipe[1]);
+	printf("- CURR 0 AFTER: %d\n", curr_pipe[0]);
+	printf("- CURR 1 AFTER: %d\n", curr_pipe[1]);
+	printf("- SAIU\n");
 }
 
 void	close_all(int prev_pipe[2], int curr_pipe[2])
 {
+	printf("ENTROU CLOSE\n");
+	printf("- PREV 0: %d\n", prev_pipe[0]);
+	printf("- PREV 1: %d\n", prev_pipe[1]);
+	printf("- CURR 0: %d\n", curr_pipe[0]);
+	printf("- CURR 1: %d\n", curr_pipe[1]);
 	close(prev_pipe[0]);
 	close(prev_pipe[1]);
-	close(curr_pipe[0]);
+	if (curr_pipe[0] != STDIN_FILENO)
+		close(curr_pipe[0]);
 	close(curr_pipe[1]);
+	printf("SAIU\n");
 }
 
 void	free_tokens(t_tokens *token)

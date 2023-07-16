@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 18:30:04 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/15 19:29:29 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/16 22:50:28 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,18 @@ char	*quote_handler(char *str, int *pos, int start, t_env *env)
 		while (str[*pos] && str[*pos] != PLICAS)
 			(*pos)++;
 		new_str = add_chars(new_str, str, ((*pos) - start), start);
+		return (new_str);
 	}
-	else
+	while (str[*pos] && str[*pos] != ASPAS)
 	{
-		while (str[*pos] && str[*pos] != ASPAS)
+		while (str[*pos] != '$' && str[*pos] && str[*pos] != ASPAS)
+			(*pos)++;
+		if (str[(*pos) - 1] != ASPAS)
+			new_str = add_chars(new_str, str, ((*pos) - start), start);
+		if (str[*pos] == '$')
 		{
-			while (str[*pos] != '$' && str[*pos] && str[*pos] != ASPAS)
-				(*pos)++;
-			if (str[(*pos) - 1] != ASPAS)
-				new_str = add_chars(new_str, str, ((*pos) - start), start);
-			if (str[*pos] == '$')
-			{
-				new_str = process_variable(str, pos, new_str, env);
-				start = *pos;
-			}
+			new_str = process_variable(str, pos, new_str, env);
+			start = *pos;
 		}
 	}
 	return (new_str);
@@ -109,15 +107,27 @@ char	*process_variable(char *str, int *i, char *expanding, t_env *env)
 	char	*new_str;
 	char	*temp;
 
+	printf("ENTROU PROCESS\n");
+
+	printf("- expanding: '%s'\n", expanding);
 	temp = search_variable(str, i, env);
+	printf("- temp: '%s'\n", temp);
 	if (expanding)
 	{
 		new_str = ft_strjoin(expanding, temp);
-		free(expanding);
+		printf("-- new str: '%s'\n", new_str);
+		if (ft_strcmp(expanding, "$"))
+			free(expanding);
 		if (temp && ft_strcmp(temp, "$"))
 			free(temp);
+		printf("-- expanding: '%s'\n", expanding);
+		printf("-- temp: '%s'\n", temp);
+		printf("- new str: '%s'\n", new_str);
+		printf("SAIU PROCESS COM NEW STR\n");
 		return (new_str);
 	}
-	else
-		return (temp);
+	printf("- expanding: '%s'\n", expanding);
+	printf("- temp: '%s'\n", temp);
+	printf("SAIU PROCESS COM TEMP\n");
+	return (temp);
 }
