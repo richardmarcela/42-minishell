@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/16 22:49:52 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:30:48 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,18 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 	char		*original_str;
 	t_tokens	*new_token;
 
+	/* token str: a>b
+	original str: a>b */
+	
+	// a > b
 	new_token = NULL;
 	if (ft_strlen(token->str) > ft_strlen(op))
 	{
-		printf("ENTROU IF\n");
 		original_str = token->str;
 		if (search_content(original_str, op, 0))
-		{
-			printf("ENTROU CONTENT BEFORE\n");
 			handle_content_before(token, pos, op, original_str);
-			printf("SAIU CONTENT BEFORE\n");
-		}
 		if (search_content(original_str, op, 1))
 		{
-			printf("ENTROU CONTENT AFTER\n");
 			new_token = handle_content_after(original_str, pos, op, token);
 			if (!search_content(original_str, op, 0))
 			{
@@ -39,10 +37,8 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 			}
 			else
 				token->next->next = new_token;
-			printf("SAIU CONTENT AFTER\n");
 		}
 		free(original_str);
-		printf("SAIU IF\n");
 	}
 }
 
@@ -61,9 +57,7 @@ static void	check_tokens(t_tokens *token)
 			pos = search_ops_in_str(token->str, ops[i], ft_strlen(token->str));
 			if (pos > -1 && !has_open_quotes(token->str, pos))
 			{
-				printf("ENTROU ADD TOKEN\n");
 				adding_new_token(token, pos, ops[i]);
-				printf("SAIU ADD TOKEN\n");
 				token = token->next;
 				break ;
 			}
@@ -99,8 +93,6 @@ char	*process_argument(t_commands *command)
 	i = -1;
 	start = 0;
 	new_str = NULL;
-	printf("---------------------\n");
-	printf("TOKEN: '%s'\n", command->token->str);
 	while (command->token->str[++i])
 	{
 		while (command->token->str[i] != '$' && !isquote(command->token->str[i])
@@ -115,8 +107,6 @@ char	*process_argument(t_commands *command)
 		else
 			break ;
 	}
-	printf("FINAL TOKEN: '%s'\n", new_str);
-	printf("---------------------\n");
 	free(command->token->str);
 	return (new_str);
 }

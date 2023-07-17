@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/08 15:49:15 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/16 22:47:18 by mrichard         ###   ########.fr       */
+/*   Created: 2023/07/17 17:59:38 by mrichard          #+#    #+#             */
+/*   Updated: 2023/07/17 18:30:26 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,47 +63,23 @@ char	*add_chars(char *expanding_str, char *str, int pos, int start)
 	char	*new_str;
 	char	*temp;
 
-	printf("ENTROU ADD CHARS\n");
-	printf("- expanding str: '%s'\n", expanding_str);
 	temp = ft_substr(str, start, pos);
-	printf("- temp: '%s'\n", temp);
 	if (expanding_str && temp)
 	{
 		new_str = ft_strjoin(expanding_str, temp);
 		if (ft_strcmp(expanding_str, "$"))
 			free(expanding_str);
 		free(temp);
-		printf("-- expanding str: '%s'\n", expanding_str);
-		printf("-- temp: '%s'\n", temp);
-		printf("-- new str: '%s'\n", new_str);
-		printf("SAIU ADD CHARS COM NEW STR\n");
 		return (new_str);
 	}
-	printf("- expanding str: '%s'\n", expanding_str);
-	printf("- temp: '%s'\n", temp);
-	printf("SAIU ADD CHARS COM TEMP\n");
 	return (temp);
 }
 
 char	*if_variable(char *new_str, t_commands *command, int *start, int *i)
 {
-	printf("ENTROU IF VARIABLE\n");
-	printf("new str before: '%s'\n", new_str);
-
 	new_str = process_variable(command->token->str, i, new_str, command->env);
-	printf("- new str after: '%s'\n", new_str);
-
 	(*start) = (*i);
 	(*i)--;
-/* 	if (!ft_strcmp(new_str, "$") && ft_strlen(new_str) > 1)
-	{
-		printf("-- new str: '%s'\n", new_str);
-		free(new_str);
-		printf("SAIU IF VARIABLE COM $\n");
-		return ("$");
-	}
-	printf("- new str: '%s'\n", new_str); */
-	printf("SAIU IF VARIABLE\n");
 	return (new_str);
 }
 
@@ -112,19 +88,21 @@ char	*if_quotes(char *new_str, t_commands *command, int *start, int *i)
 	char	*temp;
 	char	*handling;
 
-	printf("ENTROU IF QUOTES\n");
-
-	printf("- new str before: '%s'\n", new_str);
-	temp = new_str;
 	handling = quote_handler(command->token->str, i, (*i) + 1, command->env);
-	new_str = ft_strjoin(temp, handling);
-	free(temp);
-	printf("- handling: '%s'\n", handling);
-	if (handling && ft_strcmp(handling, "$"))
-		free(handling);
-	(*start) = (*i) + 1;
-	printf("- new str after: '%s'\n", new_str);
-	printf("SAIU IF QUOTES\n");
-
+	if (handling)
+	{
+		temp = new_str;
+		if (temp)
+			new_str = ft_strjoin(temp, handling);
+		else
+			new_str = handling;
+		if (ft_strcmp(temp, "$"))
+			free(temp);
+		if (handling && ft_strcmp(handling, "$"))
+			free(handling);
+	}
+	(*start) = (*i);
+	if (command->token->str[(*i) + 1])
+		(*start)++;
 	return (new_str);
 }

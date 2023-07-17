@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pipe_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/04 15:15:51 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/16 21:57:08 by mrichard         ###   ########.fr       */
+/*   Created: 2023/07/17 17:59:14 by mrichard          #+#    #+#             */
+/*   Updated: 2023/07/17 18:14:52 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,8 @@ void	free_tokens(t_tokens *token)
 	{
 		node = token;
 		token = token->next;
-		free(node->str);
+		if (ft_strcmp(node->str, "$"))
+			free(node->str);
 		free(node);
 	}
 }

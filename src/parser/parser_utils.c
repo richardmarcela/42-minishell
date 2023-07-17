@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/26 18:30:04 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/16 22:50:28 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/17 18:20:444 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ int	search_content(char *str, char *op, int flag)
 	char	*string;
 	int		size;
 
-	printf("ENTROU SEARCH\n");
-	printf("- ORIGINAL: %s\n", str);
-	printf("- OPERATOR: %s\n", op);
-	printf("- FLAG: %d\n", flag);
 	if (!flag)
 	{
 		if (str[0] != op[0])
@@ -30,7 +26,9 @@ int	search_content(char *str, char *op, int flag)
 	else
 	{
 		string = ft_strchr(str, op[0]);
+		//string: >b
 		size = ft_strlen(op);
+		//size = 1
 		if (string[size] && string[size] != op[0])
 			return (1);
 		return (0);
@@ -43,23 +41,18 @@ void	handle_content_before(t_tokens *token, int pos,
 	char		*str;
 	t_tokens	*op_token;
 
-	printf("--- TOKEN: %s\n", token->str);
-	printf("--- POS: %d\n", pos);
-	printf("--- OPERATOR: %s\n", op);
-	printf("--- ORIGINAL: %s\n", original_str);
-	printf("*** !!!EU ESTOU AQUI!!!\n");
 	str = ft_strdup(token->str);
+
+	//str: a>b
+	//token str: a
+	//op token: >
+
 	token->str = ft_substr(str, 0, pos);
 	free(str);
-	printf("--- TOKEN CHANGED: %s\n", token->str);
 	token->type = token_type(token->str);
 	op_token = lstnew_token(op, token_type(op));
-	printf("--- NEW OP TOKEN: %s\n", op_token->str);
 	if (!search_content(original_str, op, 1))
-	{
-		printf("--- ENTROU IF\n");
 		op_token->next = token->next;
-	}
 	token->next = op_token;
 }
 
@@ -107,27 +100,18 @@ char	*process_variable(char *str, int *i, char *expanding, t_env *env)
 	char	*new_str;
 	char	*temp;
 
-	printf("ENTROU PROCESS\n");
-
-	printf("- expanding: '%s'\n", expanding);
 	temp = search_variable(str, i, env);
-	printf("- temp: '%s'\n", temp);
 	if (expanding)
 	{
-		new_str = ft_strjoin(expanding, temp);
-		printf("-- new str: '%s'\n", new_str);
+		if (temp)
+			new_str = ft_strjoin(expanding, temp);
+		else
+			new_str = expanding;
 		if (ft_strcmp(expanding, "$"))
 			free(expanding);
 		if (temp && ft_strcmp(temp, "$"))
 			free(temp);
-		printf("-- expanding: '%s'\n", expanding);
-		printf("-- temp: '%s'\n", temp);
-		printf("- new str: '%s'\n", new_str);
-		printf("SAIU PROCESS COM NEW STR\n");
 		return (new_str);
 	}
-	printf("- expanding: '%s'\n", expanding);
-	printf("- temp: '%s'\n", temp);
-	printf("SAIU PROCESS COM TEMP\n");
 	return (temp);
 }
