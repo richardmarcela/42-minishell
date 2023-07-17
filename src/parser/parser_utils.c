@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/05/26 18:30:04 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/17 18:20:444 by mrichard         ###   ########.fr       */
+/*   Created: 2023/07/17 21:51:57 by mrichard          #+#    #+#             */
+/*   Updated: 2023/07/17 21:52:00 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,7 @@ int	search_content(char *str, char *op, int flag)
 	else
 	{
 		string = ft_strchr(str, op[0]);
-		//string: >b
 		size = ft_strlen(op);
-		//size = 1
 		if (string[size] && string[size] != op[0])
 			return (1);
 		return (0);
@@ -42,11 +40,6 @@ void	handle_content_before(t_tokens *token, int pos,
 	t_tokens	*op_token;
 
 	str = ft_strdup(token->str);
-
-	//str: a>b
-	//token str: a
-	//op token: >
-
 	token->str = ft_substr(str, 0, pos);
 	free(str);
 	token->type = token_type(token->str);

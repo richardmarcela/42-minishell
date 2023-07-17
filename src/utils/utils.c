@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/25 15:51:42 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/15 16:46:57 by mrichard         ###   ########.fr       */
+/*   Created: 2023/07/17 21:52:45 by mrichard          #+#    #+#             */
+/*   Updated: 2023/07/17 21:52:47 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,19 +47,25 @@ int	isquote(int c)
 int	has_empty_pipe(char **splitted)
 {
 	int		i;
-	char	*temp;
+	int		j;
+	int		flag;
 
 	i = -1;
 	while (splitted[++i])
 	{
-		temp = ft_strtrim(splitted[i], " ");
-		if (!temp || !ft_strlen(temp))
+		flag = 0;
+		j = -1;
+		while (splitted[i][++j])
+			if (splitted[i][j] != ' ')
+				flag = 1;
+		if (!flag)
 		{
+			i = -1;
+			while (splitted[++i])
+				free(splitted[i]);
 			free(splitted);
-			free(temp);
 			return (1);
 		}
-		free(temp);
 	}
 	return (0);
 }

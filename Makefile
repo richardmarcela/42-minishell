@@ -6,7 +6,7 @@
 #    By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/07/17 18:41:08 by mrichard         ###   ########.fr        #
+#    Updated: 2023/07/17 21:49:45 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,9 +28,9 @@ BINS = check_bins check_bins_utils signal_handler
 BUILTINS = check_builtins env cd unset exit
 ECHO = echo
 EXPORT = export
-PIPE = pipe pipe_utils
+PIPE = pipe
 REDIR = redir
-MAIN = main
+MAIN = main free_structs
 
 SRCS =	$(addsuffix .c, $(UTILS))\
 		$(addsuffix .c, $(TOKEN))\

@@ -1,10 +1,7 @@
 PROBLEMS
 
-1 - when the output is not accepted by the input the pipe fails (ex: cat | ls) (cat is the worst)
-2 - redirs (echo > syntax error, << with no commands, heredoc, '<' not working properly?, 'ls a>b' invalid free)
-3 - norminette
-
-MELO PAI: 2
-MARCELA LINDA: 3
+1 - redirs (echo > syntax error, << with no commands, heredoc, '<' not working properly?, 'ls a>b' invalid free)
 
 999 - Marcela's entire life (nothing i can do)
+
+- norminette

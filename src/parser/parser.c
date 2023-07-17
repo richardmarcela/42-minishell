@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/17 18:30:48 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/17 21:53:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,6 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 	char		*original_str;
 	t_tokens	*new_token;
 
-	/* token str: a>b
-	original str: a>b */
-	
-	// a > b
 	new_token = NULL;
 	if (ft_strlen(token->str) > ft_strlen(op))
 	{
