@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 17:59:38 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/17 18:30:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:21:34 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,18 +88,21 @@ char	*if_quotes(char *new_str, t_commands *command, int *start, int *i)
 	char	*temp;
 	char	*handling;
 
+	search_for_redirs(command);
 	handling = quote_handler(command->token->str, i, (*i) + 1, command->env);
 	if (handling)
 	{
 		temp = new_str;
 		if (temp)
+		{
 			new_str = ft_strjoin(temp, handling);
+			if (temp && ft_strcmp(temp, "$"))
+				free(temp);
+			if (handling && ft_strcmp(handling, "$"))
+				free(handling);
+		}
 		else
 			new_str = handling;
-		if (ft_strcmp(temp, "$"))
-			free(temp);
-		if (handling && ft_strcmp(handling, "$"))
-			free(handling);
 	}
 	(*start) = (*i);
 	if (command->token->str[(*i) + 1])

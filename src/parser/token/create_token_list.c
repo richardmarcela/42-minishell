@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   create_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/13 18:20:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:38:39 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ t_tokens	*lstnew_token(char *str, t_TokenType type)
 	node = malloc(sizeof(t_tokens));
 	if (node == NULL)
 		return (NULL);
+	node->was_quoted = 0;
 	node->str = str;
 	node->type = type;
 	node->next = NULL;

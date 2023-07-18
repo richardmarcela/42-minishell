@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/17 21:53:11 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:35:04 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 	t_tokens	*new_token;
 
 	new_token = NULL;
+	//checka se não é o token do operators
 	if (ft_strlen(token->str) > ft_strlen(op))
 	{
-		original_str = token->str;
+		original_str = ft_strdup(token->str);
 		if (search_content(original_str, op, 0))
 			handle_content_before(token, pos, op, original_str);
 		if (search_content(original_str, op, 1))
@@ -48,15 +49,23 @@ static void	check_tokens(t_tokens *token)
 	while (token)
 	{
 		i = -1;
-		while (ops[++i])
+		if (!token->was_quoted)
 		{
-			pos = search_ops_in_str(token->str, ops[i], ft_strlen(token->str));
-			if (pos > -1 && !has_open_quotes(token->str, pos))
+			while (ops[++i])
 			{
-				adding_new_token(token, pos, ops[i]);
-				token = token->next;
-				break ;
+				pos = search_ops_in_str(token->str, ops[i], ft_strlen(token->str));
+				if (pos > -1 && !has_open_quotes(token->str, pos))
+				{
+					adding_new_token(token, pos, ops[i]);
+					if (token->next)
+						token = token->next;
+					break ;
+				}
 			}
+			if (token->next)
+				token = token->next;
+			else
+				break ;
 		}
 		token = token->next;
 	}
@@ -67,16 +76,23 @@ int	process_tokens(t_commands *command)
 {
 	t_tokens	*head;
 
+	printf("ENTROU PROCESS TOKENS\n");
+	printf("- token q entrou: '%s'\n", command->token->str);
 	head = command->token;
 	if (!search_ops_in_str(head->str, ".", ft_strlen(head->str))
 		|| !search_ops_in_str(head->str, "/", ft_strlen(head->str)))
-		return (run_cmd(head->str, head, command->env));
+		{
+			printf("-- FEZ RUN CMD\n");
+			return (run_cmd(head->str, head, command->env));
+		}
 	if (!check_bins(command->token, command->env) && !check_builtins(command))
 	{
 		command->token = head;
+		printf("SAIU PROCESS TOKENS\n");
 		return (0);
 	}
 	command->token = head;
+	printf("SAIU PROCESS TOKENS\n");
 	return (1);
 }
 
@@ -114,6 +130,8 @@ void	parser(t_commands *command)
 	head = command->token;
 	while (command->token)
 	{
+		if (has_in_out(command, head))
+			return ;
 		if (has_open_quotes(command->token->str,
 				ft_strlen(command->token->str)))
 		{
@@ -127,6 +145,8 @@ void	parser(t_commands *command)
 	}
 	command->token = head;
 	check_tokens(command->token);
-	if (!process_tokens(command))
+	if (!check_redir(command))
+		printf("%s\n", SE);
+	else if (!process_tokens(command))
 		printf("%s\n", CNF);
 }

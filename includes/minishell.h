@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/17 21:51:05 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:45:44 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,11 @@ char			*if_variable(char *new_str, t_commands *command,
 					int *start, int *i);
 char			*if_quotes(char *new_str, t_commands *command,
 					int *start, int *i);
+
+//PARSER/PARSER_UTILS3.C
+int				check_redir(t_commands *commands);
+int				has_in_out(t_commands *command, t_tokens *head);
+void			search_for_redirs(t_commands *command);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*token_list(char *line);

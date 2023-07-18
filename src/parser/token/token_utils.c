@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   token_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:20:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/06/23 17:49:03 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:03:44 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ static int	red_count(char *str, int c)
 
 t_TokenType	which_red(char *str)
 {
-	if (red_count(str, '>') == 1 && red_count(str, '<') == 1)
-		return (IN_OUT);
 	if (red_count(str, '>') == 1)
 		return (RED_OUT);
 	if (red_count(str, '<') == 1)

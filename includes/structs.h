@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:19:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/13 22:17:00 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:38:05 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define EPARSE "parse error near '|'"
 # define CPARSE "parse error near '{}'"
 # define NAI "not an identifier:"
+# define SE "syntax error near unexpected token `newline'"
 # define EPROMPT "unclosed quotes"
 # define CNF "command not found"
 # define TMA "too many arguments"
@@ -43,8 +44,6 @@
 # define ASPAS 34
 # define PLICAS 39
 # define ERROR -1
-# define PERROR -2
-# define MESSAGE
 
 typedef enum t_TokenType
 {
@@ -57,12 +56,12 @@ typedef enum t_TokenType
 	RED_OUT,
 	APPEND_IN,
 	APPEND_OUT,
-	IN_OUT,
 	ERRO
 }			t_TokenType;
 
 typedef struct s_tokens
 {
+	int					was_quoted;
 	char				*str;
 	t_TokenType			type;
 	struct s_tokens		*next;

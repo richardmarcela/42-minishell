@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/17 20:49:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 15:47:52 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,7 @@ int	main(int argc, char **argv, char **envp)
 			line = readline(PROMPT);
 			if (!check_line(line))
 				continue ;
-			printf("line before: %s\n", line);
 			line = check_double_pipes(line);
-			printf("line after: %s\n", line);
 			if (ft_strlen(line))
 				pipe_commands(line, env);
 			free(line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:22:55 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/12 20:27:55 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 17:05:37 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,12 @@ char	**fill_ops(void)
 {
 	char	**ops;
 
-	ops = (char **)malloc(sizeof(char *) * 7);
-	ops[0] = "<>";
-	ops[1] = "<<";
-	ops[2] = ">>";
-	ops[3] = "<";
-	ops[4] = ">";
-	ops[5] = "|";
-	ops[6] = 0;
+	ops = (char **)malloc(sizeof(char *) * 5);
+	ops[0] = "<<";
+	ops[1] = ">>";
+	ops[2] = "<";
+	ops[3] = ">";
+	ops[4] = 0;
 	return (ops);
 }
 

@@ -1,6 +1,9 @@
 PROBLEMS
+!!!!!!!!!!!!!!!!!!!! 1 - redirs inside quotes
+2 - redirs (echo > syntax error, << with no commands, heredoc, '<' not working properly?)
 
-1 - redirs (echo > syntax error, << with no commands, heredoc, '<' not working properly?, 'ls a>b' invalid free)
+OPTIONAL
+1 - export/unset with multiple arguments
 
 999 - Marcela's entire life (nothing i can do)
 

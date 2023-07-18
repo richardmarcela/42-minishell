@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:51:57 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/17 21:52:00 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 16:28:50 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,28 @@ int	search_content(char *str, char *op, int flag)
 
 	if (!flag)
 	{
+		printf("ENTROU 2\n");
 		if (str[0] != op[0])
+		{
+			printf("SAIU 2\n");
+			
 			return (1);
+		}
+		printf("SAIU 2\n");
+
 		return (0);
 	}
 	else
 	{
+		printf("ENTROU\n");
 		string = ft_strchr(str, op[0]);
 		size = ft_strlen(op);
 		if (string[size] && string[size] != op[0])
+		{
+			printf("SAIU\n");
 			return (1);
+		}
+		printf("SAIU\n");
 		return (0);
 	}
 }
@@ -39,11 +51,11 @@ void	handle_content_before(t_tokens *token, int pos,
 	char		*str;
 	t_tokens	*op_token;
 
-	str = ft_strdup(token->str);
+	str = token->str;
 	token->str = ft_substr(str, 0, pos);
 	free(str);
 	token->type = token_type(token->str);
-	op_token = lstnew_token(op, token_type(op));
+	op_token = lstnew_token(ft_strdup(op), token_type(op));
 	if (!search_content(original_str, op, 1))
 		op_token->next = token->next;
 	token->next = op_token;
