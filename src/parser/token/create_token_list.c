@@ -3,20 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   create_token_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/18 17:38:39 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:07:52 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-//NOTA: -n e a unica flag valida para o echo neste projeto
-//se for introduzido "echo -a", "-a" deve ser considerado uma OPTION
-//pelo lexer, mas posteriormente processado como um ARG
-//ERRO cat \"-a"
 #include "minishell.h"
 
-t_TokenType	token_type(char *str)
+t_TokenType	token_type(char *str, int flag)
 {
 	if (is_option(str))
 		return (OPTION);
@@ -24,6 +20,8 @@ t_TokenType	token_type(char *str)
 		return (PIPE);
 	if (is_redirect(str))
 		return (which_red(str));
+	if (flag)
+		return (COMMAND);
 	return (ARG);
 }
 
@@ -76,11 +74,11 @@ t_tokens	*token_list(char *line)
 	i = 0;
 	trimmed_line = ft_strtrim(line, " ");
 	splitted = ft_split(trimmed_line, ' ');
-	head = lstnew_token(splitted[i], COMMAND);
+	head = lstnew_token(splitted[i], token_type(splitted[i], 1));
 	current_node = head;
 	while (splitted[++i])
 	{
-		current_node = lstnew_token(splitted[i], token_type(splitted[i]));
+		current_node = lstnew_token(splitted[i], token_type(splitted[i], 0));
 		lstadd_back_token(&head, current_node);
 	}
 	free(splitted);

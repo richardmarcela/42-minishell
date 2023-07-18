@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/18 17:45:44 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:05:36 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void			search_for_redirs(t_commands *command);
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*token_list(char *line);
 t_tokens		*lstnew_token(char *str, t_TokenType type);
-t_TokenType		token_type(char *str);
+t_TokenType		token_type(char *str, int flag);
 void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 
 //PARSER/TOKEN/TOKEN_UTILS.C
@@ -81,7 +81,7 @@ int				check_builtins(t_commands *command);
 
 //BINS/CHECK_BINS.C
 int				check_bins(t_tokens *token, t_env *env);
-int				run_cmd(char *bin_path, t_tokens *token, t_env *env);
+int				run_cmd(char *bin_path, t_tokens *token, t_env *env, int flag);
 int				env_len(t_env *env);
 
 //BINS/CHECK_BINS_UTILS.C

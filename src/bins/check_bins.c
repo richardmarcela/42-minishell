@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/18 16:04:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 19:24:04 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,20 @@ int	check_bins(t_tokens *token, t_env *env)
 			while (path[++i])
 				free(path[i]);
 			free(path);
-			return (run_cmd(bin_path, token, env));
+			return (run_cmd(bin_path, token, env, 1));
 		}
 	}
 	free(path);
 	return (0);
 }
 
-static int	free_values(char *bin_path, char **args, char **env_matrix)
+static int	free_values(char *bin_path, char **args, char **env_matrix, int flag)
 {
 	int	i;
 
 	i = -1;
-	free(bin_path);
+	if (flag)
+		free(bin_path);
 	while (args[++i])
 		free(args[i]);
 	free(args);
@@ -85,7 +86,7 @@ static int	free_values(char *bin_path, char **args, char **env_matrix)
 	return (1);
 }
 
-int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
+int	run_cmd(char *bin_path, t_tokens *token, t_env *env, int flag)
 {
 	char		**args;
 	char		**env_matrix;
@@ -107,9 +108,9 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env)
 	{
 		g_exit_status = 1;
 		printf("%s\n", FF);
-		return (free_values(bin_path, args, env_matrix));
+		return (free_values(bin_path, args, env_matrix, flag));
 	}
 	wait(&pid);
 	handle_global_signals();
-	return (free_values(bin_path, args, env_matrix));
+	return (free_values(bin_path, args, env_matrix, flag));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/18 18:35:04 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:09:34 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 	t_tokens	*new_token;
 
 	new_token = NULL;
-	//checka se não é o token do operators
 	if (ft_strlen(token->str) > ft_strlen(op))
 	{
 		original_str = ft_strdup(token->str);
@@ -62,10 +61,6 @@ static void	check_tokens(t_tokens *token)
 					break ;
 				}
 			}
-			if (token->next)
-				token = token->next;
-			else
-				break ;
 		}
 		token = token->next;
 	}
@@ -76,23 +71,16 @@ int	process_tokens(t_commands *command)
 {
 	t_tokens	*head;
 
-	printf("ENTROU PROCESS TOKENS\n");
-	printf("- token q entrou: '%s'\n", command->token->str);
 	head = command->token;
 	if (!search_ops_in_str(head->str, ".", ft_strlen(head->str))
 		|| !search_ops_in_str(head->str, "/", ft_strlen(head->str)))
-		{
-			printf("-- FEZ RUN CMD\n");
-			return (run_cmd(head->str, head, command->env));
-		}
-	if (!check_bins(command->token, command->env) && !check_builtins(command))
+			return (run_cmd(head->str, head, command->env, 0));
+	if (!check_builtins(command) && !check_bins(command->token, command->env))
 	{
 		command->token = head;
-		printf("SAIU PROCESS TOKENS\n");
 		return (0);
 	}
 	command->token = head;
-	printf("SAIU PROCESS TOKENS\n");
 	return (1);
 }
 

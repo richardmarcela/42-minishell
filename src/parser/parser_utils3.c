@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:54:06 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/18 18:32:34 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:08:12 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	check_redir(t_commands *command)
 	t_TokenType	type;
 	t_tokens	*head;
 
-	printf("ENTROU CHECK REDIR\n");
 	head = command->token;
 	while (command->token)
 	{
@@ -33,7 +32,6 @@ int	check_redir(t_commands *command)
 		command->token = command->token->next;
 	}
 	command->token = head;
-	printf("SAIU CHECK REDIR\n");
 	return (1);
 }
 

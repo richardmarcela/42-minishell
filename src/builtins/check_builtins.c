@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/13 16:22:44 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:21:27 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ static int	check(t_commands *command)
 int	check_builtins(t_commands *command)
 {
 	char	value[PATH_MAX];
-
+	
 	if (!ft_strcmp(command->token->str, "echo"))
 		return (print(command->token->next));
-	else if (!ft_strcmp(command->token->str, "cd"))
+	if (!ft_strcmp(command->token->str, "cd"))
 		return (change_dir(command->token, command->env));
 	else if (!ft_strcmp(command->token->str, "pwd"))
 	{
