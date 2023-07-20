@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:22:55 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/18 17:05:37 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:13:57 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,19 +84,23 @@ char	**fill_args(t_tokens *token)
 	t_tokens	previous;
 
 	previous = *token;
-	previous.str = "";
+	//previous.str = "";
 	size = lstsize_tokens(token, 1);
+	printf("size com flag: %d\n", size);
 	args = (char **)malloc(sizeof(char *) * (size + 1));
 	args[size] = 0;
 	i = 0;
 	while (i < size)
 	{
+		printf("\ntoken fill args: %s\n\n", token->str);
+		printf("\n previous: %s\n", previous.str);
 		if (!is_redirect(token->str) && (ft_strcmp(previous.str, "<")
 				|| ft_strcmp(previous.str, "<<")))
 		{
 			args[i] = arg_str(token->str);
 			i++;
 		}
+		printf("\nindex: %d\n\n", i);
 		previous = *token;
 		token = token->next;
 	}

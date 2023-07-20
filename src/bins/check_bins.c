@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/18 19:24:04 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:10:02 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,15 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env, int flag)
 	char		**env_matrix;
 	pid_t		pid;
 
+	printf("bin path: %s\n", bin_path);
 	if (check_awk(token, bin_path) == ERROR)
 		return (1);
 	args = fill_args(token);
+	printf("args[0]: %s\n", args[0]);
+	printf("args[1]: %s\n", args[1]);
+	printf("args[2]: %s\n", args[2]);
+	printf("args[3]: %s\n", args[3]);
+	printf("args[4]: %s\n", args[4]);
 	env_matrix = fill_env_matrix(env);
 	pid = fork();
 	handle_cmd_signals();

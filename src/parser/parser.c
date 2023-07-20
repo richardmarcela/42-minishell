@@ -6,7 +6,7 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/18 22:09:34 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:07:50 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,23 +16,22 @@ static void	adding_new_token(t_tokens *token, int pos, char *op)
 {
 	char		*original_str;
 	t_tokens	*new_token;
+	t_tokens	*next;
 
-	new_token = NULL;
+	/* printf("token q entrou: %s\n", token->str); */
 	if (ft_strlen(token->str) > ft_strlen(op))
 	{
 		original_str = ft_strdup(token->str);
+		next = token->next;
+		//printf("next: %s\n", next->str);
 		if (search_content(original_str, op, 0))
 			handle_content_before(token, pos, op, original_str);
 		if (search_content(original_str, op, 1))
 		{
 			new_token = handle_content_after(original_str, pos, op, token);
-			if (!search_content(original_str, op, 0))
-			{
-				token->str = op;
-				token->next = new_token;
-			}
-			else
-				token->next->next = new_token;
+			//printf("new_token: %s\n", new_token->str);
+			new_token->next = next;
+			//printf("new_token next: %s\n", new_token->next->str);
 		}
 		free(original_str);
 	}
@@ -56,13 +55,18 @@ static void	check_tokens(t_tokens *token)
 				if (pos > -1 && !has_open_quotes(token->str, pos))
 				{
 					adding_new_token(token, pos, ops[i]);
-					if (token->next)
-						token = token->next;
+					/* printf("token q saiu: %s\n", token->str);
+					printf("token next ao q saiu: %s\n", token->next->str);
+					printf("token next next ao q saiu: %s\n", token->next->next->str);
+					printf("token next next next ao q saiu: %s\n", token->next->next->next->str); */
 					break ;
 				}
 			}
 		}
-		token = token->next;
+		if (token->next)
+			token = token->next;
+		else
+			break ;
 	}
 	free(ops);
 }
@@ -133,6 +137,11 @@ void	parser(t_commands *command)
 	}
 	command->token = head;
 	check_tokens(command->token);
+	/* printf("1: %s\n", command->token->str);
+	printf("2: %s\n", command->token->next->str);
+	printf("3: %s\n", command->token->next->next->str);
+	printf("4: %s\n", command->token->next->next->next->str);
+	printf("5: %s\n", command->token->next->next->next->next->str); */
 	if (!check_redir(command))
 		printf("%s\n", SE);
 	else if (!process_tokens(command))
