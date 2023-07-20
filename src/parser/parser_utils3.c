@@ -6,15 +6,33 @@
 /*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:54:06 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/18 22:08:12 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:29:17 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_redir(t_commands *command)
+int	check_syntax(t_tokens *token)
 {
 	t_TokenType	type;
+	t_TokenType	type_next;
+
+	type = token->type;
+	if (type == 9)
+		return (0);
+	if (type >= 5 && type <= 8)
+	{
+		if (!token->next)
+			return (0);
+		type_next = token->next->type;
+		if (type_next >= 5 && type_next <= 8)
+			return (0);
+	}
+	return (1);
+}
+
+int	check_redir(t_commands *command)
+{
 	t_tokens	*head;
 
 	head = command->token;
@@ -22,14 +40,16 @@ int	check_redir(t_commands *command)
 	{
 		if (!command->token->was_quoted)
 		{
-			type = command->token->type;
-			if (type >= 5 && type <= 8 && !command->token->next)
+			if (!check_syntax(command->token))
 			{
 				command->token = head;
 				return (0);
 			}
 		}
-		command->token = command->token->next;
+		if (command->token->next)
+			command->token = command->token->next;
+		else
+			break ;
 	}
 	command->token = head;
 	return (1);

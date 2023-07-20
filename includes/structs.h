@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:19:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/18 17:38:05 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:14:29 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define EPARSE "parse error near '|'"
 # define CPARSE "parse error near '{}'"
 # define NAI "not an identifier:"
-# define SE "syntax error near unexpected token `newline'"
+# define SE "syntax error"
 # define EPROMPT "unclosed quotes"
 # define CNF "command not found"
 # define TMA "too many arguments"

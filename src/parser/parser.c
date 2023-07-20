@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/20 18:25:06 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/20 21:30:58 by riolivei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,18 @@ static void	check_tokens(t_tokens *token)
 	ops = fill_ops();
 	while (token)
 	{
-		i = -1;
+		i = 0;
 		if (!token->was_quoted)
 		{
-			while (ops[++i])
+			while (ops[i] && ft_strcmp(token->str, ops[i]))
 			{
-				pos = search_ops_in_str(token->str, ops[i], ft_strlen(token->str));
-				if (pos > -1 && !has_open_quotes(token->str, pos))
+				pos = search_ops_in_str1(token->str, ops[i]);
+				if (pos > -1)
 				{
 					adding_new_token(token, pos, ops[i]);
 					break ;
 				}
+				i++;
 			}
 		}
 		if (token->next)
@@ -129,6 +130,12 @@ void	parser(t_commands *command)
 	}
 	command->token = head;
 	check_tokens(command->token);
+/* 	printf("1: %s\n", command->token->str);
+	printf("2: %s\n", command->token->next->str);
+	printf("3: %s\n", command->token->next->next->str);
+	printf("4: %s\n", command->token->next->next->next->str);
+	printf("5: %s\n", command->token->next->next->next->next->str);
+	printf("6: %s\n", command->token->next->next->next->next->next->str); */
 	if (!check_redir(command))
 		printf("%s\n", SE);
 	else if (!process_tokens(command))
