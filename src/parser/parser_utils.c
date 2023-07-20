@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:51:57 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/20 15:46:35 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/20 16:57:08 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ void	handle_content_before(t_tokens *token, int pos,
 	char		*str;
 	t_tokens	*op_token;
 
-	printf("ENTROU HANDLE BEFORE\n");
 	str = token->str;
 	token->str = ft_substr(str, 0, pos);
 	free(str);
@@ -48,11 +47,6 @@ void	handle_content_before(t_tokens *token, int pos,
 	if (!search_content(original_str, op, 1))
 		op_token->next = token->next;
 	token->next = op_token;
-
-	printf("token: %s\n", token->str);
-	printf("token next: %s\n", token->next->str);
-	printf("SAIU HANDLE BEFORE\n");
-	
 }
 
 t_tokens	*handle_content_after(char *original_str, int pos,
@@ -61,31 +55,17 @@ t_tokens	*handle_content_after(char *original_str, int pos,
 	char		*new_str;
 	t_tokens	*new_token;
 
-	printf("ENTROU HANDLE AFTER\n");
-	printf("entrou: %s\n", token->str);
 	new_str = ft_substr(original_str, pos + ft_strlen(op),
 			ft_strlen(original_str) - ft_strlen(op)
 			- ft_strlen(token->str));
-	printf("str: %s\n", new_str);
 	new_token = lstnew_token(new_str, token_type(new_str, 0));
-	printf("new token: %s\n", new_token->str);
 	if (!search_content(original_str, op, 0))
 	{
-		printf("ENTROU IF\n");
 		token->str = op;
-		printf("token nova str: %s\n", token->str);
 		token->next = new_token;
-		printf("token next: %s\n", token->next->str);
 	}
 	else
-	{
-		printf("ENTROU ELSE\n");
-		printf("token: %s\n", token->str);
-		printf("token next: %s\n", token->next->str);
 		token->next->next = new_token;
-		printf("token next next: %s\n", token->next->next->str);
-	}
-	printf("SAIU HANDLE AFTER\n");
 	return (new_token);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/14 20:50:33 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:28:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	in(int fd, t_TokenType type, char *input_file)
 
 void	handle_redir(t_tokens *token)
 {
-	int	fd;
+	int			fd;
 
 	while (token)
 	{

@@ -1,6 +1,7 @@
 PROBLEMS
 !!!!!!!!!!!!!!!!!!!! 1 - redirs inside quotes
 2 - redirs (echo > syntax error, << with no commands, heredoc, '<' not working properly?)
+3 - ls a>b>c>>d>e
 
 OPTIONAL
 1 - export/unset with multiple arguments

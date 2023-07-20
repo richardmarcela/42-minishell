@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:52:45 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/17 21:52:47 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:18:25 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,18 @@
 
 int	lstsize_tokens(t_tokens *token, int filter)
 {
-	int	count;
+	int			count;
+	t_tokens	previous;
 
 	count = 0;
+	previous = *token;
 	while (token)
 	{
 		if (filter)
 		{
-			if (is_redirect(token->str))
-			{
-				if (!ft_strcmp(token->str, "<") || !ft_strcmp(token->str, "<<"))
-					count++;
-				token = token->next;
-			}
-			else
+			if (!is_redirect(token->str) && !is_redirect(previous.str))
 				count++;
+			previous = *token;
 		}
 		else
 			count++;
