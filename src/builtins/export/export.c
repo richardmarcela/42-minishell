@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/14 22:45:21 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:17:13 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	env_exists(t_env *head, char *new_env, char *env_value)
 
 	while (head)
 	{
-		pos = search_ops_in_str(head->str, "=", ft_strlen(head->str));
+		pos = search_ops_in_str(head->str, "=");
 		env_name = ft_substr(head->str, 0, pos);
 		if (!ft_strcmp(new_env, env_name))
 		{
@@ -71,8 +71,7 @@ int	export(t_commands *command)
 	env_head = command->env;
 	if (ft_strchr(command->token->str, '='))
 	{
-		pos = search_ops_in_str(command->token->str, "=",
-				ft_strlen(command->token->str));
+		pos = search_ops_in_str(command->token->str, "=");
 		env_name = ft_substr(command->token->str, 0, pos);
 		if (!check_env_name(env_name))
 			return (1);

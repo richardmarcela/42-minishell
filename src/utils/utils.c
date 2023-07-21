@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:52:45 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/20 20:02:19 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:32:26 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int	has_empty_pipe(char **splitted)
 	return (0);
 }
 
-int	search_ops_in_str1(char *s1, char *s2)
+int	search_ops_in_str(char *s1, char *s2)
 {
 	int	i;
 
@@ -78,38 +78,17 @@ int	search_ops_in_str1(char *s1, char *s2)
 		{
 			if (ft_strlen(s2) > 1)
 			{
-				if (s1[i+1] == s2[1])
+				if (s1[i + 1] == s2[1])
 					return (i);
 				break ;
 			}
 			else
 			{
-				if (s1[i+1] != s2[0])
+				if (s1[i + 1] != s2[0])
 					return (i);
 				break ;
 			}
 		}
-	}
-	return (-1);
-}
-
-int	search_ops_in_str(char *s1, char *s2, int n)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (s1[i] && i < n)
-	{
-		j = 0;
-		while (s1[i + j] && s2[j]
-			&& s1[i + j] == s2[j] && (i + j) < n)
-		{
-			if (s2[j + 1] == '\0')
-				return (i);
-			j++;
-		}
-		i++;
 	}
 	return (-1);
 }

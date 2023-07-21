@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/05 16:46:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/08 19:51:23 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:17:06 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*env_value(char *str, t_env *env)
 	value = NULL;
 	while (env)
 	{
-		pos = search_ops_in_str(env->str, "=", ft_strlen(env->str));
+		pos = search_ops_in_str(env->str, "=");
 		env_name = ft_substr(env->str, 0, pos);
 		if (!ft_strcmp(str, env_name))
 		{

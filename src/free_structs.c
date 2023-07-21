@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_structs.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:51:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/20 18:59:42 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:25:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ void	free_tokens(t_tokens *token)
 	{
 		node = token;
 		token = token->next;
-		/* printf("token str: %s\n", node->str); */
 		if (ft_strcmp(node->str, "$"))
 			free(node->str);
 		free(node);

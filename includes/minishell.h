@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/20 19:46:04 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:17:23 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ int				is_redirect(char *str);
 int				isquote(int c);
 int				has_empty_pipe(char **splitted);
 int				lstsize_tokens(t_tokens *token, int filter);
-int				search_ops_in_str(char *s1, char *s2, int n);
-int				search_ops_in_str1(char *s1, char *s2);
+int				search_ops_in_str(char *s1, char *s2);
 void			change_flag(bool *flag);
 
 //UTILS/UTILS2.C

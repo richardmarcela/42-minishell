@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/18 15:47:52 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/21 15:17:03 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	check_line(char *line)
 		exit(0);
 	}
 	i = -1;
-	pos = search_ops_in_str(line, "|", ft_strlen(line));
+	pos = search_ops_in_str(line, "|");
 	if (pos != -1)
 	{
 		while (++i < pos)

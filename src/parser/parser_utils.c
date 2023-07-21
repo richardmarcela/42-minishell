@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:51:57 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/20 19:23:37 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/21 16:26:58 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,27 @@ void	handle_content_before(t_tokens *token, int pos,
 	if (!search_content(original_str, op, 1))
 		op_token->next = token->next;
 	token->next = op_token;
+
 }
 
 t_tokens	*handle_content_after(char *original_str, int pos,
 	char *op, t_tokens *token)
 {
+	int			quant;
 	char		*new_str;
 	t_tokens	*new_token;
 
-	new_str = ft_substr(original_str, pos + ft_strlen(op),
-			ft_strlen(original_str) - ft_strlen(op)
-			- ft_strlen(token->str));
+	if (ft_strlen(original_str) != ft_strlen(token->str))
+		quant = ft_strlen(original_str) - ft_strlen(op)
+			- ft_strlen(token->str);
+	else
+		quant = ft_strlen(original_str) - ft_strlen(op);
+	new_str = ft_substr(original_str, pos + ft_strlen(op), quant);
 	new_token = lstnew_token(new_str, token_type(new_str, 0));
 	if (!search_content(original_str, op, 0))
 	{
-		token->str = op;
+		free(token->str);
+		token->str = ft_strdup(op);
 		token->next = new_token;
 	}
 	else
