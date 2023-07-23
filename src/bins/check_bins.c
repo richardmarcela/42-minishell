@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/20 18:45:36 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/23 19:46:02 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,11 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env, int flag)
 	char		**env_matrix;
 	pid_t		pid;
 
+	if (!files_exist(token))
+	{
+		free(bin_path);
+		return (1);
+	}
 	if (check_awk(token, bin_path) == ERROR)
 		return (1);
 	args = fill_args(token);
@@ -103,12 +108,6 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env, int flag)
 		if (lstsize_tokens(token, 1) != lstsize_tokens(token, 0))
 			handle_redir(token);
 		execve(bin_path, args, env_matrix);
-	}
-	if (pid < 0)
-	{
-		g_exit_status = 1;
-		printf("%s\n", FF);
-		return (free_values(bin_path, args, env_matrix, flag));
 	}
 	wait(&pid);
 	handle_global_signals();

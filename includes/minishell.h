@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/21 15:17:23 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/23 19:40:53 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,8 @@ void			open_pipe(t_commands *commands);
 //SRC/PIPE/FREE_STRUCTS.C
 void			free_structs(t_commands *commands, int flag);
 
-//SRC/REDIRECTIONS/REDIRECTIONS.C
+//SRC/REDIRECTIONS/REDIR.C
+int				files_exist(t_tokens *token);
 void			handle_redir(t_tokens *token);
 
 //SRC/BUILTINS/EXIT.C

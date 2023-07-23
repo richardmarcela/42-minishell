@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:22:55 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/20 19:54:05 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/23 17:07:32 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,6 @@ char	**fill_ops(void)
 	return (ops);
 }
 
-char	*env_str(char *env)
-{
-	int		i;
-	int		size;
-	char	*str;
-
-	size = ft_strlen(env);
-	str = (char *)malloc(sizeof(char) * (size + 1));
-	str[size] = '\0';
-	i = -1;
-	while (++i < size)
-		str[i] = env[i];
-	return (str);
-}
-
 char	**fill_env_matrix(t_env *env)
 {
 	int		i;
@@ -54,26 +39,11 @@ char	**fill_env_matrix(t_env *env)
 	i = -1;
 	while (++i < size)
 	{
-		envp[i] = env_str(node->str);
+		envp[i] = ft_strdup(node->str);
 		if (node->next)
 			node = node->next;
 	}
 	return (envp);
-}
-
-char	*arg_str(char *arg)
-{
-	int		i;
-	int		size;
-	char	*str;
-
-	size = ft_strlen(arg);
-	str = (char *)malloc(sizeof(char) * (size + 1));
-	str[size] = '\0';
-	i = -1;
-	while (++i < size)
-		str[i] = arg[i];
-	return (str);
 }
 
 char	**fill_args(t_tokens *token)
@@ -92,7 +62,7 @@ char	**fill_args(t_tokens *token)
 	{
 		if (!is_redirect(token->str) && !is_redirect(previous.str))
 		{
-			args[i] = arg_str(token->str);
+			args[i] = ft_strdup(token->str);
 			i++;
 		}
 		previous = *token;
@@ -100,3 +70,4 @@ char	**fill_args(t_tokens *token)
 	}
 	return (args);
 }
+

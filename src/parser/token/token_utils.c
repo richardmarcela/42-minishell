@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/30 21:20:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/18 17:03:44 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/23 20:34:36 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,6 @@ t_TokenType	which_red(char *str)
 	if (red_count(str, '>') == 2 && red_count(str, '<') == 0)
 		return (APPEND_OUT);
 	if (red_count(str, '<') == 2 && red_count(str, '>') == 0)
-		return (APPEND_IN);
+		return (HEREDOC);
 	return (ERRO);
 }

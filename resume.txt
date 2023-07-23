@@ -1,11 +1,10 @@
 PROBLEMS
-1 - redirs (heredoc, '<' not working properly?)
+1 - redirs (heredoc)
 2 - builtin need to execute redirs
+3 - norminette
 
 OPTIONAL
 1 - export/unset with multiple arguments
 2 - easter egg
 
 999 - Marcela's entire life (nothing i can do)
-
-- norminette
