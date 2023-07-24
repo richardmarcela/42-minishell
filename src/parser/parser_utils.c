@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:51:57 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/21 16:26:58 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:02:44 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ void	handle_content_before(t_tokens *token, int pos,
 	if (!search_content(original_str, op, 1))
 		op_token->next = token->next;
 	token->next = op_token;
-
 }
 
 t_tokens	*handle_content_after(char *original_str, int pos,
@@ -114,7 +113,7 @@ char	*process_variable(char *str, int *i, char *expanding, t_env *env)
 		if (temp)
 			new_str = ft_strjoin(expanding, temp);
 		else
-			new_str = expanding;
+			new_str = ft_strdup(expanding);
 		if (ft_strcmp(expanding, "$"))
 			free(expanding);
 		if (temp && ft_strcmp(temp, "$"))

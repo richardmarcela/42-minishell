@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/23 19:40:53 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:30:40 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int				env_len(t_env *env);
 //BINS/CHECK_BINS_UTILS.C
 char			**get_path(t_env *env);
 char			*get_bin_path(char *path, char *str);
-int				check_awk(t_tokens *token, char *bin_path);
+void			check_heredoc(t_tokens *token);
 
 //BINS/SIGNAL_HANDLER.C
 void			handle_global_signals(void);
@@ -100,14 +100,14 @@ int				print(t_tokens *token);
 int				change_dir(t_tokens *token, t_env *env);
 
 //BUILTINS/EXPORT/EXPORT.C
-int				export(t_commands *command);
+void			export(t_commands *command);
 
 //BUILTINS/ENV/ENV.C
 int				env(t_env *env, int flag);
 char			*env_value(char *str, t_env *env);
 
 //BUILTINS/ENV/UNSET.C
-int				unset_env(t_commands *command);
+int				unset(t_tokens *token, t_env *env);
 
 //PARSER/ENV/CREATE_ENV_LIST.C
 t_env			*init_env(char **envp);
@@ -122,9 +122,14 @@ void			free_structs(t_commands *commands, int flag);
 
 //SRC/REDIRECTIONS/REDIR.C
 int				files_exist(t_tokens *token);
-void			handle_redir(t_tokens *token);
+int				handle_redir(t_tokens *token);
+void			in(t_TokenType type, char *input_file);
+void			heredoc_while(char *delim);
 
 //SRC/BUILTINS/EXIT.C
 int				exit_terminal(t_commands *command);
+
+//SRC/UTILS/UTILS3.C
+int				crazy(void);
 
 #endif

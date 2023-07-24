@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/24 16:59:24 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:34:53 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	files_exist(t_tokens *token)
 	return (res);
 }
 
-static void	heredoc_while(char *delim)
+void	heredoc_while(char *delim)
 {
 	char	*delim_line;
 	int		fd;
@@ -49,10 +49,8 @@ static void	heredoc_while(char *delim)
 	delim_line = ft_strjoin(delim, "\n");
 	fd = open("/tmp/1", O_RDWR | O_CREAT | O_TRUNC, 0644);
 	output = read(0, buff, 4095);
-	printf("output: %d\n", output);
 	while (output > 0)
 	{
-		printf("ENTROU CICLO\n");
 		buff[output] = '\0';
 		if (!ft_strcmp(buff, delim_line))
 			break ;
@@ -67,7 +65,7 @@ static void	heredoc_while(char *delim)
 static void	out(t_TokenType type, char *output_file)
 {
 	int	fd;
-	
+
 	if (type == APPEND_OUT)
 		fd = open(output_file, O_WRONLY | O_CREAT | O_APPEND, 0644);
 	else
@@ -76,7 +74,7 @@ static void	out(t_TokenType type, char *output_file)
 	close(fd);
 }
 
-static void	in(t_TokenType type, char *input_file)
+void	in(t_TokenType type, char *input_file)
 {
 	int		fd;
 
@@ -93,17 +91,24 @@ static void	in(t_TokenType type, char *input_file)
 		unlink("/tmp/1");
 }
 
-void	handle_redir(t_tokens *token)
+int	handle_redir(t_tokens *token)
 {
+	t_TokenType	type;
+
+	check_heredoc(token);
+	if (!files_exist(token))
+		return (0);
 	while (token)
 	{
 		if (is_redirect(token->str))
 		{
-			if (token->type == APPEND_OUT || token->type == RED_OUT)
-				out(token->type, token->next->str);
-			else
-				in(token->type, token->next->str);
+			type = token->type;
+			if (type == APPEND_OUT || type == RED_OUT)
+				out(type, token->next->str);
+			else if (type == RED_IN)
+				in(type, token->next->str);
 		}
 		token = token->next;
 	}
+	return (1);
 }

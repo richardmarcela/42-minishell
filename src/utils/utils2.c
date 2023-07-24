@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:22:55 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/23 17:07:32 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:00:52 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,3 @@ char	**fill_args(t_tokens *token)
 	}
 	return (args);
 }
-

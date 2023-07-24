@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/24 17:10:20 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:33:45 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ static void	check_tokens(t_tokens *token)
 	{
 		if (!token->was_quoted && token->str)
 		{
-			i =  0;
-			while (ops[i] && ft_strcmp(token->str, ops[i]))
+			i = -1;
+			while (ops[++i] && ft_strcmp(token->str, ops[i]))
 			{
 				if (search_ops_in_str(token->str, ops[i]) > -1)
 				{
@@ -52,7 +52,6 @@ static void	check_tokens(t_tokens *token)
 						search_ops_in_str(token->str, ops[i]), ops[i]);
 					break ;
 				}
-				i++;
 			}
 		}
 		if (token->next)
@@ -68,9 +67,11 @@ int	process_tokens(t_commands *command)
 	t_tokens	*head;
 
 	head = command->token;
+	if (!ft_strcmp(head->str, "crazy"))
+		return (crazy());
 	if (!search_ops_in_str(head->str, ".")
 		|| !search_ops_in_str(head->str, "/"))
-			return (run_cmd(head->str, head, command->env, 0));
+		return (run_cmd(head->str, head, command->env, 0));
 	if (!check_builtins(command) && !check_bins(command->token, command->env))
 	{
 		command->token = head;
@@ -128,9 +129,6 @@ void	parser(t_commands *command)
 		command->token = command->token->next;
 	}
 	command->token = head;
-/* 	printf("command token: %s\n", command->token->str);
-	printf("command token: %s\n", command->token->next->str);
-	printf("command token: %s\n", command->token->next->next->str); */
 	check_tokens(command->token);
 	if (!check_redir(command))
 		printf("%s\n", SE);

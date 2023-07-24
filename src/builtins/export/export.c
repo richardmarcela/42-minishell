@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   export.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/21 15:17:13 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 21:15:38 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int	check_env_name(char *name)
 	return (1);
 }
 
-int	export(t_commands *command)
+void	export(t_commands *command)
 {
 	t_env	*new;
 	t_env	*env_head;
@@ -69,19 +69,22 @@ int	export(t_commands *command)
 	char	*env_name;
 
 	env_head = command->env;
-	if (ft_strchr(command->token->str, '='))
+	while (command->token)
 	{
-		pos = search_ops_in_str(command->token->str, "=");
-		env_name = ft_substr(command->token->str, 0, pos);
-		if (!check_env_name(env_name))
-			return (1);
-		env_value = ft_substr(command->token->str, pos + 1,
-				ft_strlen(command->token->str) - ft_strlen(env_name) - 1);
-		if (!env_exists(env_head, env_name, env_value))
+		if (ft_strchr(command->token->str, '='))
 		{
-			new = lstnew_env(form_variable(env_name, env_value), 1);
-			lstadd_back_env(&command->env, new);
+			pos = search_ops_in_str(command->token->str, "=");
+			env_name = ft_substr(command->token->str, 0, pos);
+			if (!check_env_name(env_name))
+				return ;
+			env_value = ft_substr(command->token->str, pos + 1,
+					ft_strlen(command->token->str) - ft_strlen(env_name) - 1);
+			if (!env_exists(env_head, env_name, env_value))
+			{
+				new = lstnew_env(form_variable(env_name, env_value), 1);
+				lstadd_back_env(&command->env, new);
+			}
 		}
+		command->token = command->token->next;
 	}
-	return (1);
 }

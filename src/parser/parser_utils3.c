@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils3.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: riolivei <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:54:06 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/20 21:29:17 by riolivei         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:33:41 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	check_redir(t_commands *command)
 	t_tokens	*head;
 
 	head = command->token;
+	if (is_redirect(command->token->str))
+		return (0);
 	while (command->token)
 	{
 		if (!command->token->was_quoted)
@@ -81,7 +83,8 @@ void	search_for_redirs(t_commands *command)
 	ops = fill_ops();
 	while (ops[++i])
 	{
-		if (ft_strnstr(command->token->str, ops[i], ft_strlen(command->token->str)))
+		if (ft_strnstr(command->token->str, ops[i],
+				ft_strlen(command->token->str)))
 		{
 			command->token->was_quoted = 1;
 			break ;

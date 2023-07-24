@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:22:14 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/14 20:51:41 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:31:20 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,47 +40,38 @@ char	*get_bin_path(char *path, char *str)
 	return (bin_path);
 }
 
-int	parse_error(char *bin_path)
+int	total_heredocs(t_tokens *token)
 {
-	free(bin_path);
-	g_exit_status = 1;
-	printf("%s\n", CPARSE);
-	return (ERROR);
-}
+	int	count;
 
-void	delete_char(t_tokens *node)
-{
-	char	*new_file;
-
-	if (node->str[0] == PLICAS)
-		new_file = ft_strtrim(node->str, "'");
-	else
-		new_file = ft_strtrim(node->str, "\"");
-	free(node->str);
-	node->str = new_file;
-}
-
-int	check_awk(t_tokens *token, char *bin_path)
-{
-	t_tokens	*node;
-
-	node = token;
-	if (!ft_strcmp(node->str, "awk") || !ft_strcmp(node->str, "gawk"))
+	count = 0;
+	while (token)
 	{
-		node = node->next;
-		if (node->next->type == OPTION)
-			node = node->next;
-		if (node->str[0] == '{')
-			return (parse_error(bin_path));
-		if (node->str[0] == PLICAS
-			&& node->str[ft_strlen(node->str) - 1] == PLICAS)
-		{
-			node->str[0] = '"';
-			node->str[ft_strlen(node->str) - 1] = '"';
-		}
-		if (node->next && isquote(node->next->str[0])
-			&& isquote(node->next->str[ft_strlen(node->next->str) - 1]))
-			delete_char(node->next);
+		if (token->type == HEREDOC)
+			count++;
+		token = token->next;
 	}
-	return (0);
+	return (count);
+}
+
+void	check_heredoc(t_tokens *token)
+{
+	int			count_heredocs;
+	int			i;
+
+	i = 0;
+	count_heredocs = total_heredocs(token);
+	while (token)
+	{
+		if (token->type == HEREDOC)
+		{
+			i++;
+			if (i == count_heredocs)
+			{
+				heredoc_while(token->next->str);
+				break ;
+			}
+		}
+		token = token->next;
+	}
 }

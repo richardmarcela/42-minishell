@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/20 17:29:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:36:58 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@ static int	check(t_commands *command)
 {
 	if (!ft_strcmp(command->token->str, "env"))
 		return (env(command->env, 0));
-	else if (!ft_strcmp(command->token->str, "unset"))
-	{
-		command->token = command->token->next;
-		return (unset_env(command));
-	}
-	else if (!ft_strcmp(command->token->str, "exit"))
+	if (!ft_strcmp(command->token->str, "unset"))
+		return (unset(command->token, command->env));
+	if (!ft_strcmp(command->token->str, "exit"))
 		return (exit_terminal(command));
-	else if (!ft_strcmp(command->token->str, "$?"))
+	if (!ft_strcmp(command->token->str, "$?"))
 	{
 		printf("%lld: %s\n", g_exit_status, CNF);
 		g_exit_status = 127;
@@ -36,25 +33,33 @@ static int	check(t_commands *command)
 int	check_builtins(t_commands *command)
 {
 	char	value[PATH_MAX];
+	pid_t		pid;
 
+	pid = fork();
+	if (pid == 0)
+	{
+		handle_redir(command->token);
+		exit(0);
+	}
+	wait(&pid);
 	if (!ft_strcmp(command->token->str, "echo"))
 		return (print(command->token->next));
 	if (!ft_strcmp(command->token->str, "cd"))
 		return (change_dir(command->token, command->env));
-	else if (!ft_strcmp(command->token->str, "pwd"))
+	if (!ft_strcmp(command->token->str, "pwd"))
 	{
 		printf("%s\n", getcwd(value, PATH_MAX));
 		return (1);
 	}
-	else if (!ft_strcmp(command->token->str, "export"))
+	if (!ft_strcmp(command->token->str, "export"))
 	{
 		if (command->token->next)
 		{
 			command->token = command->token->next;
-			return (export(command));
+			export(command);
+			return (1);
 		}
-		else
-			return (env(command->env, 1));
+		return (env(command->env, 1));
 	}
 	return (check(command));
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bins.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/24 17:01:08 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:34:25 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,8 @@ int	check_bins(t_tokens *token, t_env *env)
 	return (0);
 }
 
-static int	free_values(char *bin_path, char **args, char **env_matrix, int flag)
+static int	free_values(char *bin_path, char **args,
+	char **env_matrix, int flag)
 {
 	int	i;
 
@@ -92,22 +93,20 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env, int flag)
 	char		**env_matrix;
 	pid_t		pid;
 
-	if (!files_exist(token))
-	{
-		free(bin_path);
-		return (1);
-	}
-	/* if (check_awk(token, bin_path) == ERROR)
-		return (1); */
+	pid = fork();
 	args = fill_args(token);
 	env_matrix = fill_env_matrix(env);
-	pid = fork();
 	handle_cmd_signals();
 	if (pid == 0)
 	{
 		if (lstsize_tokens(token, 1) != lstsize_tokens(token, 0))
-			handle_redir(token);
-		execve(bin_path, args, env_matrix);
+		{
+			if (handle_redir(token))
+				execve(bin_path, args, env_matrix);
+		}
+		else
+			execve(bin_path, args, env_matrix);
+		exit(0);
 	}
 	wait(&pid);
 	handle_global_signals();
