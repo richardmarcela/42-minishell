@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 17:59:38 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/18 18:21:34 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:16:48 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,8 @@ char	*add_chars(char *expanding_str, char *str, int pos, int start)
 	if (expanding_str && temp)
 	{
 		new_str = ft_strjoin(expanding_str, temp);
-		if (ft_strcmp(expanding_str, "$"))
-			free(expanding_str);
+		/* if (ft_strcmp(expanding_str, "$"))
+			free(expanding_str); */
 		free(temp);
 		return (new_str);
 	}

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/23 19:46:02 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:01:08 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env, int flag)
 		free(bin_path);
 		return (1);
 	}
-	if (check_awk(token, bin_path) == ERROR)
-		return (1);
+	/* if (check_awk(token, bin_path) == ERROR)
+		return (1); */
 	args = fill_args(token);
 	env_matrix = fill_env_matrix(env);
 	pid = fork();

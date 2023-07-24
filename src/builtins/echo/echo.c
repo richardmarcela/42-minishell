@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/08 15:46:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/20 17:29:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:11:41 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	print(t_tokens *token)
 	}
 	while (token)
 	{
-		printf("%s", token->str);
+		if (token->str)
+			printf("%s", token->str);
 		if (token->next)
 			printf(" ");
 		token = token->next;

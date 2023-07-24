@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/23 20:46:46 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 16:59:24 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static void	in(t_TokenType type, char *input_file)
 
 	if (type == HEREDOC)
 	{
-		printf("ENTROU AQUI CRL\n");
 		heredoc_while(input_file);
 		fd = open("/tmp/1", O_RDONLY, 0644);
 	}

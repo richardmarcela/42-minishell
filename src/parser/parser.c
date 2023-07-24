@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/21 16:55:33 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:10:20 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,10 @@ static void	check_tokens(t_tokens *token)
 	ops = fill_ops();
 	while (token)
 	{
-		i = -1;
-		if (!token->was_quoted)
+		if (!token->was_quoted && token->str)
 		{
-			while (ops[++i] && ft_strcmp(token->str, ops[i]))
+			i =  0;
+			while (ops[i] && ft_strcmp(token->str, ops[i]))
 			{
 				if (search_ops_in_str(token->str, ops[i]) > -1)
 				{
@@ -52,6 +52,7 @@ static void	check_tokens(t_tokens *token)
 						search_ops_in_str(token->str, ops[i]), ops[i]);
 					break ;
 				}
+				i++;
 			}
 		}
 		if (token->next)
@@ -127,6 +128,9 @@ void	parser(t_commands *command)
 		command->token = command->token->next;
 	}
 	command->token = head;
+/* 	printf("command token: %s\n", command->token->str);
+	printf("command token: %s\n", command->token->next->str);
+	printf("command token: %s\n", command->token->next->next->str); */
 	check_tokens(command->token);
 	if (!check_redir(command))
 		printf("%s\n", SE);

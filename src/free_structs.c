@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:51:41 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/21 16:25:40 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/24 17:14:18 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void	free_tokens(t_tokens *token)
 	{
 		node = token;
 		token = token->next;
-		if (ft_strcmp(node->str, "$"))
-			free(node->str);
+		if (node->str)
+		{
+			if (ft_strcmp(node->str, "$"))
+				free(node->str);
+		}
 		free(node);
 	}
 }
