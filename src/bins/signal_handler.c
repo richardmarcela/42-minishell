@@ -6,13 +6,13 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:08:50 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/08 19:54:09 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:19:08 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	handle_cmd_signal(int sig)
+/* static void	handle_cmd_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -22,8 +22,8 @@ static void	handle_cmd_signal(int sig)
 		rl_replace_line("", 0);
 	}
 }
-
-static void	handle_global_signal(int sig)
+ */
+void	handle_global_signal(int sig)
 {
 	if (sig == SIGINT)
 	{
@@ -31,20 +31,19 @@ static void	handle_global_signal(int sig)
 		printf("\n");
 		rl_on_new_line();
 		rl_replace_line("", 0);
-		rl_redisplay();
+		//rl_redisplay();
 	}
 }
 
-void	handle_cmd_signals(void)
+/* void	handle_cmd_signals(void)
 {
 	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGINT, handle_cmd_signal);
-}
+} */
 
-void	handle_global_signals(void)
+void	handle_global_signals(int sig)
 {
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, SIG_IGN);
-	signal(SIGINT, handle_global_signal);
+	(void)sig;
+	exit(g_exit_status);
 }

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/24 19:15:58 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:04:59 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	main(int argc, char **argv, char **envp)
 	t_env		*env;
 
 	(void)argv;
-	handle_global_signals();
+	signal(SIGINT, handle_global_signal);
 	if (argc == 1)
 	{
 		env = init_env(envp);

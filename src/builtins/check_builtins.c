@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/24 22:36:58 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:22:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,15 +33,7 @@ static int	check(t_commands *command)
 int	check_builtins(t_commands *command)
 {
 	char	value[PATH_MAX];
-	pid_t		pid;
 
-	pid = fork();
-	if (pid == 0)
-	{
-		handle_redir(command->token);
-		exit(0);
-	}
-	wait(&pid);
 	if (!ft_strcmp(command->token->str, "echo"))
 		return (print(command->token->next));
 	if (!ft_strcmp(command->token->str, "cd"))

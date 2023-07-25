@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:22:14 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/24 22:31:20 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:34:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	check_heredoc(t_tokens *token)
 			if (i == count_heredocs)
 			{
 				heredoc_while(token->next->str);
+				unlink("/tmp/1");
 				break ;
 			}
 		}

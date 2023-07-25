@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/24 21:30:40 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:18:26 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,8 @@ char			*get_bin_path(char *path, char *str);
 void			check_heredoc(t_tokens *token);
 
 //BINS/SIGNAL_HANDLER.C
-void			handle_global_signals(void);
-void			handle_cmd_signals(void);
+void			handle_global_signal(int sig);
+void			handle_global_signals(int sig);
 
 //BUILTINS/ECHO/ECHO.C
 int				print(t_tokens *token);
@@ -123,7 +123,6 @@ void			free_structs(t_commands *commands, int flag);
 //SRC/REDIRECTIONS/REDIR.C
 int				files_exist(t_tokens *token);
 int				handle_redir(t_tokens *token);
-void			in(t_TokenType type, char *input_file);
 void			heredoc_while(char *delim);
 
 //SRC/BUILTINS/EXIT.C

@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/24 22:34:53 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:33:26 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,21 +74,13 @@ static void	out(t_TokenType type, char *output_file)
 	close(fd);
 }
 
-void	in(t_TokenType type, char *input_file)
+static void	in(char *input_file)
 {
 	int		fd;
 
-	if (type == HEREDOC)
-	{
-		heredoc_while(input_file);
-		fd = open("/tmp/1", O_RDONLY, 0644);
-	}
-	else
-		fd = open(input_file, O_RDONLY, 0644);
+	fd = open(input_file, O_RDONLY, 0644);
 	dup2(fd, STDIN_FILENO);
 	close(fd);
-	if (type == HEREDOC)
-		unlink("/tmp/1");
 }
 
 int	handle_redir(t_tokens *token)
@@ -106,7 +98,7 @@ int	handle_redir(t_tokens *token)
 			if (type == APPEND_OUT || type == RED_OUT)
 				out(type, token->next->str);
 			else if (type == RED_IN)
-				in(type, token->next->str);
+				in(token->next->str);
 		}
 		token = token->next;
 	}
