@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:47:57 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/24 19:50:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:44:10 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	children(t_commands *commands, int fd_in, int count_pipes)
 			close_write_read(pipes);
 			close(fd_in);
 			parser(commands);
-			exit(0);
+			exit(g_exit_status);
 		}
 		dup2(pipes[0], fd_in);
 		close_write_read(pipes);

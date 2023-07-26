@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:47:59 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/25 17:16:50 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/25 19:31:06 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,23 +91,9 @@ int	run_cmd(char *bin_path, t_tokens *token, t_env *env, int flag)
 {
 	char		**args;
 	char		**env_matrix;
-	pid_t		pid;
 
-	pid = fork();
 	args = fill_args(token);
 	env_matrix = fill_env_matrix(env);
-	if (pid == 0)
-	{
-		signal(SIGINT, handle_global_signals);
-		if (lstsize_tokens(token, 1) != lstsize_tokens(token, 0))
-		{
-			if (handle_redir(token))
-				execve(bin_path, args, env_matrix);
-		}
-		else
-			execve(bin_path, args, env_matrix);
-		exit(0);
-	}
-	wait(&pid);
+	execve(bin_path, args, env_matrix);
 	return (free_values(bin_path, args, env_matrix, flag));
 }

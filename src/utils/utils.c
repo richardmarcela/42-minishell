@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:52:45 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/21 16:32:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:31:43 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,21 +72,24 @@ int	search_ops_in_str(char *s1, char *s2)
 	int	i;
 
 	i = -1;
-	while (s1[++i])
+	if (s1 != NULL)
 	{
-		if (s1[i] == s2[0])
+		while (s1[++i])
 		{
-			if (ft_strlen(s2) > 1)
+			if (s1[i] && s1[i] == s2[0])
 			{
-				if (s1[i + 1] == s2[1])
-					return (i);
-				break ;
-			}
-			else
-			{
-				if (s1[i + 1] != s2[0])
-					return (i);
-				break ;
+				if (ft_strlen(s2) > 1)
+				{
+					if (s1[i + 1] == s2[1])
+						return (i);
+					break ;
+				}
+				else
+				{
+					if (s1[i + 1] != s2[0])
+						return (i);
+					break ;
+				}
 			}
 		}
 	}

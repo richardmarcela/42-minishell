@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 16:29:54 by riolivei          #+#    #+#             */
-/*   Updated: 2023/06/22 18:59:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 13:59:10 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,19 @@ int	is_redirect(char *str)
 	int	j;
 
 	i = -1;
-	while (str[++i])
+	if (str != NULL)
 	{
-		if (str[i] == '>' || str[i] == '<')
+		while (str[++i])
 		{
-			j = -1;
-			while (++j <= i)
+			if (str[i] == '>' || str[i] == '<')
 			{
-				if (isquote(str[j]))
-					return (0);
-				return (1);
+				j = -1;
+				while (++j <= i)
+				{
+					if (isquote(str[j]))
+						return (0);
+					return (1);
+				}
 			}
 		}
 	}

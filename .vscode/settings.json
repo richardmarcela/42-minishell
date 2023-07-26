@@ -8,6 +8,7 @@
 		"readline.h": "c",
 		"signal.h": "c",
 		"fcntl.h": "c",
-		"errno.h": "c"
+		"errno.h": "c",
+		"limits.h": "c"
 	}
 }

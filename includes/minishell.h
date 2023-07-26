@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/25 17:18:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/25 21:32:22 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ char			*if_quotes(char *new_str, t_commands *command,
 int				check_redir(t_commands *commands);
 int				has_in_out(t_commands *command, t_tokens *head);
 void			search_for_redirs(t_commands *command);
+int				function(t_commands *command);
 
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*token_list(char *line);
@@ -78,6 +79,7 @@ t_TokenType		which_red(char *str);
 
 //BUILTINS/CHECK_BUILTINS.C
 int				check_builtins(t_commands *command);
+int				check(t_commands *command);
 
 //BINS/CHECK_BINS.C
 int				check_bins(t_tokens *token, t_env *env);
@@ -129,6 +131,6 @@ void			heredoc_while(char *delim);
 int				exit_terminal(t_commands *command);
 
 //SRC/UTILS/UTILS3.C
-int				crazy(void);
+int				crazy(char *line);
 
 #endif

@@ -1,5 +1,7 @@
 PROBLEMS
-1 - builtins need to execute redirs
-2 - norminette
+1 - cat << a
+2 - cat << $USER
+3 - remake heredoc logic
+4 - remake pipe logic
 
 999 - Marcela's entire life (nothing i can do)

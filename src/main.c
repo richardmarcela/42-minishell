@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/25 17:04:59 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:15:33 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ int	check_line(char *line)
 
 	if (!line)
 	{
-		g_exit_status = 0;
 		printf("exit\n");
-		exit(0);
+		exit(g_exit_status);
 	}
 	i = -1;
 	pos = search_ops_in_str(line, "|");
@@ -64,6 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	t_env		*env;
 
 	(void)argv;
+	signal(SIGQUIT, SIG_IGN);
 	signal(SIGINT, handle_global_signal);
 	if (argc == 1)
 	{
@@ -71,7 +71,7 @@ int	main(int argc, char **argv, char **envp)
 		while (1)
 		{
 			line = readline(PROMPT);
-			if (!check_line(line))
+			if (!check_line(line) || crazy(line))
 				continue ;
 			line = check_double_pipes(line);
 			if (ft_strlen(line))

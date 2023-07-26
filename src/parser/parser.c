@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/24 22:33:45 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:44:23 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,18 +64,20 @@ static void	check_tokens(t_tokens *token)
 
 int	process_tokens(t_commands *command)
 {
+	pid_t		pid;
 	t_tokens	*head;
 
 	head = command->token;
-	if (!ft_strcmp(head->str, "crazy"))
-		return (crazy());
-	if (!search_ops_in_str(head->str, ".")
-		|| !search_ops_in_str(head->str, "/"))
-		return (run_cmd(head->str, head, command->env, 0));
-	if (!check_builtins(command) && !check_bins(command->token, command->env))
+	if (!check(command))
 	{
-		command->token = head;
-		return (0);
+		pid = fork();
+		if (pid == 0)
+		{
+			signal(SIGQUIT, SIG_IGN);
+			signal(SIGINT, handle_global_signals);
+			return (function(command));
+		}
+		wait(&pid);
 	}
 	command->token = head;
 	return (1);
@@ -121,9 +123,8 @@ void	parser(t_commands *command)
 				ft_strlen(command->token->str)))
 		{
 			g_exit_status = 2;
-			printf("%s\n", EPROMPT);
 			command->token = head;
-			return ;
+			return ((void)printf("%s\n", EPROMPT));
 		}
 		command->token->str = process_argument(command);
 		command->token = command->token->next;
@@ -131,7 +132,9 @@ void	parser(t_commands *command)
 	command->token = head;
 	check_tokens(command->token);
 	if (!check_redir(command))
-		printf("%s\n", SE);
-	else if (!process_tokens(command))
-		printf("%s\n", CNF);
+		return ((void)printf("%s\n", SE));
+	if (process_tokens(command))
+		return ;
+	printf("%s\n", CNF);
+	exit(g_exit_status);
 }

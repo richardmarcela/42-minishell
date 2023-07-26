@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/07/21 17:33:22 by mrichard         ###   ########.fr        #
+#    Updated: 2023/07/26 15:40:51 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
