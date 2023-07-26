@@ -6,31 +6,87 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:40:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 15:56:23 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:51:31 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#include <linux/limits.h>
+
+void	update_oldpwd(char *dir, t_env *env)
+{
+	int		pos;
+	char	*env_name;
+	t_env	*head;
+
+	head = env;
+	while (env)
+	{
+		pos = search_ops_in_str(env->str, "=");
+		env_name = ft_substr(env->str, 0, pos);
+		if (!ft_strcmp(env_name, "OLDPWD"))
+		{
+			env->str = form_variable(env_name, dir);
+			break ;
+		}
+		free(env_name);
+		env = env->next;
+	}
+	env = head;
+}
+
+static void	update_pwds(char *oldpwd, t_env *env)
+{
+	int		pos;
+	char	value[PATH_MAX];
+	char	*env_name;
+	char	*pwd;
+	t_env	*head;
+	
+
+	head = env;
+	pwd = ft_strdup(getcwd(value, PATH_MAX));
+	while (env)
+	{
+		pos = search_ops_in_str(env->str, "=");
+		env_name = ft_substr(env->str, 0, pos);
+		if (!ft_strcmp(env_name, "PWD"))
+		{
+			env->str = form_variable(env_name, pwd);
+			break ;
+		}
+		free(env_name);
+		env = env->next;
+	}
+	env = head;
+	update_oldpwd(oldpwd, env);
+}
 
 int	change_dir(t_tokens *token, t_env *env)
 {
+	char	value[PATH_MAX];
 	char	*dir;
+	char	*oldpwd;
 
 	dir = NULL;
-	if (!token->next || !ft_strcmp(token->next->str, "~"))
+	oldpwd = getcwd(value, PATH_MAX);
+	if (!token->next || (token->next->str && !ft_strcmp(token->next->str, "~")))
 		dir = env_value("HOME", env);
-	else if (!ft_strcmp(token->next->str, "-"))
+	else if (token->next->str && !ft_strcmp(token->next->str, "-"))
 	{
 		dir = env_value("OLDPWD", env);
 		printf("%s\n", dir);
 	}
-	else
+	else if (token->next->str)
 		dir = ft_strdup(token->next->str);
-	if (chdir(dir))
+	if (dir && chdir(dir))
 	{
 		g_exit_status = 1;
 		printf("%s\n", UNKNOWN);
 	}
-	free(dir);
+	else
+		update_pwds(ft_strdup(oldpwd), env);
+	if (dir)
+		free(dir);
 	return (1);
 }

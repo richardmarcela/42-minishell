@@ -1,32 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signal_handler.c                                   :+:      :+:    :+:   */
+/*   create_commands_list_utils.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/22 17:08:50 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 20:32:14 by mrichard         ###   ########.fr       */
+/*   Created: 2023/07/26 18:30:09 by mrichard          #+#    #+#             */
+/*   Updated: 2023/07/26 22:03:14 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_global_signal(int sig)
+static void	execute(t_commands *command, int flag)
 {
-	signal(SIGQUIT, SIG_IGN);
-	if (sig == SIGINT)
+	while (command)
 	{
-		g_exit_status = 130;
-		printf("\n");
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
+		if (flag == 1)
+			check_heredoc(command->token);
+		else
+			files_exist(command->token, 1);
+		command = command->next;
 	}
 }
 
-void	handle_global_signals(int sig)
+void	remake_commands(t_commands *commands)
 {
-	(void)sig;
-	exit(g_exit_status);
+	t_commands	*head;
+
+	head = commands;
+	execute(head, 1);
+	execute(head, 2);
 }

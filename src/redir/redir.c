@@ -6,13 +6,13 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/25 16:33:26 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:04:05 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	files_exist(t_tokens *token)
+int	files_exist(t_tokens *token, int flag)
 {
 	int			res;
 	int			fd;
@@ -22,13 +22,14 @@ int	files_exist(t_tokens *token)
 	res = 1;
 	while (token)
 	{
-		if (token->type == RED_IN)
+		if (token->type == RED_IN && token->next)
 		{
 			fd = open(token->next->str, O_RDONLY, 0644);
 			if (fd < 0)
 			{
 				res = 0;
-				printf("%s: %s\n", token->next->str, UNKNOWN);
+				if (flag)
+					printf("%s: %s\n", token->next->str, UNKNOWN);
 				break ;
 			}
 		}
@@ -87,12 +88,11 @@ int	handle_redir(t_tokens *token)
 {
 	t_TokenType	type;
 
-	check_heredoc(token);
-	if (!files_exist(token))
+	if (!files_exist(token, 0))
 		return (0);
 	while (token)
 	{
-		if (is_redirect(token->str))
+		if (is_redirect(token->str, token->was_quoted))
 		{
 			type = token->type;
 			if (type == APPEND_OUT || type == RED_OUT)

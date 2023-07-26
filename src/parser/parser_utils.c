@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:51:57 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 17:45:43 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:04:22 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,8 @@ void	handle_content_before(t_tokens *token, int pos,
 	str = token->str;
 	token->str = ft_substr(str, 0, pos);
 	free(str);
-	token->type = token_type(token->str, 0);
-	op_token = lstnew_token(ft_strdup(op), token_type(op, 0));
+	token->type = token_type(token->str, 0, token->was_quoted);
+	op_token = lstnew_token(ft_strdup(op), token_type(op, 0, 0));
 	if (!search_content(original_str, op, 1))
 		op_token->next = token->next;
 	token->next = op_token;
@@ -62,7 +62,7 @@ t_tokens	*handle_content_after(char *original_str, int pos,
 	else
 		quant = ft_strlen(original_str) - ft_strlen(op);
 	new_str = ft_substr(original_str, pos + ft_strlen(op), quant);
-	new_token = lstnew_token(new_str, token_type(new_str, 0));
+	new_token = lstnew_token(new_str, token_type(new_str, 0, 0));
 	if (!search_content(original_str, op, 0))
 	{
 		free(token->str);

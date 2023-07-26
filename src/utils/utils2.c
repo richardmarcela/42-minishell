@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:22:55 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/24 21:00:52 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:02:53 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ char	**fill_args(t_tokens *token)
 	i = 0;
 	while (i < size)
 	{
-		if (!is_redirect(token->str) && !is_redirect(previous.str))
+		if (!is_redirect(token->str, token->was_quoted) && !is_redirect(previous.str, previous.was_quoted))
 		{
 			args[i] = ft_strdup(token->str);
 			i++;

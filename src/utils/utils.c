@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:52:45 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 14:31:43 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:02:13 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	lstsize_tokens(t_tokens *token, int filter)
 	{
 		if (filter)
 		{
-			if (!is_redirect(token->str) && !is_redirect(previous.str))
+			if (!is_redirect(token->str, token->was_quoted) && !is_redirect(previous.str, previous.was_quoted))
 				count++;
 			previous = *token;
 		}

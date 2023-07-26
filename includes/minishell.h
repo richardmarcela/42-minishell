@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/25 21:32:22 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:18:36 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ extern long long	g_exit_status;
 //PARSER/TOKEN/DEF_TOKEN_TYPE.C
 int				is_option(char *str);
 int				is_pipe(char *str);
-int				is_redirect(char *str);
+int				is_redirect(char *str, int was_quoted);
 
 //UTILS/UTILS.C
 int				isquote(int c);
@@ -37,6 +37,9 @@ char			**fill_env_matrix(t_env *env);
 //PARSER/CREATE_COMMANDS_LIST.C
 void			pipe_commands(char *str, t_env *env);
 int				lstsize_commands(t_commands *commands);
+
+//PARSER/CREATE_COMMANDS_LIST_UTILS.C
+void    		remake_commands(t_commands *commands);
 
 //PARSER/PARSER.C
 int				process_tokens(t_commands *command);
@@ -71,7 +74,7 @@ int				function(t_commands *command);
 //PARSER/TOKEN/CREATE_TOKEN_LIST.C
 t_tokens		*token_list(char *line);
 t_tokens		*lstnew_token(char *str, t_TokenType type);
-t_TokenType		token_type(char *str, int flag);
+t_TokenType		token_type(char *str, int flag, int was_quoted);
 void			lstadd_back_token(t_tokens **lst, t_tokens *new);
 
 //PARSER/TOKEN/TOKEN_UTILS.C
@@ -103,6 +106,7 @@ int				change_dir(t_tokens *token, t_env *env);
 
 //BUILTINS/EXPORT/EXPORT.C
 void			export(t_commands *command);
+char			*form_variable(char *name, char *value);
 
 //BUILTINS/ENV/ENV.C
 int				env(t_env *env, int flag);
@@ -123,7 +127,7 @@ void			open_pipe(t_commands *commands);
 void			free_structs(t_commands *commands, int flag);
 
 //SRC/REDIRECTIONS/REDIR.C
-int				files_exist(t_tokens *token);
+int				files_exist(t_tokens *token, int flag);
 int				handle_redir(t_tokens *token);
 void			heredoc_while(char *delim);
 

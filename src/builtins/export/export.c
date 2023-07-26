@@ -6,13 +6,13 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/25 19:15:22 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:18:59 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*form_variable(char *name, char *value)
+char	*form_variable(char *name, char *value)
 {
 	char	*str;
 	char	*temp;

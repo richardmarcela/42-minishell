@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 21:05:37 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/24 21:03:06 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:07:46 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	pipe_commands(char *str, t_env *env)
 		lstadd_back_commands(&head, current_node);
 	}
 	free(pipe_splitted);
+	remake_commands(head);
 	open_pipe(head);
 	free_structs(head, 0);
 }

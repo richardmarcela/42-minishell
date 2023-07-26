@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:22:14 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 16:18:27 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:04:29 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,38 +40,14 @@ char	*get_bin_path(char *path, char *str)
 	return (bin_path);
 }
 
-int	total_heredocs(t_tokens *token)
-{
-	int	count;
-
-	count = 0;
-	while (token)
-	{
-		if (token->type == HEREDOC)
-			count++;
-		token = token->next;
-	}
-	return (count);
-}
-
 void	check_heredoc(t_tokens *token)
 {
-	int			count_heredocs;
-	int			i;
-
-	i = 0;
-	count_heredocs = total_heredocs(token);
 	while (token)
 	{
-		if (token->type == HEREDOC)
+		if (token->type == HEREDOC && token->next)
 		{
-			i++;
-			if (i == count_heredocs)
-			{
-				heredoc_while(token->next->str);
-				unlink("/tmp/1");
-				break ;
-			}
+			heredoc_while(token->next->str);
+			unlink("/tmp/1");
 		}
 		token = token->next;
 	}

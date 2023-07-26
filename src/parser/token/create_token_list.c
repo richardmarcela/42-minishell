@@ -6,19 +6,19 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 19:54:22 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/24 20:36:14 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 20:12:26 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_TokenType	token_type(char *str, int flag)
+t_TokenType	token_type(char *str, int flag, int was_quoted)
 {
 	if (is_option(str))
 		return (OPTION);
 	if (is_pipe(str))
 		return (PIPE);
-	if (is_redirect(str))
+	if (is_redirect(str, was_quoted))
 		return (which_red(str));
 	if (flag)
 		return (COMMAND);
@@ -74,11 +74,11 @@ t_tokens	*token_list(char *line)
 	i = 0;
 	trimmed_line = ft_strtrim(line, " ");
 	splitted = ft_split(trimmed_line, ' ');
-	head = lstnew_token(splitted[i], token_type(splitted[i], 1));
+	head = lstnew_token(splitted[i], token_type(splitted[i], 1, 0));
 	current_node = head;
 	while (splitted[++i])
 	{
-		current_node = lstnew_token(splitted[i], token_type(splitted[i], 0));
+		current_node = lstnew_token(splitted[i], token_type(splitted[i], 0, 0));
 		lstadd_back_token(&head, current_node);
 	}
 	free(splitted);

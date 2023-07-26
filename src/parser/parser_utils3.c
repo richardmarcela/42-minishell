@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:54:06 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 17:27:07 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:01:53 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	check_redir(t_commands *command)
 	t_tokens	*head;
 
 	head = command->token;
-	if (is_redirect(command->token->str))
+	if (is_redirect(command->token->str, command->token->was_quoted))
 		return (0);
 	while (command->token)
 	{
