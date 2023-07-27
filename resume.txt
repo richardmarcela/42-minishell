@@ -2,10 +2,15 @@ PROBLEMS
 1 - cat << a || wc << a
 2 - cat << $USER
 3 - CTRL C in a heredoc doesnt end it
-4 - echo $?
-5 - expr $? + $?
-6 - crtl \ in a prompt with stuff should quit
-7 - CTRL C in cat ends in double prompt 
-8 - $$ doesnt interpret
+4 - crtl \ in a prompt with stuff should quit
+5 - CTRL C in cat ends in double prompt
 
 999 - Marcela's entire life (nothing i can do)
+
+
+alguns comandos fds (ls, cat) nao funcionam sem argumentos?
+ls funciona ou nao funciona nao deterministicamente
+
+redirs nao funcionam com um espaco antes e sem espaco depois
+
+tentar executar um teste algo profundo como 'cat resume.txt | grep a | head -n 2' e testar por leaks e ver se esta tudo ok

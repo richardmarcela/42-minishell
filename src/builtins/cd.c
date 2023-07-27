@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:40:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 22:51:31 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:52:47 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ static void	update_pwds(char *oldpwd, t_env *env)
 	char	*env_name;
 	char	*pwd;
 	t_env	*head;
-	
 
 	head = env;
 	pwd = ft_strdup(getcwd(value, PATH_MAX));

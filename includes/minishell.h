@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/26 22:18:36 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:56:44 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void			pipe_commands(char *str, t_env *env);
 int				lstsize_commands(t_commands *commands);
 
 //PARSER/CREATE_COMMANDS_LIST_UTILS.C
-void    		remake_commands(t_commands *commands);
+void			remake_commands(t_commands *commands);
 
 //PARSER/PARSER.C
 int				process_tokens(t_commands *command);
