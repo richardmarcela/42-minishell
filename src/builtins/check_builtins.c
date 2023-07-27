@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/26 16:03:21 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:57:41 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,22 @@ int	check(t_commands *command)
 	return (0);
 }
 
+static int	is_exit_status(char *str)
+{
+	int		res;
+	char	*new_str;
+	char	*new_str1;
+
+	res = 0;
+	new_str = ft_strtrim(str, "\"");
+	new_str1 = ft_strtrim(new_str, "'");
+	free(new_str);
+	if (!ft_strcmp(new_str1, "$?"))
+		res = 1;
+	free (new_str1);
+	return (res);
+}
+
 int	check_builtins(t_commands *command)
 {
 	char	value[PATH_MAX];
@@ -46,7 +62,7 @@ int	check_builtins(t_commands *command)
 		return (0);
 	if (!ft_strcmp(command->token->str, "echo"))
 		return (print(command->token->next));
-	if (!ft_strcmp(command->token->str, "$?"))
+	if (is_exit_status(command->token->str))
 	{
 		printf("%lld: %s\n", g_exit_status, CNF);
 		g_exit_status = 127;

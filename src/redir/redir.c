@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 22:04:05 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:31:07 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	files_exist(t_tokens *token, int flag)
+int	files_exist(t_tokens *token)
 {
 	int			res;
 	int			fd;
@@ -28,8 +28,9 @@ int	files_exist(t_tokens *token, int flag)
 			if (fd < 0)
 			{
 				res = 0;
-				if (flag)
+				if (!token->skip)
 					printf("%s: %s\n", token->next->str, UNKNOWN);
+				token->skip = 1;
 				break ;
 			}
 		}
@@ -88,7 +89,8 @@ int	handle_redir(t_tokens *token)
 {
 	t_TokenType	type;
 
-	if (!files_exist(token, 0))
+	check_heredoc(token);
+	if (!files_exist(token))
 		return (0);
 	while (token)
 	{

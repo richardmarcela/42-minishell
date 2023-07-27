@@ -3,18 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handler.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/22 17:08:50 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 20:32:14 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 17:54:33 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	handle_global_signal(int sig)
+static void	handle_cmd_signal(int sig)
 {
-	signal(SIGQUIT, SIG_IGN);
+	if (sig == SIGINT)
+	{
+		g_exit_status = 130;
+		printf("\n");
+		rl_on_new_line();
+		rl_replace_line("", 0);
+	}
+}
+
+static void	handle_global_signal(int sig)
+{
 	if (sig == SIGINT)
 	{
 		g_exit_status = 130;
@@ -25,8 +35,16 @@ void	handle_global_signal(int sig)
 	}
 }
 
-void	handle_global_signals(int sig)
+void	handle_cmd_signals(void)
 {
-	(void)sig;
-	exit(g_exit_status);
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, handle_cmd_signal);
+}
+
+void	handle_global_signals(void)
+{
+	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, handle_global_signal);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/27 13:49:30 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:01:54 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ static void	check_tokens(t_tokens *token)
 
 int	process_tokens(t_commands *command)
 {
+	int			temp;
 	pid_t		pid;
 	t_tokens	*head;
 
@@ -71,13 +72,14 @@ int	process_tokens(t_commands *command)
 	if (!check(command))
 	{
 		pid = fork();
+		handle_cmd_signals();
 		if (pid == 0)
 		{
-			signal(SIGQUIT, SIG_IGN);
-			signal(SIGINT, handle_global_signals);
 			return (function(command));
 		}
-		wait(&pid);
+		waitpid(pid, &temp, 0);
+		g_exit_status = temp >> 8;
+		handle_global_signals();
 	}
 	command->token = head;
 	return (1);
@@ -103,8 +105,8 @@ char	*process_argument(t_commands *command)
 			new_str = if_variable(new_str, command, &start, &i);
 		else if (isquote(command->token->str[i]))
 			new_str = if_quotes(new_str, command, &start, &i);
-		/* else
-			break ; */
+		else if (ft_strcmp(command->token->str, "$?"))
+			break ;
 	}
 	free(command->token->str);
 	return (new_str);

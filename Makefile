@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/07/27 14:36:08 by mrichard         ###   ########.fr        #
+#    Updated: 2023/07/27 15:22:49 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC = cc
 NAME = minishell
-CFLAGS = -Wall -Wextra -Werror -g -I./includes -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -I./includes #-fsanitize=address
 RM = rm -rf
 LIBFT = ./libft/libft.a
 VPATH = src src/parser src/utils src/parser/token src/parser/commands src/parser/env_list\

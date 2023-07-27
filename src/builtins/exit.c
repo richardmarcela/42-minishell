@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/25 21:57:40 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/25 22:30:13 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:01:44 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ int	exit_terminal(t_commands *command)
 			else
 			{
 				g_exit_status = 2;
-				return (printf("%s\n", NAR));
+				printf("exit\n%s\n", NAR);
+				exit(g_exit_status);
 			}
 		}
 		else

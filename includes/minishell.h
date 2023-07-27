@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/27 13:56:44 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 19:31:20 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,10 +93,11 @@ int				env_len(t_env *env);
 char			**get_path(t_env *env);
 char			*get_bin_path(char *path, char *str);
 void			check_heredoc(t_tokens *token);
+int				is_specific_command(t_tokens *token);
 
 //BINS/SIGNAL_HANDLER.C
-void			handle_global_signal(int sig);
-void			handle_global_signals(int sig);
+void			handle_global_signals(void);
+void			handle_cmd_signals(void);
 
 //BUILTINS/ECHO/ECHO.C
 int				print(t_tokens *token);
@@ -127,7 +128,7 @@ void			open_pipe(t_commands *commands);
 void			free_structs(t_commands *commands, int flag);
 
 //SRC/REDIRECTIONS/REDIR.C
-int				files_exist(t_tokens *token, int flag);
+int				files_exist(t_tokens *token);
 int				handle_redir(t_tokens *token);
 void			heredoc_while(char *delim);
 

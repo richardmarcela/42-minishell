@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 15:15:33 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 18:27:54 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ int	main(int argc, char **argv, char **envp)
 	t_env		*env;
 
 	(void)argv;
-	signal(SIGQUIT, SIG_IGN);
-	signal(SIGINT, handle_global_signal);
+	handle_global_signals();
 	if (argc == 1)
 	{
 		env = init_env(envp);

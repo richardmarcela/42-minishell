@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 21:51:57 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 20:04:22 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/27 15:48:41 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_tokens	*handle_content_after(char *original_str, int pos,
 	{
 		free(token->str);
 		token->str = ft_strdup(op);
+		token->type = token_type(op, 0, 0);
 		token->next = new_token;
 	}
 	else
