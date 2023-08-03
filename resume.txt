@@ -1,5 +1,9 @@
 PROBLEMS
 1 - cat << a
 2 - CTRL C in a heredoc doesnt end it
+3 - variavel sem valor nao vai ao env mas vai no export
 
 999 - Marcela's entire life (nothing i can do)
+
+- para o heredoc tem q ter so \n no sig handler e nao pode ter rl_on_new_line(); rl_replace_line("", 0);
+- e ai dps do fork do heredoc faz SIG_IGN, wait e chama sig handler normal

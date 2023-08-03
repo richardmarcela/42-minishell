@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_bins_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:22:14 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/27 19:36:10 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/07/31 18:23:33 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	check_heredoc(t_tokens *token)
 		{
 			heredoc_while(token->next->str);
 			fd = open("/tmp/1", O_RDONLY, 0644);
-			printf("is 2: %d\n", is_specific_command(head));
+			//printf("is 2: %d\n", is_specific_command(head));
 			if (is_specific_command(head))
 				dup2(fd, STDIN_FILENO);
 			unlink("/tmp/1");
