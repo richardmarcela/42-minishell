@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/08/08 16:58:13 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:41:39 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,26 +42,21 @@ int	files_exist(t_tokens *token)
 
 void	heredoc_while(char *delim)
 {
+	int		temp;
 	char	*delim_line;
-	int		fd;
-	int		output;
-	char	buff[4095];
+	pid_t	pid;
 
-	write(1, "> ", 2);
-	delim_line = ft_strjoin(delim, "\n");
-	fd = open("/tmp/1", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	output = read(1, buff, 4095);
-	while (output > 0)
+	handle_cmd_signals();
+	pid = fork();
+	if (pid == 0)
 	{
-		buff[output] = '\0';
-		if (!ft_strcmp(buff, delim_line))
-			break ;
-		ft_putstr_fd(buff, fd);
-		write(1, "> ", 2);
-		output = read(1, buff, 4095);
+		delim_line = ft_strjoin(delim, "\n");
+		execute_cicle(delim_line);
+		free(delim_line);
+		exit(g_exit_status);
 	}
-	free(delim_line);
-	close (fd);
+	waitpid(pid, &temp, 0);
+	g_exit_status = temp >> 8;
 }
 
 static void	out(t_TokenType type, char *output_file)

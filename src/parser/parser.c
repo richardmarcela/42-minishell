@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/08/08 16:59:18 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 19:43:41 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	process_tokens(t_commands *command)
 	return (1);
 }
 
-char	*process_argument(t_commands *command)
+char	*process_argument(t_commands *c)
 {
 	int		i;
 	int		start;
@@ -92,21 +92,21 @@ char	*process_argument(t_commands *command)
 	i = -1;
 	start = 0;
 	new_str = NULL;
-	while (command->token->str[++i])
+	while (c->token->str[++i])
 	{
-		while (command->token->str[i] != '$' && !isquote(command->token->str[i])
-			&& command->token->str[i])
+		while (c->token->str[i] && c->token->str[i] != '$'
+			&& !isquote(c->token->str[i]))
 			i++;
 		if (i - start > 0)
-			new_str = add_chars(new_str, command->token->str, i - start, start);
-		if (command->token->str[i] == '$' && command->token->type != 1)
-			new_str = if_variable(new_str, command, &start, &i);
-		else if (isquote(command->token->str[i]))
-			new_str = if_quotes(new_str, command, &start, &i);
-		else if (ft_strcmp(command->token->str, "$?"))
-			break ;
+			new_str = add_chars(new_str, c->token->str, i - start, start);
+		if (c->token->str[i] == '$' && c->token->type != 1)
+			new_str = if_variable(new_str, c, &start, &i);
+		else if (isquote(c->token->str[i]))
+			new_str = if_quotes(new_str, c, &start, &i);
+		else if (!ft_strcmp(c->token->str, "$?"))
+			return (ft_strdup(c->token->str));
 	}
-	free(command->token->str);
+	free(c->token->str);
 	return (new_str);
 }
 

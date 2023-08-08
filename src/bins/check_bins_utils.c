@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:22:14 by mrichard          #+#    #+#             */
-/*   Updated: 2023/08/08 16:58:11 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:41:42 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,27 @@ void	check_heredoc(t_tokens *token)
 		}
 		token = token->next;
 	}
+}
+
+void	execute_cicle(char *delim_line)
+{
+	int		fd;
+	int		output;
+	char	buff[4095];
+
+	handle_signal_redir();
+	write(1, "> ", 2);
+	fd = open("/tmp/1", O_RDWR | O_CREAT | O_TRUNC, 0644);
+	output = read(1, buff, 4095);
+	while (output > 0)
+	{
+		handle_signal_redir();
+		buff[output] = '\0';
+		if (!ft_strcmp(buff, delim_line))
+			break ;
+		ft_putstr_fd(buff, fd);
+		write(1, "> ", 2);
+		output = read(1, buff, 4095);
+	}
+	close (fd);
 }

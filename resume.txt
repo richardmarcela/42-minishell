@@ -1,4 +1,6 @@
 PROBLEMS
-1 - CTRL C in a heredoc doesnt end it
+1 - norminette
 
-999 - Marcela's entire life (nothing i can do)
+cd - x3
+cd ~ leaks
+torres gemeas --> ||

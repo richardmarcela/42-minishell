@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+         #
+#    By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/05 10:49:40 by riolivei          #+#    #+#              #
-#    Updated: 2023/07/27 15:22:49 by mrichard         ###   ########.fr        #
+#    Updated: 2023/08/08 19:33:03 by mrichard         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ TOKEN = create_token_list def_token_types token_utils
 COMMANDS = create_commands_list create_commands_list_utils
 PARSER = parser parser_utils parser_utils2 parser_utils3
 ENV = create_env_list
-BINS = check_bins check_bins_utils signal_handler
+BINS = check_bins check_bins_utils signal_handler signal_handler2
 BUILTINS = check_builtins env cd unset exit
 ECHO = echo
 EXPORT = export
@@ -49,6 +49,7 @@ OBJ_DIR = obj
 OBJS = $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 all: $(NAME)
+	clear
 	@printf "\n"
 	@echo $(G)"       _     _     _       _ _ "$(X)
 	@echo $(G)" _____|_|___|_|___| |_ ___| | |"$(X)

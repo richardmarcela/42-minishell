@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/08/08 16:15:41 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 17:42:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,11 +93,14 @@ int				env_len(t_env *env);
 char			**get_path(t_env *env);
 char			*get_bin_path(char *path, char *str);
 void			check_heredoc(t_tokens *token);
+void			execute_cicle(char *delim_line);
 
 //BINS/SIGNAL_HANDLER.C
 void			handle_global_signals(void);
 void			handle_cmd_signals(void);
 
+//BINS/SIGNAL_HANDLER2.C
+void			handle_signal_redir(void);
 //BUILTINS/ECHO/ECHO.C
 int				print(t_tokens *token);
 
