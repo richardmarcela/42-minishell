@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 18:10:39 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/27 18:31:07 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:58:13 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,18 +47,18 @@ void	heredoc_while(char *delim)
 	int		output;
 	char	buff[4095];
 
-	write(0, "> ", 2);
+	write(1, "> ", 2);
 	delim_line = ft_strjoin(delim, "\n");
 	fd = open("/tmp/1", O_RDWR | O_CREAT | O_TRUNC, 0644);
-	output = read(0, buff, 4095);
+	output = read(1, buff, 4095);
 	while (output > 0)
 	{
 		buff[output] = '\0';
 		if (!ft_strcmp(buff, delim_line))
 			break ;
 		ft_putstr_fd(buff, fd);
-		write(0, "> ", 2);
-		output = read(0, buff, 4095);
+		write(1, "> ", 2);
+		output = read(1, buff, 4095);
 	}
 	free(delim_line);
 	close (fd);

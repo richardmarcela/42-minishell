@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/27 18:01:54 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:59:18 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,7 @@ int	process_tokens(t_commands *command)
 		pid = fork();
 		handle_cmd_signals();
 		if (pid == 0)
-		{
 			return (function(command));
-		}
 		waitpid(pid, &temp, 0);
 		g_exit_status = temp >> 8;
 		handle_global_signals();

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/27 19:31:20 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:15:41 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int				env_len(t_env *env);
 char			**get_path(t_env *env);
 char			*get_bin_path(char *path, char *str);
 void			check_heredoc(t_tokens *token);
-int				is_specific_command(t_tokens *token);
 
 //BINS/SIGNAL_HANDLER.C
 void			handle_global_signals(void);

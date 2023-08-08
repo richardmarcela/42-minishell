@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/18 17:53:02 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/27 18:27:54 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:32:07 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ char	*check_double_pipes(char *line)
 
 int	main(int argc, char **argv, char **envp)
 {
+	int			fd;
 	char		*line;
 	t_env		*env;
 
@@ -66,9 +67,11 @@ int	main(int argc, char **argv, char **envp)
 	handle_global_signals();
 	if (argc == 1)
 	{
+		fd = dup(STDIN_FILENO);
 		env = init_env(envp);
 		while (1)
 		{
+			dup2(fd, STDIN_FILENO);
 			line = readline(PROMPT);
 			if (!check_line(line) || crazy(line))
 				continue ;

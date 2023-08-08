@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 18:22:14 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/31 18:23:33 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/08 16:58:11 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,25 +40,6 @@ char	*get_bin_path(char *path, char *str)
 	return (bin_path);
 }
 
-int	is_input_command(char *str)
-{
-	if (!ft_strcmp(str, "cat"))
-		return (1);
-	if (!ft_strcmp(str, "wc"))
-		return (1);
-	return (0);
-}
-
-int	is_specific_command(t_tokens *token)
-{
-	if (is_input_command(token->str))
-	{
-		if (token->next && token->next->type == HEREDOC)
-			return (1);
-	}
-	return (0);
-}
-
 void	check_heredoc(t_tokens *token)
 {
 	int			fd;
@@ -71,9 +52,7 @@ void	check_heredoc(t_tokens *token)
 		{
 			heredoc_while(token->next->str);
 			fd = open("/tmp/1", O_RDONLY, 0644);
-			//printf("is 2: %d\n", is_specific_command(head));
-			if (is_specific_command(head))
-				dup2(fd, STDIN_FILENO);
+			dup2(fd, STDIN_FILENO);
 			unlink("/tmp/1");
 			token->skip = 1;
 		}
