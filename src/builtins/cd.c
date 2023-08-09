@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 20:40:37 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/27 13:52:47 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:19:34 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	update_oldpwd(char *dir, t_env *env)
 		env_name = ft_substr(env->str, 0, pos);
 		if (!ft_strcmp(env_name, "OLDPWD"))
 		{
+			if (env->was_added)
+				free(env->str);
 			env->str = form_variable(env_name, dir);
+			env->was_added = 1;
 			break ;
 		}
 		free(env_name);
@@ -51,7 +54,10 @@ static void	update_pwds(char *oldpwd, t_env *env)
 		env_name = ft_substr(env->str, 0, pos);
 		if (!ft_strcmp(env_name, "PWD"))
 		{
+			if (env->was_added)
+				free(env->str);
 			env->str = form_variable(env_name, pwd);
+			env->was_added = 1;
 			break ;
 		}
 		free(env_name);

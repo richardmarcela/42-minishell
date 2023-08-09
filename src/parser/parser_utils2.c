@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 17:59:38 by mrichard          #+#    #+#             */
-/*   Updated: 2023/08/08 19:33:20 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:05:53 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*get_variable(char *str, int *pos)
 
 	i = (*pos) + 1;
 	n = 0;
-	while (str[i] != '$' && str[i] != ASPAS
+	while (str[i] != '$' && str[i] != '=' && str[i] != ASPAS
 		&& str[i] != PLICAS && str[i] != ' ' && str[i])
 	{
 		n++;

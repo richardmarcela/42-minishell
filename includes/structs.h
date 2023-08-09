@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   structs.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/27 17:19:33 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/27 15:58:46 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:05:52 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define PROMPT "shell pequeno 🐚> "
 # define EPARSE "parse error near '|'"
 # define CPARSE "parse error near '{}'"
-# define NAI "not an identifier:"
+# define NAI "not a valid identifier"
 # define SE "syntax error"
 # define EPROMPT "unclosed quotes"
 # define CNF "command not found"

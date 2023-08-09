@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_builtins.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mrichard <mrichard@student.42porto.pt>     +#+  +:+       +#+        */
+/*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/06 22:46:03 by riolivei          #+#    #+#             */
-/*   Updated: 2023/07/27 16:57:41 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:07:49 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	check(t_commands *command)
 		return (unset(command->token, command->env));
 	if (!ft_strcmp(command->token->str, "export"))
 	{
-		if (command->token->next)
+		if (command->token->next && command->token->next->str)
 		{
 			command->token = command->token->next;
 			export(command);

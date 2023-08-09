@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 19:26:06 by riolivei          #+#    #+#             */
-/*   Updated: 2023/08/08 19:43:41 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:17:46 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,14 @@ char	*process_argument(t_commands *c)
 			i++;
 		if (i - start > 0)
 			new_str = add_chars(new_str, c->token->str, i - start, start);
-		if (c->token->str[i] == '$' && c->token->type != 1)
+		if (!c->token->str[i])
+			break ;
+		if (c->token->str[i] == '$' && is_accepted(c->token))
 			new_str = if_variable(new_str, c, &start, &i);
 		else if (isquote(c->token->str[i]))
 			new_str = if_quotes(new_str, c, &start, &i);
 		else if (!ft_strcmp(c->token->str, "$?"))
-			return (ft_strdup(c->token->str));
+			return (c->token->str);
 	}
 	free(c->token->str);
 	return (new_str);

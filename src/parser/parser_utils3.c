@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/18 16:54:06 by mrichard          #+#    #+#             */
-/*   Updated: 2023/08/08 16:27:39 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:20:04 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,6 @@ int	check_redir(t_commands *command)
 	t_tokens	*head;
 
 	head = command->token;
-	if (is_redirect(command->token->str, command->token->was_quoted))
-		return (0);
 	while (command->token)
 	{
 		if (!command->token->was_quoted)
@@ -98,7 +96,11 @@ int	function(t_commands *command)
 {
 	if (!search_ops_in_str(command->token->str, ".")
 		|| !search_ops_in_str(command->token->str, "/"))
+	{
+		if (!is_bin(command->token->str))
+			exit(g_exit_status);
 		return (run_cmd(command->token->str, command->token, command->env, 0));
+	}
 	if (lstsize_tokens(command->token, 1) != lstsize_tokens(command->token, 0))
 	{
 		if (!handle_redir(command->token))
@@ -107,8 +109,12 @@ int	function(t_commands *command)
 			return (1);
 		}
 	}
-	if (!check_builtins(command) && !check_bins(command->token, command->env))
-		return (0);
+	if (!is_redirect(command->token->str, command->token->was_quoted))
+	{
+		if (!check_builtins(command)
+			&& !check_bins(command->token, command->env))
+			return (0);
+	}
 	exit(g_exit_status);
 	return (1);
 }

@@ -1,6 +1,0 @@
-PROBLEMS
-1 - norminette
-
-cd - x3
-cd ~ leaks
-torres gemeas --> ||

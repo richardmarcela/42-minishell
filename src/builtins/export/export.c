@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 22:09:34 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/26 22:18:59 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 15:05:50 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ static int	env_exists(t_env *head, char *new_env, char *env_value)
 
 static int	check_env_name(char *name)
 {
-	if (ft_isdigit(name[0]))
+	if (!ft_strlen(name) || ft_isdigit(name[0]) || !ft_strcmp(name, "$"))
 	{
-		printf("%s %s\n", NAI, name);
+		printf("%s\n", NAI);
 		free(name);
 		return (0);
 	}
@@ -69,7 +69,7 @@ void	export(t_commands *command)
 	char	*env_name;
 
 	env_head = command->env;
-	while (command->token)
+	while (command->token && command->token->str)
 	{
 		if (ft_strchr(command->token->str, '='))
 		{

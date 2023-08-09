@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 19:32:24 by riolivei          #+#    #+#             */
-/*   Updated: 2023/08/08 17:42:11 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 13:50:10 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void			change_flag(bool *flag);
 char			**fill_ops(void);
 char			**fill_args(t_tokens *token);
 char			**fill_env_matrix(t_env *env);
+int				is_accepted(t_tokens *token);
+int				is_bin(char *str);
 
 //PARSER/CREATE_COMMANDS_LIST.C
 void			pipe_commands(char *str, t_env *env);

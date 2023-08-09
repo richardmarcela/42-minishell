@@ -6,7 +6,7 @@
 /*   By: mrichard <mrichard@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/17 20:22:55 by mrichard          #+#    #+#             */
-/*   Updated: 2023/07/27 13:56:01 by mrichard         ###   ########.fr       */
+/*   Updated: 2023/08/09 16:22:30 by mrichard         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,29 @@ char	**fill_args(t_tokens *token)
 		token = token->next;
 	}
 	return (args);
+}
+
+int	is_accepted(t_tokens *token)
+{
+	if (!ft_strcmp(token->str, "$?"))
+	{
+		if (token->type == COMMAND)
+			return (0);
+	}
+	return (1);
+}
+
+int	is_bin(char *str)
+{
+	int		res;
+	char	*temp;
+
+	if (str[0] == '.')
+		return (1);
+	res = 0;
+	temp = ft_substr(str, 1, 3);
+	if (!ft_strcmp(temp, "bin"))
+		res = 1;
+	free(temp);
+	return (res);
 }
