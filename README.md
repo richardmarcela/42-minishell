@@ -16,8 +16,8 @@ Project done with [Ricardo Melo](https://github.com/reomelo)
     make
 
 
-### 3 - Run your new dining philosopher simulation program with the parameters
+### 3 - Run minishell
 
-    ./philo <nbr_of_philos> <time_to_die> <time_to_eat> <time_to_sleep> [nbr_of_times_each_philo_must_eat]
+    ./minishell
 
 and that's basically it! :)
