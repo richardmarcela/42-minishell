@@ -1,6 +1,6 @@
 # 42-minishell
 
-![WhatsApp Image 2023-08-10 at 5 24 51 PM](https://github.com/richardmarcela/42-minishell/assets/101434516/68441af4-dd19-4f73-acb5-026845564e06)
+file:///home/marcela/Downloads/WhatsApp%20Image%202023-08-10%20at%205.24.51%20PM.jpeg
 
 This is a 42 project. This project is about creating a simple shell.
 
