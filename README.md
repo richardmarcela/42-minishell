@@ -4,4 +4,4 @@
 
 This is a 42 project. This project is about creating a simple shell.
 
-Project done with <a>https://github.com/reomelo</a>
+Project done with [Ricardo Melo](https://github.com/reomelo)
